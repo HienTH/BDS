@@ -1,0 +1,679 @@
+OBJECTID,ID_0,ISO,NAME_0,ID_1,NAME_1,ID_2,NAME_2,TYPE_2,ENGTYPE_2,NL_NAME_2,VARNAME_2
+1,250,VNM,Vietnam,1,Da Nang,1,C<U+1EA9>m L<U+1EC7>,Quan,Urban District,NA,Cam Le
+2,250,VNM,Vietnam,1,Da Nang,2,Hải Châu,Huy<U+1EC7>n,District,NA,Hai Chau
+3,250,VNM,Vietnam,1,Da Nang,3,Hoà Vang,Huy<U+1EC7>n,District,NA,Hoa Vang
+4,250,VNM,Vietnam,1,Da Nang,4,Liên Chi<U+1EC3>u,Huy<U+1EC7>n,District,NA,Lien Chieu
+5,250,VNM,Vietnam,1,Da Nang,5,Ngu Hành Son,Huy<U+1EC7>n,District,NA,Ngu Hanh Son
+6,250,VNM,Vietnam,1,Da Nang,6,Son Trà,Huy<U+1EC7>n,District,NA,Son Tra
+7,250,VNM,Vietnam,1,Da Nang,7,Thanh Khê,Huy<U+1EC7>n,District,NA,Thanh Khe
+8,250,VNM,Vietnam,2,Dong Nai,8,Ðịnh Quán,Huy<U+1EC7>n,District,NA,Dinh Quan
+9,250,VNM,Vietnam,2,Dong Nai,9,Bien Hoa,Than Pho,City,NA,Bien Hoa
+10,250,VNM,Vietnam,2,Dong Nai,10,C<U+1EA9>m M<U+1EF9>,Huy<U+1EC7>n,District,NA,NA
+11,250,VNM,Vietnam,2,Dong Nai,11,Long Khánh,Huy<U+1EC7>n,District,NA,Long Khanh
+12,250,VNM,Vietnam,2,Dong Nai,12,Long Thành,Huy<U+1EC7>n,District,NA,Long Thanh
+13,250,VNM,Vietnam,2,Dong Nai,13,Nhon Tr<U+1EA1>ch,Huy<U+1EC7>n,District,NA,Nhon Trach
+14,250,VNM,Vietnam,2,Dong Nai,14,Tân Phú,Huy<U+1EC7>n,District,NA,Tan Phu
+15,250,VNM,Vietnam,2,Dong Nai,15,Th<U+1ED1>ng Nh<U+1EA5>t,Huy<U+1EC7>n,District,NA,Thong Nhat
+16,250,VNM,Vietnam,2,Dong Nai,16,Trảng Bom,Huy<U+1EC7>n,District,NA,Trang Bom
+17,250,VNM,Vietnam,2,Dong Nai,17,Vinh C<U+1EED>u,Huy<U+1EC7>n,District,NA,Vinh Cuu
+18,250,VNM,Vietnam,2,Dong Nai,18,Xuân L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Xuan Loc
+19,250,VNM,Vietnam,3,Dong Thap,19,Cao Lãnh,Huy<U+1EC7>n,District,NA,Cao Lanh
+20,250,VNM,Vietnam,3,Dong Thap,20,Cao Lanh,Huy<U+1EC7>n,District,NA,NA
+21,250,VNM,Vietnam,3,Dong Thap,21,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+22,250,VNM,Vietnam,3,Dong Thap,22,H<U+1ED3>ng Ng<U+1EF1>,Huy<U+1EC7>n,District,NA,Hong Ngu
+23,250,VNM,Vietnam,3,Dong Thap,23,Lai Vung,Huy<U+1EC7>n,District,NA,Lai Vung
+24,250,VNM,Vietnam,3,Dong Thap,24,L<U+1EA5>p Vò,Huy<U+1EC7>n,District,NA,Lap Vo
+25,250,VNM,Vietnam,3,Dong Thap,25,Sa Ðéc,Thi xa,Township,NA,Sa Dec
+26,250,VNM,Vietnam,3,Dong Thap,26,Tân H<U+1ED3>ng,Huy<U+1EC7>n,District,NA,Tan Hong
+27,250,VNM,Vietnam,3,Dong Thap,27,Tam Nông,Huy<U+1EC7>n,District,NA,Tam Nong
+28,250,VNM,Vietnam,3,Dong Thap,28,Tháp Mu<U+1EDD>i,Huy<U+1EC7>n,District,NA,Thap Muoi
+29,250,VNM,Vietnam,3,Dong Thap,29,Thanh Bình,Huy<U+1EC7>n,District,NA,Thanh Binh
+30,250,VNM,Vietnam,4,Dak Nong,30,Ðak Glong,Huy<U+1EC7>n,District,NA,NA
+31,250,VNM,Vietnam,4,Dak Nong,31,Ðak Mil,Huy<U+1EC7>n,District,NA,Dak Mil
+32,250,VNM,Vietnam,4,Dak Nong,32,Ðak R'L<U+1EA5>p,Huy<U+1EC7>n,District,NA,Dak Rlap
+33,250,VNM,Vietnam,4,Dak Nong,33,Cu Jút,Huy<U+1EC7>n,District,NA,Cu Jut
+34,250,VNM,Vietnam,4,Dak Nong,34,Dak Song,Huy<U+1EC7>n,District,NA,NA
+35,250,VNM,Vietnam,4,Dak Nong,35,Krông Nô,Huy<U+1EC7>n,District,NA,Krong No
+36,250,VNM,Vietnam,4,Dak Nong,36,Tuy Ð<U+1EE9>c,Huy<U+1EC7>n,District,NA,NA
+37,250,VNM,Vietnam,5,Dak Lak,37,Buôn Ðôn,Huy<U+1EC7>n,District,NA,Buon Don
+38,250,VNM,Vietnam,5,Dak Lak,38,Buon Ma Thuot,Than Pho,City,NA,Buon Ma Thuot
+39,250,VNM,Vietnam,5,Dak Lak,39,Cu M'gar,Huy<U+1EC7>n,District,NA,Cu M'gar
+40,250,VNM,Vietnam,5,Dak Lak,40,Ea H'leo,Huy<U+1EC7>n,District,NA,Ea H'leo
+41,250,VNM,Vietnam,5,Dak Lak,41,Ea Kar,Huy<U+1EC7>n,District,NA,Ea Kar
+42,250,VNM,Vietnam,5,Dak Lak,42,Ea Súp,Huy<U+1EC7>n,District,NA,Ea Sup
+43,250,VNM,Vietnam,5,Dak Lak,43,Krông Ana,Huy<U+1EC7>n,District,NA,Krong Ana
+44,250,VNM,Vietnam,5,Dak Lak,44,Krông Bông,Huy<U+1EC7>n,District,NA,Krong Bong
+45,250,VNM,Vietnam,5,Dak Lak,45,Krông Buk,Huy<U+1EC7>n,District,NA,Krong Buk
+46,250,VNM,Vietnam,5,Dak Lak,46,Krông Nang,Huy<U+1EC7>n,District,NA,Krong Nang
+47,250,VNM,Vietnam,5,Dak Lak,47,Krông P<U+1EAF>k,Huy<U+1EC7>n,District,NA,Krong Pac |Krong Pak
+48,250,VNM,Vietnam,5,Dak Lak,48,Lak,Huy<U+1EC7>n,District,NA,Lak
+49,250,VNM,Vietnam,5,Dak Lak,49,M'Ðrak,Huy<U+1EC7>n,District,NA,M'Drak
+50,250,VNM,Vietnam,6,Dien Bien,50,Ði<U+1EC7>n Biên Ðông,Huy<U+1EC7>n,District,NA,Dien Bien Dong
+51,250,VNM,Vietnam,6,Dien Bien,51,Ði<U+1EC7>n Biên,Huy<U+1EC7>n,District,NA,Dien Bien
+52,250,VNM,Vietnam,6,Dien Bien,52,Ðiên Biên Ph<U+1EE7>,Than Pho,City,NA,Dien Bien Phu
+53,250,VNM,Vietnam,6,Dien Bien,53,Mu<U+1EDD>ng Chà,Huy<U+1EC7>n,District,NA,Muong Cha
+54,250,VNM,Vietnam,6,Dien Bien,54,Mu<U+1EDD>ng Lay,Thi xa,Township,NA,Muong Lay
+55,250,VNM,Vietnam,6,Dien Bien,55,Mu<U+1EDD>ng Nhé,Huy<U+1EC7>n,District,NA,My Tho
+56,250,VNM,Vietnam,6,Dien Bien,56,T<U+1EE7>a Chùa,Huy<U+1EC7>n,District,NA,Tua Chua
+57,250,VNM,Vietnam,6,Dien Bien,57,Tu<U+1EA7>n Giáo,Huy<U+1EC7>n,District,NA,Tuan Giao
+58,250,VNM,Vietnam,7,An Giang,58,An Phú,Huy<U+1EC7>n,District,NA,An Phu
+59,250,VNM,Vietnam,7,An Giang,59,Châu Phú,Huy<U+1EC7>n,District,NA,Chau Phu
+60,250,VNM,Vietnam,7,An Giang,60,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+61,250,VNM,Vietnam,7,An Giang,61,Ch<U+1EE3> M<U+1EDB>i,Huy<U+1EC7>n,District,NA,Cho Moi
+62,250,VNM,Vietnam,7,An Giang,62,Chau Doc,Thi xa,Township,NA,NA
+63,250,VNM,Vietnam,7,An Giang,63,Long Xuyen Township,Than Pho,City,NA,Long Xuyen
+64,250,VNM,Vietnam,7,An Giang,64,Phú Tân,Huy<U+1EC7>n,District,NA,Phu Tan
+65,250,VNM,Vietnam,7,An Giang,65,Tân Châu,Huy<U+1EC7>n,District,NA,Tan Chau
+66,250,VNM,Vietnam,7,An Giang,66,Tịnh Biên,Huy<U+1EC7>n,District,NA,Tinh Bien
+67,250,VNM,Vietnam,7,An Giang,67,Tho<U+1EA1>i Son,Huy<U+1EC7>n,District,NA,Thoai Son
+68,250,VNM,Vietnam,7,An Giang,68,Tri Tôn,Huy<U+1EC7>n,District,NA,Tri Ton
+69,250,VNM,Vietnam,8,Ba Ria - Vung Tau,69,Ð<U+1EA5>t Ð<U+1ECF>,Huy<U+1EC7>n,District,NA,Dat Do
+70,250,VNM,Vietnam,8,Ba Ria - Vung Tau,70,Ba Ria,Thi xa,Township,NA,Ba Ria
+71,250,VNM,Vietnam,8,Ba Ria - Vung Tau,71,Côn Ðảo,Huy<U+1EC7>n,District,NA,Con Dao
+72,250,VNM,Vietnam,8,Ba Ria - Vung Tau,72,Châu Ð<U+1EE9>c,Huy<U+1EC7>n,District,NA,Chau Duc
+73,250,VNM,Vietnam,8,Ba Ria - Vung Tau,73,Long Ði<U+1EC1>n,Huy<U+1EC7>n,District,NA,Long Dien
+74,250,VNM,Vietnam,8,Ba Ria - Vung Tau,74,Tân Thành,Huy<U+1EC7>n,District,NA,Tan Thanh
+75,250,VNM,Vietnam,8,Ba Ria - Vung Tau,75,Vung Tàu,Huy<U+1EC7>n,District,NA,Vung Tau
+76,250,VNM,Vietnam,8,Ba Ria - Vung Tau,76,Xuyên M<U+1ED9>c,Huy<U+1EC7>n,District,NA,Xuyen Moc
+77,250,VNM,Vietnam,9,Binh Ðinh,77,An Lão,Huy<U+1EC7>n,District,NA,An Lao
+78,250,VNM,Vietnam,9,Binh Ðinh,78,An Nhon,Huy<U+1EC7>n,District,NA,An Nhon
+79,250,VNM,Vietnam,9,Binh Ðinh,79,Hoài Ân,Huy<U+1EC7>n,District,NA,Hoai an
+80,250,VNM,Vietnam,9,Binh Ðinh,80,Hoài Nhon,Huy<U+1EC7>n,District,NA,Hoai Nhon
+81,250,VNM,Vietnam,9,Binh Ðinh,81,Phù Cát,Huy<U+1EC7>n,District,NA,Phu Cat
+82,250,VNM,Vietnam,9,Binh Ðinh,82,Phù M<U+1EF9>,Huy<U+1EC7>n,District,NA,Phu My
+83,250,VNM,Vietnam,9,Binh Ðinh,83,Qui Nhon,Than Pho,City,NA,Quy Nhon |Qui Nhon
+84,250,VNM,Vietnam,9,Binh Ðinh,84,Tây Son,Huy<U+1EC7>n,District,NA,Tay Son
+85,250,VNM,Vietnam,9,Binh Ðinh,85,Tuy Phu<U+1EDB>c,Huy<U+1EC7>n,District,NA,Tuy Phuoc
+86,250,VNM,Vietnam,9,Binh Ðinh,86,Vinh Th<U+1EA1>nh,Huy<U+1EC7>n,District,NA,Vinh Thanh
+87,250,VNM,Vietnam,9,Binh Ðinh,87,Van Canh,Huy<U+1EC7>n,District,NA,NA
+88,250,VNM,Vietnam,10,Binh Duong,88,Bến Cát,Huy<U+1EC7>n,District,NA,Ben Cat
+89,250,VNM,Vietnam,10,Binh Duong,89,Dau Tieng,Huy<U+1EC7>n,District,NA,Dau Tieng
+90,250,VNM,Vietnam,10,Binh Duong,90,Di An,Huy<U+1EC7>n,District,NA,Di An
+91,250,VNM,Vietnam,10,Binh Duong,91,Phú Giáo,Huy<U+1EC7>n,District,NA,Phu Giao
+92,250,VNM,Vietnam,10,Binh Duong,92,Tân Uyên,Huy<U+1EC7>n,District,NA,Tan Uyen
+93,250,VNM,Vietnam,10,Binh Duong,93,Th<U+1EE7> D<U+1EA7>u M<U+1ED9>t,Huy<U+1EC7>n,District,NA,Thu Dau Mot
+94,250,VNM,Vietnam,10,Binh Duong,94,Thuan An,Huy<U+1EC7>n,District,NA,Thuan An
+95,250,VNM,Vietnam,11,Binh Phuoc,95,Ð<U+1ED3>ng Phù,Huy<U+1EC7>n,District,NA,Dong Phu
+96,250,VNM,Vietnam,11,Binh Phuoc,96,Bình Long,Huy<U+1EC7>n,District,NA,Binh Long
+97,250,VNM,Vietnam,11,Binh Phuoc,97,Bù Ðang,Huy<U+1EC7>n,District,NA,Bu Dang
+98,250,VNM,Vietnam,11,Binh Phuoc,98,Bu Dop,Huy<U+1EC7>n,District,NA,NA
+99,250,VNM,Vietnam,11,Binh Phuoc,99,Chon Thành,Huy<U+1EC7>n,District,NA,Chon Thanh
+100,250,VNM,Vietnam,11,Binh Phuoc,100,Dong Xoai,Thi xa,Township,NA,NA
+101,250,VNM,Vietnam,11,Binh Phuoc,101,L<U+1ED9>c Ninh,Huy<U+1EC7>n,District,NA,Loc Ninh
+102,250,VNM,Vietnam,11,Binh Phuoc,102,Phu<U+1EDB>c Long,Huy<U+1EC7>n,District,NA,Phuoc Long
+103,250,VNM,Vietnam,12,Binh Thuan,103,Ð<U+1EE9>c Linh,Huy<U+1EC7>n,District,NA,Duc Linh
+104,250,VNM,Vietnam,12,Binh Thuan,104,B<U+1EAF>c Bình,Huy<U+1EC7>n,District,NA,Bac Binh
+105,250,VNM,Vietnam,12,Binh Thuan,105,Hàm Tân,Huy<U+1EC7>n,District,NA,Ham Tan
+106,250,VNM,Vietnam,12,Binh Thuan,106,Hàm Thuan B<U+1EAF>c,Huy<U+1EC7>n,District,NA,Ham Thuan Bac
+107,250,VNM,Vietnam,12,Binh Thuan,107,Hàm Thuan Nam,Huy<U+1EC7>n,District,NA,Ham Thuan Nam
+108,250,VNM,Vietnam,12,Binh Thuan,108,La Gi,Huy<U+1EC7>n,District,NA,NA
+109,250,VNM,Vietnam,12,Binh Thuan,109,Phan Thiết,Than Pho,City,NA,Phan Thiet
+110,250,VNM,Vietnam,12,Binh Thuan,110,Phú Quý,Huy<U+1EC7>n,Island,NA,Phu Qui|Phu Quy
+111,250,VNM,Vietnam,12,Binh Thuan,111,Tanh Linh,Huy<U+1EC7>n,District,NA,NA
+112,250,VNM,Vietnam,12,Binh Thuan,112,Tuy Phong,Huy<U+1EC7>n,District,NA,NA
+113,250,VNM,Vietnam,13,Bac Lieu,113,Ðông Hải,Huy<U+1EC7>n,District,NA,Dong Hai
+114,250,VNM,Vietnam,13,Bac Lieu,114,Bạc Liêu,Thi xa,Township,NA,Bac Lieu
+115,250,VNM,Vietnam,13,Bac Lieu,115,Giá Rai,Huy<U+1EC7>n,District,NA,Gia Rai
+116,250,VNM,Vietnam,13,Bac Lieu,116,H<U+1ED3>ng Dân,Huy<U+1EC7>n,District,NA,Hong Dan
+117,250,VNM,Vietnam,13,Bac Lieu,117,Hòa Bình,Thi xa,Township,NA,Hoa Binh
+118,250,VNM,Vietnam,13,Bac Lieu,118,Phu<U+1EDB>c Long,Huy<U+1EC7>n,District,NA,Phuoc Long
+119,250,VNM,Vietnam,13,Bac Lieu,119,Vinh L<U+1EE3>i,Huy<U+1EC7>n,District,NA,Vinh Loi
+120,250,VNM,Vietnam,14,Bac Giang,120,B<U+1EAF>c Giang,Thi xa,Township,NA,Bac Giang
+121,250,VNM,Vietnam,14,Bac Giang,121,Hi<U+1EC7>p Hòa,Huy<U+1EC7>n,District,NA,Hiep Hoa
+122,250,VNM,Vietnam,14,Bac Giang,122,L<U+1EE5>c Nam,Huy<U+1EC7>n,District,NA,Luc Nam
+123,250,VNM,Vietnam,14,Bac Giang,123,L<U+1EE5>c Ng<U+1EA1>n,Huy<U+1EC7>n,District,NA,Luc Ngan
+124,250,VNM,Vietnam,14,Bac Giang,124,L<U+1EA1>ng Giang,Huy<U+1EC7>n,District,NA,Lang Giang
+125,250,VNM,Vietnam,14,Bac Giang,125,Son Ð<U+1ED9>ng,Huy<U+1EC7>n,District,NA,Son Dong
+126,250,VNM,Vietnam,14,Bac Giang,126,Tân Yên,Huy<U+1EC7>n,District,NA,Tan Yen
+127,250,VNM,Vietnam,14,Bac Giang,127,Vi<U+1EC7>t Yên,Huy<U+1EC7>n,District,NA,Viet Yen
+128,250,VNM,Vietnam,14,Bac Giang,128,Yên Dung,Huy<U+1EC7>n,District,NA,Yen Dung
+129,250,VNM,Vietnam,14,Bac Giang,129,Yên Thế,Huy<U+1EC7>n,District,NA,Yen The
+130,250,VNM,Vietnam,15,Bac Kan,130,Ba B<U+1EC3>,Huy<U+1EC7>n,District,NA,Ba Be
+131,250,VNM,Vietnam,15,Bac Kan,131,Bac Kan,Thi xa,Township,NA,Bac Kan
+132,250,VNM,Vietnam,15,Bac Kan,132,B<U+1EA1>ch Thông,Huy<U+1EC7>n,District,NA,Bach Thong
+133,250,VNM,Vietnam,15,Bac Kan,133,Ch<U+1EE3> Ð<U+1ED3>n,Huy<U+1EC7>n,District,NA,Cho Don
+134,250,VNM,Vietnam,15,Bac Kan,134,Ch<U+1EE3> M<U+1EDB>i,Huy<U+1EC7>n,District,NA,Cho Moi
+135,250,VNM,Vietnam,15,Bac Kan,135,Na Ri,Huy<U+1EC7>n,District,NA,NA
+136,250,VNM,Vietnam,15,Bac Kan,136,Ngân Son,Huy<U+1EC7>n,District,NA,Ngan Son
+137,250,VNM,Vietnam,15,Bac Kan,137,Pác N<U+1EB7>m,Huy<U+1EC7>n,District,NA,Pac Nam
+138,250,VNM,Vietnam,16,Bac Ninh,138,B<U+1EAF>c Ninh,Thi xa,Township,NA,Bac Ninh
+139,250,VNM,Vietnam,16,Bac Ninh,139,Gia Bình,Huy<U+1EC7>n,District,NA,Gia Binh
+140,250,VNM,Vietnam,16,Bac Ninh,140,Luong Tài,Huy<U+1EC7>n,District,NA,Luong Tai
+141,250,VNM,Vietnam,16,Bac Ninh,141,Quế Võ,Huy<U+1EC7>n,District,NA,Que Vo
+142,250,VNM,Vietnam,16,Bac Ninh,142,Từ Son,Huy<U+1EC7>n,District,NA,Tu Son
+143,250,VNM,Vietnam,16,Bac Ninh,143,Thuan Thành,Huy<U+1EC7>n,District,NA,Thuan Thanh
+144,250,VNM,Vietnam,16,Bac Ninh,144,Tiên Du,Huy<U+1EC7>n,District,NA,Tien Du
+145,250,VNM,Vietnam,16,Bac Ninh,145,Yên Phong,Huy<U+1EC7>n,District,NA,Yen Phong
+146,250,VNM,Vietnam,17,Ben Tre,146,Ba Tri,Huy<U+1EC7>n,District,NA,NA
+147,250,VNM,Vietnam,17,Ben Tre,147,Bình Ð<U+1EA1>i,Huy<U+1EC7>n,District,NA,Binh Dai
+148,250,VNM,Vietnam,17,Ben Tre,148,Bến Tre,Thi xa,Township,NA,Ben Tre
+149,250,VNM,Vietnam,17,Ben Tre,149,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+150,250,VNM,Vietnam,17,Ben Tre,150,Ch<U+1EE3> Lách,Huy<U+1EC7>n,District,NA,Cho Lach
+151,250,VNM,Vietnam,17,Ben Tre,151,Gi<U+1ED3>ng Trôm,Huy<U+1EC7>n,District,NA,Giong Trom
+152,250,VNM,Vietnam,17,Ben Tre,152,M<U+1ECF> Cày,Huy<U+1EC7>n,District,NA,Mo Cay
+153,250,VNM,Vietnam,17,Ben Tre,153,Th<U+1EA1>nh Phú,Huy<U+1EC7>n,District,NA,Thanh Phu
+154,250,VNM,Vietnam,18,Ca Mau,154,Ð<U+1EA7>m Doi,Huy<U+1EC7>n,District,NA,Dam Doi
+155,250,VNM,Vietnam,18,Ca Mau,155,Cà Mau,Than Pho,City,NA,Ca Mau
+156,250,VNM,Vietnam,18,Ca Mau,156,Cái Nu<U+1EDB>c,Huy<U+1EC7>n,District,NA,Cai Nuoc
+157,250,VNM,Vietnam,18,Ca Mau,157,Nam Can,Huy<U+1EC7>n,District,NA,Nam Can
+158,250,VNM,Vietnam,18,Ca Mau,158,Ngọc Hi<U+1EC3>n,Huy<U+1EC7>n,District,NA,Ngoc Hien
+159,250,VNM,Vietnam,18,Ca Mau,159,Phú Tân,Huy<U+1EC7>n,District,NA,Phu Tan
+160,250,VNM,Vietnam,18,Ca Mau,160,Th<U+1EDB>i Bình,Huy<U+1EC7>n,District,NA,Thoi Binh
+161,250,VNM,Vietnam,18,Ca Mau,161,Tr<U+1EA7>n Van Th<U+1EDD>i,Huy<U+1EC7>n,District,NA,Tran Van Thoi
+162,250,VNM,Vietnam,18,Ca Mau,162,U Minh,Huy<U+1EC7>n,District,NA,U Minh
+163,250,VNM,Vietnam,19,Cao Bang,163,Bảo Lâm,Huy<U+1EC7>n,District,NA,Bao Lam
+164,250,VNM,Vietnam,19,Cao Bang,164,Bảo L<U+1EA1>c,Huy<U+1EC7>n,District,NA,Bao Lac
+165,250,VNM,Vietnam,19,Cao Bang,165,Cao B<U+1EB1>ng,Thi xa,Township,NA,Cao Bang
+166,250,VNM,Vietnam,19,Cao Bang,166,Hà Quảng,Huy<U+1EC7>n,District,NA,Ha Quang
+167,250,VNM,Vietnam,19,Cao Bang,167,H<U+1EA1> Lang,Huy<U+1EC7>n,District,NA,Ha Lang
+168,250,VNM,Vietnam,19,Cao Bang,168,Hoà An,Huy<U+1EC7>n,District,NA,Hoa An
+169,250,VNM,Vietnam,19,Cao Bang,169,Nguyên Bình,Huy<U+1EC7>n,District,NA,Nguyen Binh
+170,250,VNM,Vietnam,19,Cao Bang,170,Ph<U+1EE5>c Hòa,Huy<U+1EC7>n,District,NA,Phuc Hoa
+171,250,VNM,Vietnam,19,Cao Bang,171,Quảng Yên,Huy<U+1EC7>n,District,NA,Quang Yen
+172,250,VNM,Vietnam,19,Cao Bang,172,Thông Nông,Huy<U+1EC7>n,District,NA,Thong Nong
+173,250,VNM,Vietnam,19,Cao Bang,173,Th<U+1EA1>ch An,Huy<U+1EC7>n,District,NA,Thach An
+174,250,VNM,Vietnam,19,Cao Bang,174,Trà Linh,Huy<U+1EC7>n,District,NA,Tra Linh
+175,250,VNM,Vietnam,19,Cao Bang,175,Trùng Khánh,Huy<U+1EC7>n,District,NA,Trung Khanh
+176,250,VNM,Vietnam,20,Can Tho,176,Ô Môn,Huy<U+1EC7>n,District,NA,o Mon
+177,250,VNM,Vietnam,20,Can Tho,177,Bình Th<U+1EE7>y,Huy<U+1EC7>n,District,NA,Binh Thuy
+178,250,VNM,Vietnam,20,Can Tho,178,Cái Rang,Quan,Urban District,NA,Cai Rang
+179,250,VNM,Vietnam,20,Can Tho,179,C<U+1EDD> Ð<U+1ECF>,Huy<U+1EC7>n,District,NA,Co Do
+180,250,VNM,Vietnam,20,Can Tho,180,Ninh Ki<U+1EC1>u,Quan,Urban District,NA,Ninh Kieu
+181,250,VNM,Vietnam,20,Can Tho,181,Phong Ði<U+1EC1>n,Huy<U+1EC7>n,District,NA,Phong Dien
+182,250,VNM,Vietnam,20,Can Tho,182,Th<U+1ED1>t N<U+1ED1>t,Huy<U+1EC7>n,District,NA,Thot Not
+183,250,VNM,Vietnam,20,Can Tho,183,Vinh Th<U+1EA1>nh,Huy<U+1EC7>n,District,NA,Vinh Thanh
+184,250,VNM,Vietnam,21,Gia Lai,184,Ð<U+1EE9>c Co,Huy<U+1EC7>n,District,NA,Duc Co
+185,250,VNM,Vietnam,21,Gia Lai,185,Ð<U+1EAF>k Ðoa,Huy<U+1EC7>n,District,NA,Dak Doa
+186,250,VNM,Vietnam,21,Gia Lai,186,Ð<U+1EAF>k Po,Huy<U+1EC7>n,District,NA,Dak Po
+187,250,VNM,Vietnam,21,Gia Lai,187,An Khê,Thi xa,Township,NA,An Khe
+188,250,VNM,Vietnam,21,Gia Lai,188,Ayun Pa,Huy<U+1EC7>n,District,NA,NA
+189,250,VNM,Vietnam,21,Gia Lai,189,Chu Pah,Huy<U+1EC7>n,District,NA,Chu Pah
+190,250,VNM,Vietnam,21,Gia Lai,190,Chu Prông,Huy<U+1EC7>n,District,NA,Chu Prong
+191,250,VNM,Vietnam,21,Gia Lai,191,Chu Sê,Huy<U+1EC7>n,District,NA,Chu Se
+192,250,VNM,Vietnam,21,Gia Lai,192,Ia Grai,Huy<U+1EC7>n,District,NA,Ia Grai
+193,250,VNM,Vietnam,21,Gia Lai,193,Ia Pa,Huy<U+1EC7>n,District,NA,NA
+194,250,VNM,Vietnam,21,Gia Lai,194,K'Bang,Huy<U+1EC7>n,District,NA,Kbang
+195,250,VNM,Vietnam,21,Gia Lai,195,Kông Chro,Huy<U+1EC7>n,District,NA,Kong Chro
+196,250,VNM,Vietnam,21,Gia Lai,196,Krông Pa,Huy<U+1EC7>n,District,NA,Krong Pa
+197,250,VNM,Vietnam,21,Gia Lai,197,Mang Yang,Huy<U+1EC7>n,District,NA,NA
+198,250,VNM,Vietnam,21,Gia Lai,198,Phú Thi<U+1EC7>n,Huy<U+1EC7>n,District,NA,NA
+199,250,VNM,Vietnam,21,Gia Lai,199,Pleiku,Than Pho,City,NA,Pleiku
+200,250,VNM,Vietnam,22,Ha Giang,200,Ð<U+1ED3>ng Van,Huy<U+1EC7>n,District,NA,Dong Van
+201,250,VNM,Vietnam,22,Ha Giang,201,B<U+1EAF>c Mê,Huy<U+1EC7>n,District,NA,Bac Me
+202,250,VNM,Vietnam,22,Ha Giang,202,B<U+1EAF>c Quang,Huy<U+1EC7>n,District,NA,Bac Quang
+203,250,VNM,Vietnam,22,Ha Giang,203,Hà Giang,Thi xa,Township,NA,Ha Giang
+204,250,VNM,Vietnam,22,Ha Giang,204,Hoàng Su Phì,Huy<U+1EC7>n,District,NA,Hoang Su Phi
+205,250,VNM,Vietnam,22,Ha Giang,205,Mèo V<U+1EA1>c,Huy<U+1EC7>n,District,NA,Meo Vac
+206,250,VNM,Vietnam,22,Ha Giang,206,Quang Bình,Huy<U+1EC7>n,District,NA,NA
+207,250,VNM,Vietnam,22,Ha Giang,207,Quản B<U+1EA1>,Huy<U+1EC7>n,District,NA,Quan Ba
+208,250,VNM,Vietnam,22,Ha Giang,208,Vị Xuyên,Huy<U+1EC7>n,District,NA,Vi Xuyen
+209,250,VNM,Vietnam,22,Ha Giang,209,Xín M<U+1EA7>n,Huy<U+1EC7>n,District,NA,Xin Man
+210,250,VNM,Vietnam,22,Ha Giang,210,Yên Minh,Huy<U+1EC7>n,District,NA,Yen Minh
+211,250,VNM,Vietnam,23,Ha Noi,211,<U+1EE8>ng Hoà,Huy<U+1EC7>n,District,NA,Ung Hoa
+212,250,VNM,Vietnam,23,Ha Noi,212,Ðông Anh,Huy<U+1EC7>n,District,NA,Dong Anh
+213,250,VNM,Vietnam,23,Ha Noi,213,Ð<U+1ED1>ng Ða,Quan,Urban District,NA,Dong Da
+214,250,VNM,Vietnam,23,Ha Noi,214,Ðan Phu<U+1EE3>ng,Huy<U+1EC7>n,District,NA,Dan Phuong
+215,250,VNM,Vietnam,23,Ha Noi,215,Ba Ðình,Huy<U+1EC7>n,District,NA,Ba Dinh
+216,250,VNM,Vietnam,23,Ha Noi,216,Ba Vi,Huy<U+1EC7>n,District,NA,Ba Vi
+217,250,VNM,Vietnam,23,Ha Noi,217,C<U+1EA7>u Gi<U+1EA5>y,Huy<U+1EC7>n,District,NA,Cau Giay
+218,250,VNM,Vietnam,23,Ha Noi,218,Chuong M<U+1EF9>,Huy<U+1EC7>n,District,NA,Chuong My
+219,250,VNM,Vietnam,23,Ha Noi,219,Gia Lâm,Huy<U+1EC7>n,District,NA,Gia Lam
+220,250,VNM,Vietnam,23,Ha Noi,220,Hà Ðông,Thi xa,Township,NA,Ha Dong
+221,250,VNM,Vietnam,23,Ha Noi,221,Hai Bà Trung,Huy<U+1EC7>n,District,NA,Hai Ba Trung
+222,250,VNM,Vietnam,23,Ha Noi,222,Hoài Ð<U+1EE9>c,Huy<U+1EC7>n,District,NA,Hoai Duc
+223,250,VNM,Vietnam,23,Ha Noi,223,Hoàn Kiếm,Huy<U+1EC7>n,District,NA,Hoan Kiem
+224,250,VNM,Vietnam,23,Ha Noi,224,Hoàng Mai,Quan,Urban District,NA,Hoang Mai
+225,250,VNM,Vietnam,23,Ha Noi,225,Kim Bôi,Huy<U+1EC7>n,District,NA,NA
+226,250,VNM,Vietnam,23,Ha Noi,226,Luong Son,Huy<U+1EC7>n,District,NA,NA
+227,250,VNM,Vietnam,23,Ha Noi,227,Long Biên,Quan,Urban District,NA,Long Bien
+228,250,VNM,Vietnam,23,Ha Noi,228,M<U+1EF9> Ð<U+1EE9>c,Huy<U+1EC7>n,District,NA,My Duc
+229,250,VNM,Vietnam,23,Ha Noi,229,Mê Linh,Huy<U+1EC7>n,District,NA,Me Linh
+230,250,VNM,Vietnam,23,Ha Noi,230,Phú Xuyên,Huy<U+1EC7>n,District,NA,Phu Xuyen
+231,250,VNM,Vietnam,23,Ha Noi,231,Phúc Thọ,Huy<U+1EC7>n,District,NA,Phuc Tho
+232,250,VNM,Vietnam,23,Ha Noi,232,Qu<U+1ED1>c Oai,Huy<U+1EC7>n,District,NA,Quoc Oai
+233,250,VNM,Vietnam,23,Ha Noi,233,Sóc Son,Huy<U+1EC7>n,District,NA,Soc Son
+234,250,VNM,Vietnam,23,Ha Noi,234,Son Tây,Thi xa,Township,NA,Son Tay
+235,250,VNM,Vietnam,23,Ha Noi,235,Tây H<U+1ED3>,Huy<U+1EC7>n,District,NA,Tay Ho
+236,250,VNM,Vietnam,23,Ha Noi,236,Từ Liêm,Huy<U+1EC7>n,District,NA,Tu Liem
+237,250,VNM,Vietnam,23,Ha Noi,237,Thu<U+1EDD>ng Tín,Huy<U+1EC7>n,District,NA,Thuong Tin
+238,250,VNM,Vietnam,23,Ha Noi,238,Thanh Oai,Huy<U+1EC7>n,District,NA,Thanh Oai
+239,250,VNM,Vietnam,23,Ha Noi,239,Thanh Trì,Huy<U+1EC7>n,District,NA,Thanh Tri
+240,250,VNM,Vietnam,23,Ha Noi,240,Thanh Xuân,Huy<U+1EC7>n,District,NA,Thanh Xuan
+241,250,VNM,Vietnam,23,Ha Noi,241,Th<U+1EA1>ch Th<U+1EA5>t,Huy<U+1EC7>n,District,NA,Thach That
+242,250,VNM,Vietnam,24,Ha Nam,242,Bình L<U+1EE5>c,Huy<U+1EC7>n,District,NA,Binh Luc
+243,250,VNM,Vietnam,24,Ha Nam,243,Duy Tiên,Huy<U+1EC7>n,District,NA,Duy Tien
+244,250,VNM,Vietnam,24,Ha Nam,244,Kim Bảng,Huy<U+1EC7>n,District,NA,Kim Bang
+245,250,VNM,Vietnam,24,Ha Nam,245,Lý Nhân,Huy<U+1EC7>n,District,NA,Ly Nhan
+246,250,VNM,Vietnam,24,Ha Nam,246,Ph<U+1EE7> Lý,Thi xa,Township,NA,Phu Ly
+247,250,VNM,Vietnam,24,Ha Nam,247,Thanh Liêm,Huy<U+1EC7>n,District,NA,Thanh Liem
+248,250,VNM,Vietnam,25,Ha Tinh,248,Ð<U+1EE9>c Thọ,Huy<U+1EC7>n,District,NA,Duc Tho
+249,250,VNM,Vietnam,25,Ha Tinh,249,Can L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Can Loc
+250,250,VNM,Vietnam,25,Ha Tinh,250,C<U+1EA9>m Xuyên,Huy<U+1EC7>n,District,NA,Cam Xuyen
+251,250,VNM,Vietnam,25,Ha Tinh,251,Hà Tinh,Thi xa,Township,NA,NA
+252,250,VNM,Vietnam,25,Ha Tinh,252,H<U+1ED3>ng Linh,Thi xa,Township,NA,Hong Linh
+253,250,VNM,Vietnam,25,Ha Tinh,253,Huong Khê,Huy<U+1EC7>n,District,NA,Huong Khe
+254,250,VNM,Vietnam,25,Ha Tinh,254,Huong Son,Huy<U+1EC7>n,District,NA,Huong Son
+255,250,VNM,Vietnam,25,Ha Tinh,255,K<U+1EF3> Anh,Huy<U+1EC7>n,District,NA,Ky Anh
+256,250,VNM,Vietnam,25,Ha Tinh,256,Nghi Xuân,Huy<U+1EC7>n,District,NA,Nghi Xuan
+257,250,VNM,Vietnam,25,Ha Tinh,257,Th<U+1EA1>ch Hà,Huy<U+1EC7>n,District,NA,Thach Ha
+258,250,VNM,Vietnam,25,Ha Tinh,258,Vu Quang,Huy<U+1EC7>n,District,NA,Vu Quang
+259,250,VNM,Vietnam,26,Ho Chi Minh,259,Bình Chánh,Huy<U+1EC7>n,District,NA,Binh Chanh
+260,250,VNM,Vietnam,26,Ho Chi Minh,260,Bình Th<U+1EA1>nh,Quan,Urban District,NA,Binh Thanh
+261,250,VNM,Vietnam,26,Ho Chi Minh,261,Binh Tan,Quan,Urban District,NA,Binh Tan
+262,250,VNM,Vietnam,26,Ho Chi Minh,262,C<U+1EE7> Chi,Huy<U+1EC7>n,District,NA,Cu Chi
+263,250,VNM,Vietnam,26,Ho Chi Minh,263,C<U+1EA7>n Gi<U+1EDD>,Huy<U+1EC7>n,District,NA,Can Gio
+264,250,VNM,Vietnam,26,Ho Chi Minh,264,Gò V<U+1EA5>p,Quan,Urban District,NA,Go Vap
+265,250,VNM,Vietnam,26,Ho Chi Minh,265,Hóc Môn,Huy<U+1EC7>n,District,NA,Hoc Mon
+266,250,VNM,Vietnam,26,Ho Chi Minh,266,Nhà Bè,Huy<U+1EC7>n,District,NA,Nha Be
+267,250,VNM,Vietnam,26,Ho Chi Minh,267,Phú Nhuan,Quan,Urban District,NA,Phu Nhuan
+268,250,VNM,Vietnam,26,Ho Chi Minh,268,Quan 10,Quan,Urban District,NA,Quan 10
+269,250,VNM,Vietnam,26,Ho Chi Minh,269,Quan 11,Quan,Urban District,NA,Quan 11
+270,250,VNM,Vietnam,26,Ho Chi Minh,270,Quan 12,Quan,Urban District,NA,Quan 12
+271,250,VNM,Vietnam,26,Ho Chi Minh,271,Quan 1,Quan,Urban District,NA,Quan 1
+272,250,VNM,Vietnam,26,Ho Chi Minh,272,Quan 2,Quan,Urban District,NA,Quan 2
+273,250,VNM,Vietnam,26,Ho Chi Minh,273,Quan 3,Quan,Urban District,NA,Quan 3
+274,250,VNM,Vietnam,26,Ho Chi Minh,274,Quan 4,Quan,Urban District,NA,Quan 4
+275,250,VNM,Vietnam,26,Ho Chi Minh,275,Quan 5,Quan,Urban District,NA,Quan 5
+276,250,VNM,Vietnam,26,Ho Chi Minh,276,Quan 6,Quan,Urban District,NA,Quan 6
+277,250,VNM,Vietnam,26,Ho Chi Minh,277,Quan 7,Quan,Urban District,NA,Quan 7
+278,250,VNM,Vietnam,26,Ho Chi Minh,278,Quan 8,Quan,Urban District,NA,Quan 8
+279,250,VNM,Vietnam,26,Ho Chi Minh,279,Quan 9,Quan,Urban District,NA,Quan 9
+280,250,VNM,Vietnam,26,Ho Chi Minh,280,Tân Bình,Quan,Urban District,NA,Tan Binh
+281,250,VNM,Vietnam,26,Ho Chi Minh,281,Tan Phu,Quan,Urban District,NA,Tan Phu
+282,250,VNM,Vietnam,26,Ho Chi Minh,282,Th<U+1EE7> Ð<U+1EE9>c,Quan,Urban District,NA,Thu Duc
+283,250,VNM,Vietnam,27,Hoa Binh,283,Ðà B<U+1EAF>c,Huy<U+1EC7>n,District,NA,Ðà R<U+1EAF>c| Da Bac
+284,250,VNM,Vietnam,27,Hoa Binh,284,Cao Phong,Huy<U+1EC7>n,District,NA,NA
+285,250,VNM,Vietnam,27,Hoa Binh,285,Hòa Bình,Thi xa,Township,NA,Hoa Binh
+286,250,VNM,Vietnam,27,Hoa Binh,286,K<U+1EF3> Son,Huy<U+1EC7>n,District,NA,Ky Son
+287,250,VNM,Vietnam,27,Hoa Binh,287,Kim Bôi,Huy<U+1EC7>n,District,NA,Kim Boi
+288,250,VNM,Vietnam,27,Hoa Binh,288,Luong Son,Huy<U+1EC7>n,District,NA,Luong Son
+289,250,VNM,Vietnam,27,Hoa Binh,289,L<U+1EA1>c Son,Huy<U+1EC7>n,District,NA,Lac Son
+290,250,VNM,Vietnam,27,Hoa Binh,290,L<U+1EA1>c Thu<U+1EF7>,Huy<U+1EC7>n,District,NA,Lac Thuy
+291,250,VNM,Vietnam,27,Hoa Binh,291,Mai Châu,Huy<U+1EC7>n,District,NA,Mai Chau
+292,250,VNM,Vietnam,27,Hoa Binh,292,Tân L<U+1EA1>c,Huy<U+1EC7>n,District,NA,Tan Lac
+293,250,VNM,Vietnam,27,Hoa Binh,293,Yên Thu<U+1EF7>,Huy<U+1EC7>n,District,NA,Yen Thuy
+294,250,VNM,Vietnam,28,Hung Yen,294,Ân Thi,Huy<U+1EC7>n,District,NA,NA
+295,250,VNM,Vietnam,28,Hung Yen,295,Hung Yên,Thi xa,Township,NA,Hung Yen
+296,250,VNM,Vietnam,28,Hung Yen,296,Khoái Châu,Huy<U+1EC7>n,District,NA,Khoai Chau
+297,250,VNM,Vietnam,28,Hung Yen,297,Kim Ð<U+1ED9>ng,Huy<U+1EC7>n,District,NA,Kim Dong
+298,250,VNM,Vietnam,28,Hung Yen,298,M<U+1EF9> Hào,Huy<U+1EC7>n,District,NA,My Hao
+299,250,VNM,Vietnam,28,Hung Yen,299,Phù Cừ,Huy<U+1EC7>n,District,NA,Phu Cu
+300,250,VNM,Vietnam,28,Hung Yen,300,Tiên L<U+1EEF>,Huy<U+1EC7>n,District,NA,Tien Lu
+301,250,VNM,Vietnam,28,Hung Yen,301,Van Giang,Huy<U+1EC7>n,District,NA,Van Giang
+302,250,VNM,Vietnam,28,Hung Yen,302,Van Lâm,Huy<U+1EC7>n,District,NA,Van Lam
+303,250,VNM,Vietnam,28,Hung Yen,303,Yên M<U+1EF9>,Huy<U+1EC7>n,District,NA,Yen My
+304,250,VNM,Vietnam,29,Hai Duong,304,Bình Giang,Huy<U+1EC7>n,District,NA,Binh Giang
+305,250,VNM,Vietnam,29,Hai Duong,305,C<U+1EA9>m Giàng,Huy<U+1EC7>n,District,NA,Cam Giang
+306,250,VNM,Vietnam,29,Hai Duong,306,Chí Linh,Huy<U+1EC7>n,District,NA,Chi Linh
+307,250,VNM,Vietnam,29,Hai Duong,307,Gia L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Gia Loc
+308,250,VNM,Vietnam,29,Hai Duong,308,Hải Dương,Than Pho,City,NA,Hai Duong
+309,250,VNM,Vietnam,29,Hai Duong,309,Kim Thành,Huy<U+1EC7>n,District,NA,Kim Thanh
+310,250,VNM,Vietnam,29,Hai Duong,310,Kinh Môn,Huy<U+1EC7>n,District,NA,Kinh Mon
+311,250,VNM,Vietnam,29,Hai Duong,311,Nam Sách,Huy<U+1EC7>n,District,NA,Nam Sach
+312,250,VNM,Vietnam,29,Hai Duong,312,Ninh Giang,Huy<U+1EC7>n,District,NA,Ninh Giang
+313,250,VNM,Vietnam,29,Hai Duong,313,T<U+1EE9> K<U+1EF3>,Huy<U+1EC7>n,District,NA,Tu Ky
+314,250,VNM,Vietnam,29,Hai Duong,314,Thanh Hà,Huy<U+1EC7>n,District,NA,Thanh Ha
+315,250,VNM,Vietnam,29,Hai Duong,315,Thanh Mi<U+1EC7>n,Huy<U+1EC7>n,District,NA,Thanh Mien
+316,250,VNM,Vietnam,30,Hai Phong,316,Ð<U+1ED3> Son,Thi xa,Township,NA,Do Son
+317,250,VNM,Vietnam,30,Hai Phong,317,An Duong,Huy<U+1EC7>n,District,NA,An Duong
+318,250,VNM,Vietnam,30,Hai Phong,318,An Lão,Huy<U+1EC7>n,District,NA,An Lao
+319,250,VNM,Vietnam,30,Hai Phong,319,Bach Long Vi,Island,Island,NA,NA
+320,250,VNM,Vietnam,30,Hai Phong,320,Cát Hải,Huy<U+1EC7>n,District,NA,Cat Hai
+321,250,VNM,Vietnam,30,Hai Phong,321,H<U+1ED3>ng Bàng,Huy<U+1EC7>n,District,NA,Hong Bang
+322,250,VNM,Vietnam,30,Hai Phong,322,Hải An,Quan,Urban District,NA,Hai An
+323,250,VNM,Vietnam,30,Hai Phong,323,Kiến An,Huy<U+1EC7>n,District,NA,Kien An
+324,250,VNM,Vietnam,30,Hai Phong,324,Kiến Th<U+1EE5>y,Huy<U+1EC7>n,District,NA,Kien Thuy
+325,250,VNM,Vietnam,30,Hai Phong,325,Lê Chân,Huy<U+1EC7>n,District,NA,Le Chan
+326,250,VNM,Vietnam,30,Hai Phong,326,Ngô Quy<U+1EC1>n,Huy<U+1EC7>n,District,NA,Ngo Quyen
+327,250,VNM,Vietnam,30,Hai Phong,327,Th<U+1EE7>y Nguyên,Huy<U+1EC7>n,District,NA,Thuy Nguyen
+328,250,VNM,Vietnam,30,Hai Phong,328,Tiên Lãng,Huy<U+1EC7>n,District,NA,Tien Lang
+329,250,VNM,Vietnam,30,Hai Phong,329,Vinh Bảo,Huy<U+1EC7>n,District,NA,Vinh Bao
+330,250,VNM,Vietnam,31,Hau Giang,330,Châu Thành A,Huy<U+1EC7>n,District,NA,Chau Thanh A
+331,250,VNM,Vietnam,31,Hau Giang,331,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+332,250,VNM,Vietnam,31,Hau Giang,332,Long M<U+1EF9>,Huy<U+1EC7>n,District,NA,NA
+333,250,VNM,Vietnam,31,Hau Giang,333,Ph<U+1EE5>ng Hi<U+1EC7>p,Huy<U+1EC7>n,District,NA,Phung Hiep
+334,250,VNM,Vietnam,31,Hau Giang,334,Vị Thanh,Huy<U+1EC7>n,District,NA,Vi Thuy
+335,250,VNM,Vietnam,31,Hau Giang,335,Vị Thu<U+1EF7>,Huy<U+1EC7>n,District,NA,Vi Thuy
+336,250,VNM,Vietnam,32,Khanh Hoa,336,Cam Lâm,Huy<U+1EC7>n,District,NA,NA
+337,250,VNM,Vietnam,32,Khanh Hoa,337,Cam Ranh,Thi xa,Township,NA,NA
+338,250,VNM,Vietnam,32,Khanh Hoa,338,Diên Khánh,Huy<U+1EC7>n,District,NA,Dien Khanh
+339,250,VNM,Vietnam,32,Khanh Hoa,339,Khánh Son,Huy<U+1EC7>n,District,NA,Khanh Son
+340,250,VNM,Vietnam,32,Khanh Hoa,340,Khánh Vinh,Huy<U+1EC7>n,District,NA,Khanh Vinh
+341,250,VNM,Vietnam,32,Khanh Hoa,341,Nha Trang,Than Pho,City,NA,NA
+342,250,VNM,Vietnam,32,Khanh Hoa,342,Ninh Hòa,Huy<U+1EC7>n,District,NA,Ninh Hoa
+343,250,VNM,Vietnam,32,Khanh Hoa,343,Van Ninh,Huy<U+1EC7>n,District,NA,Van Ninh
+344,250,VNM,Vietnam,33,Kien Giang,344,An Biên,Huy<U+1EC7>n,District,NA,An Bien
+345,250,VNM,Vietnam,33,Kien Giang,345,An Minh,Huy<U+1EC7>n,District,NA,NA
+346,250,VNM,Vietnam,33,Kien Giang,346,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+347,250,VNM,Vietnam,33,Kien Giang,347,Gò Quao,Huy<U+1EC7>n,District,NA,Go Quao
+348,250,VNM,Vietnam,33,Kien Giang,348,Gi<U+1ED3>ng Ri<U+1EC1>ng,Huy<U+1EC7>n,District,NA,Giong Rieng
+349,250,VNM,Vietnam,33,Kien Giang,349,Hà Tiên,Thi xa,Township,NA,Ha Tien
+350,250,VNM,Vietnam,33,Kien Giang,350,Hòn Ð<U+1EA5>t,Huy<U+1EC7>n,District,NA,Hon Dat
+351,250,VNM,Vietnam,33,Kien Giang,351,Kiên Hải,Huy<U+1EC7>n,District,NA,Kien Hai
+352,250,VNM,Vietnam,33,Kien Giang,352,Kiên Luong,Huy<U+1EC7>n,District,NA,Kien Luong
+353,250,VNM,Vietnam,33,Kien Giang,353,Phú Qu<U+1ED1>c,Huy<U+1EC7>n,District,NA,Phu Quoc
+354,250,VNM,Vietnam,33,Kien Giang,354,R<U+1EA1>ch Giá,Thi xa,Township,NA,Rach Gia
+355,250,VNM,Vietnam,33,Kien Giang,355,Tân Hi<U+1EC7>p,Huy<U+1EC7>n,District,NA,Tan Hiep
+356,250,VNM,Vietnam,33,Kien Giang,356,U Minh Thu<U+1EE3>ng,Huy<U+1EC7>n,District,NA,NA
+357,250,VNM,Vietnam,33,Kien Giang,357,Vinh Thuan,Huy<U+1EC7>n,District,NA,Vinh Thuan
+358,250,VNM,Vietnam,34,Kon Tum,358,Ðak Glei,Huy<U+1EC7>n,District,NA,Dak Glei
+359,250,VNM,Vietnam,34,Kon Tum,359,Ðak Hà,Huy<U+1EC7>n,District,NA,Dak Ha
+360,250,VNM,Vietnam,34,Kon Tum,360,Ðak Tô,Huy<U+1EC7>n,District,NA,Dak To
+361,250,VNM,Vietnam,34,Kon Tum,361,Kon Plông,Huy<U+1EC7>n,District,NA,Kon Plong
+362,250,VNM,Vietnam,34,Kon Tum,362,Kon R<U+1EAB>y,Huy<U+1EC7>n,District,NA,Kon Ray
+363,250,VNM,Vietnam,34,Kon Tum,363,Kon Tum,Thi xa,Township,NA,NA
+364,250,VNM,Vietnam,34,Kon Tum,364,Ngọc H<U+1ED3>i,Huy<U+1EC7>n,District,NA,Ngoc Hoi
+365,250,VNM,Vietnam,34,Kon Tum,365,Sa Th<U+1EA7>y,Huy<U+1EC7>n,District,NA,Sa Thay
+366,250,VNM,Vietnam,34,Kon Tum,366,Tu Mo Rông,Huy<U+1EC7>n,District,NA,NA
+367,250,VNM,Vietnam,35,Lao Cai,367,Bát Xát,Huy<U+1EC7>n,District,NA,Bat Xat
+368,250,VNM,Vietnam,35,Lao Cai,368,B<U+1EAF>c Hà,Huy<U+1EC7>n,District,NA,Bac Ha
+369,250,VNM,Vietnam,35,Lao Cai,369,Bảo Th<U+1EAF>ng,Huy<U+1EC7>n,District,NA,Bao Thang
+370,250,VNM,Vietnam,35,Lao Cai,370,Bảo Yên,Huy<U+1EC7>n,District,NA,Bao Yen
+371,250,VNM,Vietnam,35,Lao Cai,371,Lào Cai,Than Pho,City,NA,Lao Cai
+372,250,VNM,Vietnam,35,Lao Cai,372,Mu<U+1EDD>ng Khuong,Huy<U+1EC7>n,District,NA,Muong Khuong
+373,250,VNM,Vietnam,35,Lao Cai,373,Sa Pa,Huy<U+1EC7>n,District,NA,NA
+374,250,VNM,Vietnam,35,Lao Cai,374,Si Ma Cai,Huy<U+1EC7>n,District,NA,NA
+375,250,VNM,Vietnam,35,Lao Cai,375,Van Bàn,Huy<U+1EC7>n,District,NA,Van Ban
+376,250,VNM,Vietnam,36,Lam Ðong,376,Ðà L<U+1EA1>t,Than Pho,City,NA,Da Lat
+377,250,VNM,Vietnam,36,Lam Ðong,377,Ð<U+1EE9>c Trọng,Huy<U+1EC7>n,District,NA,Duc Trong
+378,250,VNM,Vietnam,36,Lam Ðong,378,Ðon Duong,Huy<U+1EC7>n,District,NA,Don Duong
+379,250,VNM,Vietnam,36,Lam Ðong,379,Ðam Rông,Huy<U+1EC7>n,District,NA,Dam Rong
+380,250,VNM,Vietnam,36,Lam Ðong,380,Ð<U+1EA1> Huoai,Huy<U+1EC7>n,District,NA,Da Huoai
+381,250,VNM,Vietnam,36,Lam Ðong,381,Ð<U+1EA1> T<U+1EBB>h,Huy<U+1EC7>n,District,NA,Da Teh
+382,250,VNM,Vietnam,36,Lam Ðong,382,Bảo Lâm,Huy<U+1EC7>n,District,NA,Bao Lam
+383,250,VNM,Vietnam,36,Lam Ðong,383,Bảo L<U+1ED9>c,Thi xa,Township,NA,Bao Loc
+384,250,VNM,Vietnam,36,Lam Ðong,384,Cát Tiên,Huy<U+1EC7>n,District,NA,Cat Tien
+385,250,VNM,Vietnam,36,Lam Ðong,385,Di Linh,Huy<U+1EC7>n,District,NA,NA
+386,250,VNM,Vietnam,36,Lam Ðong,386,Lâm Hà,Huy<U+1EC7>n,District,NA,Lam Ha
+387,250,VNM,Vietnam,36,Lam Ðong,387,L<U+1EA1>c Duong,Huy<U+1EC7>n,District,NA,Lac Duong
+388,250,VNM,Vietnam,37,Lai Chau,388,Lai Châu,Thi xa,Township,NA,Lai Chau
+389,250,VNM,Vietnam,37,Lai Chau,389,Mu<U+1EDD>ng Tè,Huy<U+1EC7>n,District,NA,Muong Te
+390,250,VNM,Vietnam,37,Lai Chau,390,Phong Th<U+1ED5>,Huy<U+1EC7>n,District,NA,Phong Tho
+391,250,VNM,Vietnam,37,Lai Chau,391,Sìn H<U+1ED3>,Huy<U+1EC7>n,District,NA,Sin Ho
+392,250,VNM,Vietnam,37,Lai Chau,392,Tam Ðu<U+1EDD>ng,Huy<U+1EC7>n,District,NA,Tam Duong
+393,250,VNM,Vietnam,37,Lai Chau,393,Thanh Uyen,Huy<U+1EC7>n,District,NA,NA
+394,250,VNM,Vietnam,38,Lang Son,394,Ðình Lap,Huy<U+1EC7>n,District,NA,Dinh Lap
+395,250,VNM,Vietnam,38,Lang Son,395,Bình Gia,Huy<U+1EC7>n,District,NA,Binh Gia
+396,250,VNM,Vietnam,38,Lang Son,396,B<U+1EAF>c Son,Huy<U+1EC7>n,District,NA,Bac Son
+397,250,VNM,Vietnam,38,Lang Son,397,Cao L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Cao Loc
+398,250,VNM,Vietnam,38,Lang Son,398,Chi Lang,Huy<U+1EC7>n,District,NA,Chi Lang
+399,250,VNM,Vietnam,38,Lang Son,399,H<U+1EEF>u Lung,Huy<U+1EC7>n,District,NA,Huu Lung
+400,250,VNM,Vietnam,38,Lang Son,400,L<U+1ED9>c Bình,Huy<U+1EC7>n,District,NA,Loc Binh
+401,250,VNM,Vietnam,38,Lang Son,401,L<U+1EA1>ng Son,Than Pho,City,NA,Lang Son
+402,250,VNM,Vietnam,38,Lang Son,402,Tràng Ðịnh,Huy<U+1EC7>n,District,NA,Trang Dinh
+403,250,VNM,Vietnam,38,Lang Son,403,Vãn Lãng,Huy<U+1EC7>n,District,NA,Van Lang
+404,250,VNM,Vietnam,38,Lang Son,404,Van Quan,Huy<U+1EC7>n,District,NA,Van Quan
+405,250,VNM,Vietnam,39,Long An,405,Ð<U+1EE9>c Hòa,Huy<U+1EC7>n,District,NA,Duc Hoa
+406,250,VNM,Vietnam,39,Long An,406,Ð<U+1EE9>c Hu<U+1EC7>,Huy<U+1EC7>n,District,NA,Duc Hue
+407,250,VNM,Vietnam,39,Long An,407,Bến L<U+1EE9>c,Huy<U+1EC7>n,District,NA,Ben Luc
+408,250,VNM,Vietnam,39,Long An,408,C<U+1EA7>n Ðu<U+1EDB>c,Huy<U+1EC7>n,District,NA,Can Duoc
+409,250,VNM,Vietnam,39,Long An,409,C<U+1EA7>n Giu<U+1ED9>c,Huy<U+1EC7>n,District,NA,Can Giuoc
+410,250,VNM,Vietnam,39,Long An,410,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+411,250,VNM,Vietnam,39,Long An,411,M<U+1ED9>c Hóa,Huy<U+1EC7>n,District,NA,Moc Hoa
+412,250,VNM,Vietnam,39,Long An,412,Tân An,Thi xa,Township,NA,Tan An
+413,250,VNM,Vietnam,39,Long An,413,Tân Hung,Huy<U+1EC7>n,District,NA,Tan Hung
+414,250,VNM,Vietnam,39,Long An,414,Tân Thành,Huy<U+1EC7>n,District,NA,Tan Thanh
+415,250,VNM,Vietnam,39,Long An,415,Tân Tr<U+1EE5>,Huy<U+1EC7>n,District,NA,Tan Tru
+416,250,VNM,Vietnam,39,Long An,416,Th<U+1EE7> Thừa,Huy<U+1EC7>n,District,NA,Thu Thua
+417,250,VNM,Vietnam,39,Long An,417,Thanh Hóa,Huy<U+1EC7>n,District,NA,Thanh Hoa
+418,250,VNM,Vietnam,39,Long An,418,Vinh Hung,Huy<U+1EC7>n,District,NA,Vinh Hung
+419,250,VNM,Vietnam,40,Nam Dinh,419,Ý Yên,Huy<U+1EC7>n,District,NA,Y Yen
+420,250,VNM,Vietnam,40,Nam Dinh,420,Giao Th<U+1EE7>y,Huy<U+1EC7>n,District,NA,Giao Thuy
+421,250,VNM,Vietnam,40,Nam Dinh,421,Hải Hau,Huy<U+1EC7>n,District,NA,Hai Hau
+422,250,VNM,Vietnam,40,Nam Dinh,422,M<U+1EF9> L<U+1ED9>c,Huy<U+1EC7>n,District,NA,My Loc
+423,250,VNM,Vietnam,40,Nam Dinh,423,Nam Ðịnh,Huy<U+1EC7>n,District,NA,Nam Dinh
+424,250,VNM,Vietnam,40,Nam Dinh,424,Nam Tr<U+1EF1>c,Huy<U+1EC7>n,District,NA,Nam Truc
+425,250,VNM,Vietnam,40,Nam Dinh,425,Nghia Hung,Huy<U+1EC7>n,District,NA,Nghia Hung
+426,250,VNM,Vietnam,40,Nam Dinh,426,Tr<U+1EF1>c Ninh,Huy<U+1EC7>n,District,NA,Truc Ninh
+427,250,VNM,Vietnam,40,Nam Dinh,427,V<U+1EE5> Bản,Huy<U+1EC7>n,District,NA,Vu Ban
+428,250,VNM,Vietnam,40,Nam Dinh,428,Xuân Tru<U+1EDD>ng,Huy<U+1EC7>n,District,NA,Xuan Truong
+429,250,VNM,Vietnam,41,Nghe An,429,Ðô Luong,Huy<U+1EC7>n,District,NA,Do Luong
+430,250,VNM,Vietnam,41,Nghe An,430,Anh Son,Huy<U+1EC7>n,District,NA,Anh Son
+431,250,VNM,Vietnam,41,Nghe An,431,C<U+1EED>a Lò,Thi xa,Township,NA,Cua Lo
+432,250,VNM,Vietnam,41,Nghe An,432,Con Cuông,Huy<U+1EC7>n,District,NA,Con Cuong
+433,250,VNM,Vietnam,41,Nghe An,433,Di<U+1EC5>n Châu,Huy<U+1EC7>n,District,NA,Dien Chau
+434,250,VNM,Vietnam,41,Nghe An,434,Hung Nguyên,Huy<U+1EC7>n,District,NA,Hung Nguyen
+435,250,VNM,Vietnam,41,Nghe An,435,K<U+1EF3> Son,Huy<U+1EC7>n,District,NA,Ky Son
+436,250,VNM,Vietnam,41,Nghe An,436,Nam Ðàn,Huy<U+1EC7>n,District,NA,Nam Dan
+437,250,VNM,Vietnam,41,Nghe An,437,Nghia Ðàn,Huy<U+1EC7>n,District,NA,Nghia Dan
+438,250,VNM,Vietnam,41,Nghe An,438,Nghi L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Nghi Loc
+439,250,VNM,Vietnam,41,Nghe An,439,Qu<U+1EF3> Châu,Huy<U+1EC7>n,District,NA,Quy Chau
+440,250,VNM,Vietnam,41,Nghe An,440,Qu<U+1EF3> H<U+1EE3>p,Huy<U+1EC7>n,District,NA,Quy Hop
+441,250,VNM,Vietnam,41,Nghe An,441,Qu<U+1EF3>nh Luu,Huy<U+1EC7>n,District,NA,Quynh Luu
+442,250,VNM,Vietnam,41,Nghe An,442,Quế Phong,Huy<U+1EC7>n,District,NA,Que Phong
+443,250,VNM,Vietnam,41,Nghe An,443,Tân K<U+1EF3>,Huy<U+1EC7>n,District,NA,Tan Ky
+444,250,VNM,Vietnam,41,Nghe An,444,Tuong Duong,Huy<U+1EC7>n,District,NA,Tuong Duong
+445,250,VNM,Vietnam,41,Nghe An,445,Thái Hòa,Huy<U+1EC7>n,District,NA,NA
+446,250,VNM,Vietnam,41,Nghe An,446,Thanh Chuong,Huy<U+1EC7>n,District,NA,Thanh Chuong
+447,250,VNM,Vietnam,41,Nghe An,447,Vinh,Than Pho,City,NA,Vinh
+448,250,VNM,Vietnam,41,Nghe An,448,Yên Thành,Huy<U+1EC7>n,District,NA,Yen Thanh
+449,250,VNM,Vietnam,42,Ninh Binh,449,Gia Vi<U+1EC5>n,Huy<U+1EC7>n,District,NA,Gia Vien
+450,250,VNM,Vietnam,42,Ninh Binh,450,Hoa Lu,Huy<U+1EC7>n,District,NA,Hoa Lu
+451,250,VNM,Vietnam,42,Ninh Binh,451,Kim Son,Huy<U+1EC7>n,District,NA,Kim Son
+452,250,VNM,Vietnam,42,Ninh Binh,452,Nho Quan,Huy<U+1EC7>n,District,NA,Nho Quan
+453,250,VNM,Vietnam,42,Ninh Binh,453,Ninh Bình,Thi xa,Township,NA,Ninh Binh
+454,250,VNM,Vietnam,42,Ninh Binh,454,Tam Ði<U+1EC7>p,Thi xa,Township,NA,Tam Diep
+455,250,VNM,Vietnam,42,Ninh Binh,455,Yên Khánh,Huy<U+1EC7>n,District,NA,Yen Khanh
+456,250,VNM,Vietnam,42,Ninh Binh,456,Yên Mô,Huy<U+1EC7>n,District,NA,Yen Mo
+457,250,VNM,Vietnam,43,Ninh Thuan,457,Bác Ái,Huy<U+1EC7>n,District,NA,Bac Ai
+458,250,VNM,Vietnam,43,Ninh Thuan,458,Ninh Hải,Huy<U+1EC7>n,District,NA,Ninh Hai
+459,250,VNM,Vietnam,43,Ninh Thuan,459,Ninh Phu<U+1EDB>c,Huy<U+1EC7>n,District,NA,Ninh Phuoc
+460,250,VNM,Vietnam,43,Ninh Thuan,460,Ninh Son,Huy<U+1EC7>n,District,NA,Ninh Son
+461,250,VNM,Vietnam,43,Ninh Thuan,461,Phan Rang-Tháp Chàm,Thi xa,Township,NA,Phan Rang-Thap Cham
+462,250,VNM,Vietnam,44,Phu Tho,462,Ðoan Hùng,Huy<U+1EC7>n,District,NA,Doan Hung
+463,250,VNM,Vietnam,44,Phu Tho,463,C<U+1EA9>m Khê,Huy<U+1EC7>n,District,NA,Cam Khe
+464,250,VNM,Vietnam,44,Phu Tho,464,H<U+1EA1> Hoà,Huy<U+1EC7>n,District,NA,Ha Hoa
+465,250,VNM,Vietnam,44,Phu Tho,465,Lâm Thao,Huy<U+1EC7>n,District,NA,Lam Thao
+466,250,VNM,Vietnam,44,Phu Tho,466,Phú Ninh,Huy<U+1EC7>n,District,NA,Phu Ninh
+467,250,VNM,Vietnam,44,Phu Tho,467,Phú Thọ,Thi xa,Township,NA,Phu Tho
+468,250,VNM,Vietnam,44,Phu Tho,468,Tam Nông,Huy<U+1EC7>n,District,NA,Tam Nong
+469,250,VNM,Vietnam,44,Phu Tho,469,Thanh Ba,Huy<U+1EC7>n,District,NA,Thanh Ba
+470,250,VNM,Vietnam,44,Phu Tho,470,Thanh Son,Huy<U+1EC7>n,District,NA,Thanh Son
+471,250,VNM,Vietnam,44,Phu Tho,471,Thanh Thu<U+1EF7>,Huy<U+1EC7>n,District,NA,Thanh Thuy
+472,250,VNM,Vietnam,44,Phu Tho,472,Vi<U+1EC7>t Trì,Than Pho,City,NA,Viet Tri
+473,250,VNM,Vietnam,44,Phu Tho,473,Yên Lap,Huy<U+1EC7>n,District,NA,Yen Lap
+474,250,VNM,Vietnam,45,Phu Yen,474,Ðông Hòa,Huy<U+1EC7>n,District,NA,NA
+475,250,VNM,Vietnam,45,Phu Yen,475,Ð<U+1ED3>ng Xuân,Huy<U+1EC7>n,District,NA,Dong Xuan
+476,250,VNM,Vietnam,45,Phu Yen,476,Phú Hòa,Huy<U+1EC7>n,District,NA,Phu Hoa
+477,250,VNM,Vietnam,45,Phu Yen,477,Sông C<U+1EA7>u,Huy<U+1EC7>n,District,NA,Song Cau
+478,250,VNM,Vietnam,45,Phu Yen,478,Sông Hinh,Huy<U+1EC7>n,District,NA,Song Hinh
+479,250,VNM,Vietnam,45,Phu Yen,479,Son Hòa,Huy<U+1EC7>n,District,NA,Son Hoa
+480,250,VNM,Vietnam,45,Phu Yen,480,Tuy An,Huy<U+1EC7>n,District,NA,NA
+481,250,VNM,Vietnam,45,Phu Yen,481,Tuy Hoa,Huy<U+1EC7>n,District,NA,NA
+482,250,VNM,Vietnam,45,Phu Yen,482,Tuy Hoa,Thi xa,Township,NA,NA
+483,250,VNM,Vietnam,46,Quang Binh,483,Ð<U+1ED3>ng H<U+1EDB>i,Than Pho,City,NA,Dong Hoi
+484,250,VNM,Vietnam,46,Quang Binh,484,B<U+1ED1> Tr<U+1EA1>ch,Huy<U+1EC7>n,District,NA,Bo Trach
+485,250,VNM,Vietnam,46,Quang Binh,485,L<U+1EC7> Th<U+1EE7>y,Huy<U+1EC7>n,District,NA,Le Thuy
+486,250,VNM,Vietnam,46,Quang Binh,486,Minh Hóa,Huy<U+1EC7>n,District,NA,Minh Hoa
+487,250,VNM,Vietnam,46,Quang Binh,487,Quảng Ninh,Huy<U+1EC7>n,District,NA,Quang Ninh
+488,250,VNM,Vietnam,46,Quang Binh,488,Quảng Tr<U+1EA1>ch,Huy<U+1EC7>n,District,NA,Quang Trach
+489,250,VNM,Vietnam,46,Quang Binh,489,Tuyen Hoa,Huy<U+1EC7>n,District,NA,Tuyen Hoa
+490,250,VNM,Vietnam,47,Quang Nam,490,Ðông Giang,Huy<U+1EC7>n,District,NA,Dong Giang
+491,250,VNM,Vietnam,47,Quang Nam,491,Ð<U+1EA1>i L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Dai Loc
+492,250,VNM,Vietnam,47,Quang Nam,492,Ði<U+1EC7>n Bàn,Huy<U+1EC7>n,District,NA,Dien Ban
+493,250,VNM,Vietnam,47,Quang Nam,493,B<U+1EAF>c Trà My,Huy<U+1EC7>n,District,NA,Bac Tra My
+494,250,VNM,Vietnam,47,Quang Nam,494,Duy Xuyên,Huy<U+1EC7>n,District,NA,Duy Xuyen
+495,250,VNM,Vietnam,47,Quang Nam,495,H<U+1ED9>i An,Thi xa,Township,NA,Hoi An
+496,250,VNM,Vietnam,47,Quang Nam,496,Hi<U+1EC7>p Ð<U+1EE9>c,Huy<U+1EC7>n,District,NA,Hiep Duc
+497,250,VNM,Vietnam,47,Quang Nam,497,Nam Giang,Huy<U+1EC7>n,District,NA,Nam Giang
+498,250,VNM,Vietnam,47,Quang Nam,498,Nam Trà My,Huy<U+1EC7>n,District,NA,Nam Tra My
+499,250,VNM,Vietnam,47,Quang Nam,499,Núi Thành,Huy<U+1EC7>n,District,NA,Nui Thanh
+500,250,VNM,Vietnam,47,Quang Nam,500,Phu<U+1EDB>c Son,Huy<U+1EC7>n,District,NA,Phuoc Son
+501,250,VNM,Vietnam,47,Quang Nam,501,Phú Ninh,Huy<U+1EC7>n,District,NA,Phu Ninh
+502,250,VNM,Vietnam,47,Quang Nam,502,Quế Son,Huy<U+1EC7>n,District,NA,Que Son
+503,250,VNM,Vietnam,47,Quang Nam,503,Tam K<U+1EF3>,Thi xa,Township,NA,Tam Ki
+504,250,VNM,Vietnam,47,Quang Nam,504,Tay Giang,Huy<U+1EC7>n,District,NA,NA
+505,250,VNM,Vietnam,47,Quang Nam,505,Thang Bình,Huy<U+1EC7>n,District,NA,Thang Binh
+506,250,VNM,Vietnam,47,Quang Nam,506,Tiên Phu<U+1EDB>c,Huy<U+1EC7>n,District,NA,Tien Phuoc
+507,250,VNM,Vietnam,48,Quang Ngai,507,Ð<U+1EE9>c Ph<U+1ED5>,Huy<U+1EC7>n,District,NA,Duc Pho
+508,250,VNM,Vietnam,48,Quang Ngai,508,Ba To,Huy<U+1EC7>n,District,NA,Ba To
+509,250,VNM,Vietnam,48,Quang Ngai,509,Bình Son,Huy<U+1EC7>n,District,NA,Binh Son
+510,250,VNM,Vietnam,48,Quang Ngai,510,Lý Son,Huy<U+1EC7>n,District,NA,Ly Son
+511,250,VNM,Vietnam,48,Quang Ngai,511,M<U+1ED9> Ð<U+1EE9>c,Huy<U+1EC7>n,District,NA,Mo Duc
+512,250,VNM,Vietnam,48,Quang Ngai,512,Minh Long,Huy<U+1EC7>n,District,NA,NA
+513,250,VNM,Vietnam,48,Quang Ngai,513,Nghia Hành,Huy<U+1EC7>n,District,NA,Nghia Hanh
+514,250,VNM,Vietnam,48,Quang Ngai,514,Quảng Ngãi,Thi xa,Township,NA,Quang Ngai
+515,250,VNM,Vietnam,48,Quang Ngai,515,Son Hà,Huy<U+1EC7>n,District,NA,Son Ha
+516,250,VNM,Vietnam,48,Quang Ngai,516,Son Tây,Huy<U+1EC7>n,District,NA,Son Tay
+517,250,VNM,Vietnam,48,Quang Ngai,517,Son Tịnh,Huy<U+1EC7>n,District,NA,Son Tinh
+518,250,VNM,Vietnam,48,Quang Ngai,518,Tây Trà,Huy<U+1EC7>n,District,NA,Tay Tra
+519,250,VNM,Vietnam,48,Quang Ngai,519,Tu Nghia,Huy<U+1EC7>n,District,NA,Tu Nghia
+520,250,VNM,Vietnam,48,Quang Ngai,520,Trà B<U+1ED3>ng,Huy<U+1EC7>n,District,NA,Tra Bong
+521,250,VNM,Vietnam,49,Quang Ninh,521,Ðông Tri<U+1EC1>u,Huy<U+1EC7>n,District,NA,Dong Trieu
+522,250,VNM,Vietnam,49,Quang Ninh,522,Ð<U+1EA7>m Hà,Huy<U+1EC7>n,District,NA,Dam Ha
+523,250,VNM,Vietnam,49,Quang Ninh,523,Ba Ch<U+1EBD>,Huy<U+1EC7>n,District,NA,Ba Che
+524,250,VNM,Vietnam,49,Quang Ninh,524,Bình Liêu,Huy<U+1EC7>n,District,NA,Binh Lieu
+525,250,VNM,Vietnam,49,Quang Ninh,525,Cô Tô,Huy<U+1EC7>n,District,NA,Co To
+526,250,VNM,Vietnam,49,Quang Ninh,526,C<U+1EA9>m Phả,Thi xa,Township,NA,NA
+527,250,VNM,Vietnam,49,Quang Ninh,527,H<U+1EA1> Long,Than Pho,City,NA,Ha Long
+528,250,VNM,Vietnam,49,Quang Ninh,528,Hải Hà,Huy<U+1EC7>n,District,NA,Hai Ha
+529,250,VNM,Vietnam,49,Quang Ninh,529,Hoành B<U+1ED3>,Huy<U+1EC7>n,District,NA,Hoanh Bo
+530,250,VNM,Vietnam,49,Quang Ninh,530,Móng Cái,Thi xa,Township,NA,Mong Cai
+531,250,VNM,Vietnam,49,Quang Ninh,531,Tiên Yên,Huy<U+1EC7>n,District,NA,Tien Yen
+532,250,VNM,Vietnam,49,Quang Ninh,532,Uông Bí,Thi xa,Township,NA,Uong Bi
+533,250,VNM,Vietnam,49,Quang Ninh,533,Vân Ð<U+1ED3>n,Huy<U+1EC7>n,District,NA,Van Don
+534,250,VNM,Vietnam,49,Quang Ninh,534,Yên Hung,Huy<U+1EC7>n,District,NA,Yen Hung
+535,250,VNM,Vietnam,50,Quang Tri,535,Ða Krông,Huy<U+1EC7>n,District,NA,Da Krong
+536,250,VNM,Vietnam,50,Quang Tri,536,Ðông Hà,Thi xa,Township,NA,Dong Ha
+537,250,VNM,Vietnam,50,Quang Tri,537,C<U+1ED3>n C<U+1ECF>,Island,Island,NA,Con Co
+538,250,VNM,Vietnam,50,Quang Tri,538,Cam L<U+1ED9>,Huy<U+1EC7>n,District,NA,NA
+539,250,VNM,Vietnam,50,Quang Tri,539,Gio Linh,Huy<U+1EC7>n,District,NA,NA
+540,250,VNM,Vietnam,50,Quang Tri,540,Hu<U+1EDB>ng Hóa,Huy<U+1EC7>n,District,NA,Huong Hoa
+541,250,VNM,Vietnam,50,Quang Tri,541,Hải Lang,Huy<U+1EC7>n,District,NA,Hai Lang
+542,250,VNM,Vietnam,50,Quang Tri,542,Quảng Trị,Thi xa,Township,NA,Quang Tri Township
+543,250,VNM,Vietnam,50,Quang Tri,543,Tri<U+1EC7>u Phong,Huy<U+1EC7>n,District,NA,Trieu Phong
+544,250,VNM,Vietnam,50,Quang Tri,544,Vinh Linh,Huy<U+1EC7>n,District,NA,Vinh Linh
+545,250,VNM,Vietnam,51,Soc Trang,545,Cù Lao Dung,Huy<U+1EC7>n,District,NA,Cu Lao Dung
+546,250,VNM,Vietnam,51,Soc Trang,546,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+547,250,VNM,Vietnam,51,Soc Trang,547,Kế Sách,Huy<U+1EC7>n,District,NA,Ke Sach
+548,250,VNM,Vietnam,51,Soc Trang,548,Long My,Thi xa,Township,NA,NA
+549,250,VNM,Vietnam,51,Soc Trang,549,Long Phú,Huy<U+1EC7>n,District,NA,Long Phu
+550,250,VNM,Vietnam,51,Soc Trang,550,M<U+1EF9> Tú,Huy<U+1EC7>n,District,NA,My Tu
+551,250,VNM,Vietnam,51,Soc Trang,551,M<U+1EF9> Xuyên,Huy<U+1EC7>n,District,NA,My Xuyen
+552,250,VNM,Vietnam,51,Soc Trang,552,Ngã Nam,Huy<U+1EC7>n,District,NA,Nga Nam
+553,250,VNM,Vietnam,51,Soc Trang,553,Thanh Trì,Huy<U+1EC7>n,District,NA,Thanh Tri
+554,250,VNM,Vietnam,51,Soc Trang,554,Vinh Châu,Huy<U+1EC7>n,District,NA,Vinh Chau
+555,250,VNM,Vietnam,52,Son La,555,B<U+1EAF>c Yên,Huy<U+1EC7>n,District,NA,Bac Yen
+556,250,VNM,Vietnam,52,Son La,556,M<U+1ED9>c Châu,Huy<U+1EC7>n,District,NA,Moc Chau
+557,250,VNM,Vietnam,52,Son La,557,Mu<U+1EDD>ng La,Huy<U+1EC7>n,District,NA,Muong La
+558,250,VNM,Vietnam,52,Son La,558,Mai Son,Huy<U+1EC7>n,District,NA,Mai Son
+559,250,VNM,Vietnam,52,Son La,559,Phù Yên,Huy<U+1EC7>n,District,NA,Phu Yen
+560,250,VNM,Vietnam,52,Son La,560,Qu<U+1EF3>nh Nhai,Huy<U+1EC7>n,District,NA,Quynh Nhai
+561,250,VNM,Vietnam,52,Son La,561,Sông Mã,Huy<U+1EC7>n,District,NA,Song Ma
+562,250,VNM,Vietnam,52,Son La,562,S<U+1ED1>p C<U+1ED9>p,Huy<U+1EC7>n,District,NA,Sop Cop
+563,250,VNM,Vietnam,52,Son La,563,Son La,Thi xa,Township,NA,Son La
+564,250,VNM,Vietnam,52,Son La,564,Thuan Châu,Huy<U+1EC7>n,District,NA,Thuan Chau
+565,250,VNM,Vietnam,52,Son La,565,Yên Châu,Huy<U+1EC7>n,District,NA,Yen Chau
+566,250,VNM,Vietnam,53,Tay Ninh,566,Bến C<U+1EA7>u,Huy<U+1EC7>n,District,NA,Ben Cau
+567,250,VNM,Vietnam,53,Tay Ninh,567,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+568,250,VNM,Vietnam,53,Tay Ninh,568,Duong Minh Châu,Huy<U+1EC7>n,District,NA,Duong Minh Chau
+569,250,VNM,Vietnam,53,Tay Ninh,569,Gò D<U+1EA7>u,Huy<U+1EC7>n,District,NA,Go Dau
+570,250,VNM,Vietnam,53,Tay Ninh,570,Hòa Thành,Huy<U+1EC7>n,District,NA,Hoa Thanh
+571,250,VNM,Vietnam,53,Tay Ninh,571,Tân Biên,Huy<U+1EC7>n,District,NA,Tan Bien
+572,250,VNM,Vietnam,53,Tay Ninh,572,Tân Châu,Huy<U+1EC7>n,District,NA,Tan Chau
+573,250,VNM,Vietnam,53,Tay Ninh,573,Tây Ninh,Thi xa,Township,NA,Tay Ninh
+574,250,VNM,Vietnam,53,Tay Ninh,574,Trảng Bàng,Huy<U+1EC7>n,District,NA,Trang Bang
+575,250,VNM,Vietnam,54,Thai Binh,575,Ðông Hung,Huy<U+1EC7>n,District,NA,Dong Hung
+576,250,VNM,Vietnam,54,Thai Binh,576,Hung Hà,Huy<U+1EC7>n,District,NA,Hung Ha
+577,250,VNM,Vietnam,54,Thai Binh,577,Kiến Xuong,Huy<U+1EC7>n,District,NA,Kien Xuong
+578,250,VNM,Vietnam,54,Thai Binh,578,Qu<U+1EF3>nh Ph<U+1EE5>,Huy<U+1EC7>n,District,NA,Quynh Phu
+579,250,VNM,Vietnam,54,Thai Binh,579,Thái Bình,Thi xa,Township,NA,Thai Binh
+580,250,VNM,Vietnam,54,Thai Binh,580,Thái Th<U+1EE5>y,Huy<U+1EC7>n,District,NA,Thai Thuy
+581,250,VNM,Vietnam,54,Thai Binh,581,Ti<U+1EC1>n Hải,Huy<U+1EC7>n,District,NA,Tien Hai
+582,250,VNM,Vietnam,54,Thai Binh,582,Vu Thu,Huy<U+1EC7>n,District,NA,Vu Thu
+583,250,VNM,Vietnam,55,Thai Nguyen,583,Ð<U+1ED3>ng H<U+1EF7>,Huy<U+1EC7>n,District,NA,Dong Hy
+584,250,VNM,Vietnam,55,Thai Nguyen,584,Ðịnh Hoá,Huy<U+1EC7>n,District,NA,Dinh Hoa
+585,250,VNM,Vietnam,55,Thai Nguyen,585,Ð<U+1EA1>i Từ,Huy<U+1EC7>n,District,NA,Dai Tu
+586,250,VNM,Vietnam,55,Thai Nguyen,586,Ph<U+1ED5> Yên,Huy<U+1EC7>n,District,NA,Pho Yen
+587,250,VNM,Vietnam,55,Thai Nguyen,587,Phú Bình,Huy<U+1EC7>n,District,NA,Phu Binh
+588,250,VNM,Vietnam,55,Thai Nguyen,588,Phú Luong,Huy<U+1EC7>n,District,NA,Phu Luong
+589,250,VNM,Vietnam,55,Thai Nguyen,589,Sông Công,Thi xa,Township,NA,Song Cong
+590,250,VNM,Vietnam,55,Thai Nguyen,590,Thái Nguyên,Than Pho,City,NA,Thai Nguyen
+591,250,VNM,Vietnam,55,Thai Nguyen,591,Võ Nhai,Huy<U+1EC7>n,District,NA,Vo Nhai
+592,250,VNM,Vietnam,56,Thua Thien - Hue,592,A Lu<U+1EDB>i,Huy<U+1EC7>n,District,NA,A Luoi
+593,250,VNM,Vietnam,56,Thua Thien - Hue,593,Huong Th<U+1EE7>y,Huy<U+1EC7>n,District,NA,Huong Thuy
+594,250,VNM,Vietnam,56,Thua Thien - Hue,594,Huong Trà,Huy<U+1EC7>n,District,NA,Huong Tra
+595,250,VNM,Vietnam,56,Thua Thien - Hue,595,Huế,Than Pho,City,NA,Hue
+596,250,VNM,Vietnam,56,Thua Thien - Hue,596,Nam Ðông,Huy<U+1EC7>n,District,NA,Nam Dong
+597,250,VNM,Vietnam,56,Thua Thien - Hue,597,Phú L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Phu Loc
+598,250,VNM,Vietnam,56,Thua Thien - Hue,598,Phú Vang,Huy<U+1EC7>n,District,NA,Phu Vang
+599,250,VNM,Vietnam,56,Thua Thien - Hue,599,Phong Ði<U+1EC1>n,Huy<U+1EC7>n,District,NA,Phong Dien
+600,250,VNM,Vietnam,56,Thua Thien - Hue,600,Quảng Ði<U+1EC1>n,Huy<U+1EC7>n,District,NA,Quang Dien
+601,250,VNM,Vietnam,57,Thanh Hoa,601,Ðông Son,Huy<U+1EC7>n,District,NA,Dong Son
+602,250,VNM,Vietnam,57,Thanh Hoa,602,Bá Thu<U+1EDB>c,Huy<U+1EC7>n,District,NA,Ba Thuoc
+603,250,VNM,Vietnam,57,Thanh Hoa,603,Bim Son,Thi xa,Township,NA,NA
+604,250,VNM,Vietnam,57,Thanh Hoa,604,C<U+1EA9>m Th<U+1EE7>y,Huy<U+1EC7>n,District,NA,Cam Thuy
+605,250,VNM,Vietnam,57,Thanh Hoa,605,Hà Trung,Huy<U+1EC7>n,District,NA,Ha Trung
+606,250,VNM,Vietnam,57,Thanh Hoa,606,Hau L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Hau Loc
+607,250,VNM,Vietnam,57,Thanh Hoa,607,Ho<U+1EB1>ng Hóa,Huy<U+1EC7>n,District,NA,Hoang Hoa
+608,250,VNM,Vietnam,57,Thanh Hoa,608,Lang Chánh,Huy<U+1EC7>n,District,NA,Lang Chanh
+609,250,VNM,Vietnam,57,Thanh Hoa,609,Mu<U+1EDD>ng Lát,Huy<U+1EC7>n,District,NA,Muong Lat
+610,250,VNM,Vietnam,57,Thanh Hoa,610,Nông C<U+1ED1>ng,Huy<U+1EC7>n,District,NA,Nong Cong
+611,250,VNM,Vietnam,57,Thanh Hoa,611,Nga Son,Huy<U+1EC7>n,District,NA,Nga Son
+612,250,VNM,Vietnam,57,Thanh Hoa,612,Ngọc L<U+1EA1>c,Huy<U+1EC7>n,District,NA,Ngoc Lac
+613,250,VNM,Vietnam,57,Thanh Hoa,613,Nhu Thanh,Huy<U+1EC7>n,District,NA,Nhu Thanh
+614,250,VNM,Vietnam,57,Thanh Hoa,614,Nhu Xuân,Huy<U+1EC7>n,District,NA,Nhu Xuan
+615,250,VNM,Vietnam,57,Thanh Hoa,615,Quan Hóa,Huy<U+1EC7>n,District,NA,Quan Hoa
+616,250,VNM,Vietnam,57,Thanh Hoa,616,Quan Son,Huy<U+1EC7>n,District,NA,Quan Son
+617,250,VNM,Vietnam,57,Thanh Hoa,617,Quảng Xuong,Huy<U+1EC7>n,District,NA,Quang Xuong
+618,250,VNM,Vietnam,57,Thanh Hoa,618,S<U+1EA7>m Son,Thi xa,Township,NA,Sam Son
+619,250,VNM,Vietnam,57,Thanh Hoa,619,Tinh Gia,Huy<U+1EC7>n,District,NA,Tinh Gia
+620,250,VNM,Vietnam,57,Thanh Hoa,620,Thọ Xuân,Huy<U+1EC7>n,District,NA,Tho Xuan
+621,250,VNM,Vietnam,57,Thanh Hoa,621,Thu<U+1EDD>ng Xuân,Huy<U+1EC7>n,District,NA,Thuong Xuan
+622,250,VNM,Vietnam,57,Thanh Hoa,622,Thanh Hóa City,Than Pho,City,NA,Thanh Hoa
+623,250,VNM,Vietnam,57,Thanh Hoa,623,Th<U+1EA1>ch Thành,Huy<U+1EC7>n,District,NA,Thach Thanh
+624,250,VNM,Vietnam,57,Thanh Hoa,624,Thi<U+1EC7>u Hóa,Huy<U+1EC7>n,District,NA,Thieu Hoa
+625,250,VNM,Vietnam,57,Thanh Hoa,625,Tri<U+1EC7>u Son,Huy<U+1EC7>n,District,NA,Trieu Son
+626,250,VNM,Vietnam,57,Thanh Hoa,626,Vinh L<U+1ED9>c,Huy<U+1EC7>n,District,NA,Vinh Loc
+627,250,VNM,Vietnam,57,Thanh Hoa,627,Yên Ðịnh,Huy<U+1EC7>n,District,NA,Yen Dinh
+628,250,VNM,Vietnam,58,Tien Giang,628,Cái Bè,Huy<U+1EC7>n,District,NA,Cai Be
+629,250,VNM,Vietnam,58,Tien Giang,629,Cai Lay,Huy<U+1EC7>n,District,NA,Cai Lay
+630,250,VNM,Vietnam,58,Tien Giang,630,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+631,250,VNM,Vietnam,58,Tien Giang,631,Ch<U+1EE3> G<U+1EA1>o,Huy<U+1EC7>n,District,NA,Cho Gao
+632,250,VNM,Vietnam,58,Tien Giang,632,Gò Công Ðông,Huy<U+1EC7>n,District,NA,Go Cong Dong
+633,250,VNM,Vietnam,58,Tien Giang,633,Gò Công Tây,Huy<U+1EC7>n,District,NA,Go Cong Tay
+634,250,VNM,Vietnam,58,Tien Giang,634,Go Cong,Thi xa,Township,NA,NA
+635,250,VNM,Vietnam,58,Tien Giang,635,M<U+1EF9> Tho,Than Pho,City,NA,My Tho
+636,250,VNM,Vietnam,58,Tien Giang,636,Tân Phu<U+1EDB>c,Huy<U+1EC7>n,District,NA,Tan Phuoc
+637,250,VNM,Vietnam,58,Tien Giang,637,Tân Phú Ðông,Huy<U+1EC7>n,District,NA,NA
+638,250,VNM,Vietnam,59,Tra Vinh,638,Càng Long,Huy<U+1EC7>n,District,NA,Cang Long
+639,250,VNM,Vietnam,59,Tra Vinh,639,C<U+1EA7>u Kè,Huy<U+1EC7>n,District,NA,Cau Ke
+640,250,VNM,Vietnam,59,Tra Vinh,640,C<U+1EA7>u Ngang,Huy<U+1EC7>n,District,NA,Cau Ngang
+641,250,VNM,Vietnam,59,Tra Vinh,641,Châu Thành,Huy<U+1EC7>n,District,NA,Chau Thanh
+642,250,VNM,Vietnam,59,Tra Vinh,642,Duyên Hải,Huy<U+1EC7>n,District,NA,Duyen Hai
+643,250,VNM,Vietnam,59,Tra Vinh,643,Ti<U+1EC3>u C<U+1EA7>n,Huy<U+1EC7>n,District,NA,Tieu Can
+644,250,VNM,Vietnam,59,Tra Vinh,644,Trà Cú,Huy<U+1EC7>n,District,NA,Tra Cu
+645,250,VNM,Vietnam,59,Tra Vinh,645,Trà Vinh,Thi xa,Township,NA,Tra Vinh
+646,250,VNM,Vietnam,60,Tuyen Quang,646,Chiêm Hoá,Huy<U+1EC7>n,District,NA,Chiem Hoa
+647,250,VNM,Vietnam,60,Tuyen Quang,647,Hàm Yên,Huy<U+1EC7>n,District,NA,Ham Yen
+648,250,VNM,Vietnam,60,Tuyen Quang,648,Nà Hang,Huy<U+1EC7>n,District,NA,Na Hang
+649,250,VNM,Vietnam,60,Tuyen Quang,649,Son Duong,Huy<U+1EC7>n,District,NA,Son Duong
+650,250,VNM,Vietnam,60,Tuyen Quang,650,Tuyên Quang,Thi xa,Township,NA,Tuyen Quang
+651,250,VNM,Vietnam,60,Tuyen Quang,651,Yên Son,Huy<U+1EC7>n,District,NA,Yen Son
+652,250,VNM,Vietnam,61,Vinh Long,652,Bình Minh,Huy<U+1EC7>n,District,NA,Binh Minh
+653,250,VNM,Vietnam,61,Vinh Long,653,Bình Tân,Huy<U+1EC7>n,District,NA,Binh Tan
+654,250,VNM,Vietnam,61,Vinh Long,654,Long H<U+1ED3>,Huy<U+1EC7>n,District,NA,Long Ho
+655,250,VNM,Vietnam,61,Vinh Long,655,Mang Thít,Huy<U+1EC7>n,District,NA,Mang Thit
+656,250,VNM,Vietnam,61,Vinh Long,656,Tam Bình,Huy<U+1EC7>n,District,NA,Tam Binh
+657,250,VNM,Vietnam,61,Vinh Long,657,Trà Ôn,Huy<U+1EC7>n,District,NA,Tra on
+658,250,VNM,Vietnam,61,Vinh Long,658,Vung Liêm,Huy<U+1EC7>n,District,NA,Vung Liem
+659,250,VNM,Vietnam,61,Vinh Long,659,Vinh Long,Thi xa,Township,NA,Vinh Long
+660,250,VNM,Vietnam,62,Vinh Phuc,660,Bình Xuyên,Huy<U+1EC7>n,District,NA,Binh Xuyen
+661,250,VNM,Vietnam,62,Vinh Phuc,661,Lap Th<U+1EA1>ch,Huy<U+1EC7>n,District,NA,Lap Thach
+662,250,VNM,Vietnam,62,Vinh Phuc,662,Mê Linh,Huy<U+1EC7>n,District,NA,Me Linh
+663,250,VNM,Vietnam,62,Vinh Phuc,663,Phúc Yên,Thi xa,Township,NA,Phuc Yen
+664,250,VNM,Vietnam,62,Vinh Phuc,664,Tam Ðu<U+1EDD>ng,Huy<U+1EC7>n,District,NA,Tam Duong
+665,250,VNM,Vietnam,62,Vinh Phuc,665,Tam Ðảo,Huy<U+1EC7>n,District,NA,NA
+666,250,VNM,Vietnam,62,Vinh Phuc,666,Tam Dao,Huy<U+1EC7>n,District,NA,NA
+667,250,VNM,Vietnam,62,Vinh Phuc,667,Vinh Tu<U+1EDD>ng,Huy<U+1EC7>n,District,NA,Vinh Tuong
+668,250,VNM,Vietnam,62,Vinh Phuc,668,Vinh Yên,Thi xa,Township,NA,Vinh Yen
+669,250,VNM,Vietnam,62,Vinh Phuc,669,Yên L<U+1EA1>c,Huy<U+1EC7>n,District,NA,Yen Lac
+670,250,VNM,Vietnam,63,Yen Bai,670,L<U+1EE5>c Yên,Huy<U+1EC7>n,District,NA,Luc Yen
+671,250,VNM,Vietnam,63,Yen Bai,671,Mù Cang Trai,Huy<U+1EC7>n,District,NA,Mu Cang Chai
+672,250,VNM,Vietnam,63,Yen Bai,672,Nghia L<U+1ED9>,Thi xa,Township,NA,Nghia Lo
+673,250,VNM,Vietnam,63,Yen Bai,673,Tr<U+1EA1>m T<U+1EA5>u,Huy<U+1EC7>n,District,NA,Tram Tau
+674,250,VNM,Vietnam,63,Yen Bai,674,Tr<U+1EA5>n Yên,Huy<U+1EC7>n,District,NA,Tran Yen
+675,250,VNM,Vietnam,63,Yen Bai,675,Van Ch<U+1EA5>n,Huy<U+1EC7>n,District,NA,NA
+676,250,VNM,Vietnam,63,Yen Bai,676,Van Yên,Huy<U+1EC7>n,District,NA,Van Yen
+677,250,VNM,Vietnam,63,Yen Bai,677,Yên Bái,Huy<U+1EC7>n,District,NA,Yen Bai
+678,250,VNM,Vietnam,63,Yen Bai,678,Yên Bình,Huy<U+1EC7>n,District,NA,Yen Binh

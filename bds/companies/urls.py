@@ -73,6 +73,7 @@ urlpatterns= [
     #1.9 /user/recaptcha/
     url(r'^recaptcha/$', views.grecaptcha_verify, name='grecaptcha_verify'),
 
+
 ##############Tim DIA DIEM
     #3. /user/find-service/
     url(r'^find_service/$', views.find_service, name='find_service'),
@@ -147,29 +148,23 @@ urlpatterns= [
     #13. /search/duan/ hien thi tat ca cac node thuoc du an
     url(r'^duan/$', views.nodeinduan, name='nodeinduan'),
 
-
 ###########Cac node/duan lien quan den node/duan
-    #13.3  /search/duannangcao/ Search node/duan lien quan theo duan    
-    url(r'^duannangcao/$', views.searchduannangcao, name='searchduannangcao'),
+    #13.3  /search/duannangcao/ Search node/duan lien quan theo duan
+    url(r'^duannangcao/$', views.searchduantuongtu, name='searchduantuongtu'),
     
     #13.6  /search/nodenangcao/ Search node/duan lien quan theo node
     url(r'^nodenangcao/$', views.searchnodenangcao, name='searchnodenangcao'),
-
 
 ###########Goi y sau khi nhap vao input
     #13.7 /search/duanbasic/ goi y sau khi nhap vao o input
     url(r'^duanbasic/$', views.searchduanbasic, name='searchduanbasic'),
 
-    #13.8 /search/duanadvan/
-    url(r'^duanadvan/$', views.searchduanadvan, name='searchduanadvan'),
-
-    #14. search duan theo loai du an
-    url(r'^typeduan/$', views.searchtypeduan, name='searchtypeduan'),
-
-
-###########Tien do du an.
+    #15. Tien do du an. /search/tiendoduan/
     url(r'^tiendoduan/$', views.getTiendoduanbyID, name='getTiendoduanbyID'),
 
+    #17. gui phan hoi. /search/guiphanhoi/
+    url(r'^guiphanhoi/$', views.guiphanhoi, name='guiphanhoi'),
+    
 ]
 """
     #11.5 /search/nodehire/ tim node cho thue

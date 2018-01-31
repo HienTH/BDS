@@ -249,6 +249,10 @@ def confirm_node(request, current_mod):
         data['address'] = realestatenode.address
         data['huong'] = realestatenode.huong
         data['sophongngu'] = realestatenode.sophongngu
+        data['tang'] = realestatenode.tang
+        data['sotang'] = realestatenode.sotang
+        data['rongtien'] = realestatenode.rongtien
+        data['rongduong'] = realestatenode.rongduong
         data['details'] = realestatenode.details
         data['status'] = True
         data['thumbs'] = realestatenode.thumbs
@@ -261,14 +265,15 @@ def confirm_node(request, current_mod):
         data['rank'] = realestatenode.rank
         data['timefrom'] = realestatenode.timefrom
         data['timeto'] = realestatenode.timeto
-        data['type'] = realestatenode.type
-        data['userid'] = realestatenode.userid
+        data['typenode'] = realestatenode.typenode
+        data['vip'] = realestatenode.vip
+        data['modname'] = realestatenode.modname
+        data['timecreate'] = realestatenode.timecreate
+        data['timemodify'] = realestatenode.timemodify
         data['duanid'] = realestatenode.duanid
         data['modid'] = realestatenode.modid
-        data['tang'] = realestatenode.tang
-        data['sotang'] = realestatenode.sotang
-        data['rongtien'] = realestatenode.rongtien
-        data['rongduong'] = realestatenode.rongduong
+        data['type'] = realestatenode.type
+        data['userid'] = realestatenode.userid
 
         serializer = RealestatenodeSerializer(realestatenode, data=data)
         if serializer.is_valid():
@@ -360,7 +365,7 @@ def change_coin(request, current_mod):
         except User.DoesNotExist:
             return JsonResponse({'message': 'Not found!!!'})
 
-        history = {}    
+        history = {}
         check = 0
         if data['coin'] > 0:
             check = 1
@@ -392,6 +397,7 @@ def change_coin(request, current_mod):
 
             history['user'] = user.id
             history['staff'] = current_mod.id
+            history['status'] = True
 
             serializer = HistorySerializer(data=history)
             if serializer.is_valid():
@@ -400,6 +406,68 @@ def change_coin(request, current_mod):
             return Response({'message': 'OK'})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#19.Duyet coin khi user nap
+@api_view(['PUT'])
+@views.token_required_mod
+def duyetcoin(request, current_mod):
+    if request.method == 'PUT':
+        data=json.loads(json.dumps(request.data))
+
+        history = History.objects.get(id=data['historyid'])
+        if not history or history.status == True:
+            return JsonResponse({'data': []})
+        
+        current_user = User.objects.get(id=history.user)
+        if not current_user or current_user.status == False:
+            return JsonResponse({'data': []})
+
+        data['id'] = current_user.id
+        data['username'] = current_user.username
+        data['password'] = current_user.password
+        data['name'] = current_user.name
+        data['email'] = current_user.email
+        data['phone'] = current_user.phone
+        data['address'] = current_user.address
+        data['company'] = current_user.company
+        data['sex'] = current_user.sex
+        data['birthday'] = current_user.birthday
+        data['coin'] = int(current_user.coin) + int(history.coin)
+        data['avatar'] = current_user.avatar
+        data['status'] = current_user.status
+        data['rank'] = current_user.rank
+
+        serializer = UserSerializer(current_user, data=data)
+        if serializer.is_valid():
+            serializer.save()
+
+            data['id'] = history.id
+            data['coin'] = history.coin
+            data['type'] = history.type
+            data['user'] = history.user
+            data['staff'] = current_mod.id
+            data['date'] = history.date
+            data['status'] = True
+            
+            serializer = HistorySerializer(history, data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({'data': 'OK'})
+            else:
+                return JsonResponse({'data': []})
+        else:
+            return JsonResponse({'data': []})
+
+#20.Duyet coin khi user nap
+@api_view(['GET'])
+@views.token_required_mod
+def danhsachduyetcoin(request, current_mod):
+    if request.method == 'GET':
+        historys = History.objects.filter(status=False)
+        serializer = HistorySerializer(historys, many=True)
+        if serializer:
+            return JsonResponse({'data': serializer.data})
+        return JsonResponse({'data': []})
 
 ### Xem lich su giao dich
 @api_view(['GET'])
@@ -426,8 +494,8 @@ def list_servicenode(request, current_mod):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
         data['modname'] = current_mod.id
-        data['timecreate'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        data['timemodify'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data['timecreate'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         serializer = ServicenodeSerializer(data=data)
         if serializer.is_valid():
@@ -452,7 +520,7 @@ def detail_servicenode(request, current_mod, servicenode_id):
         data=json.loads(json.dumps(request.data))
         data['id'] = servicenode.id
         data['modname'] = current_mod.id
-        data['timemodify'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         serializer = ServicenodeSerializer(servicenode, data=data)
         if serializer.is_valid():
@@ -552,6 +620,12 @@ def detail_tiendo(request, current_mod, id):
     elif request.method == 'PUT':
         data=json.loads(json.dumps(request.data))
         
+        duan = Duan.objects.get(id=data['duanid'])
+        list_id = Mod.objects.filter(rank=True).values_list('id', flat=True)
+
+        if (duan and duan.modname != current_mod.id) or (duan.modname not in list_id):
+            return JsonResponse({'data':[]})
+
         data['id'] = id
         data['duanid'] = tiendo.duanid
         data['modname'] = current_mod.id

@@ -43,17 +43,20 @@ urlpatterns= [
     #14./manager_mod/change_coin/
     url(r'^change_coin/$', views.change_coin, name='change_coin'),
 
-    ###./manager_mod/historys/
+    #15./manager_mod/historys/
     url(r'^historys/$', views.list_history, name='list_history'),
 
-
-
-    ###./manager_mod/tiendoduans/
+    #16./manager_mod/tiendoduans/
     url(r'^tiendoduans/$', views.list_tiendo, name='list_tiendo'),
 
-    ###./manager_mod/tiendoduans/<id>/
+    #17./manager_mod/tiendoduans/<id>/
     url(r'^tiendoduans/(?P<id>.+)/$', views.detail_tiendo, name='detail_tiendo'),
 
+    #19./manager_mod/duyetcoin
+    url(r'^duyetcoin/$', views.duyetcoin, name='duyetcoin'),
+
+    #20./manager_mod/danhsachduyetcoin
+    url(r'^danhsachduyetcoin/$', views.danhsachduyetcoin, name='danhsachduyetcoin'),
 ]
 
 '''

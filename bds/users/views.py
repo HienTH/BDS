@@ -10,8 +10,8 @@ from django.contrib.auth import authenticate
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
-from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Phancong
-from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, PhancongSerializer
+from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Phancong, Duanquantam, Tiendo, History
+from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, PhancongSerializer, DuanquantamSerializer, TiendoSerializer, HistorySerializer
 import json
 from logins import views 
 
@@ -51,7 +51,9 @@ def refresh_token(request, current_user):
     if request.method == 'POST':
         uid = str(uuid.uuid4())
         token = rest_framework_jwt.utils.jwt_encode_handler({'id': current_user.id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
-        return JsonResponse({'token': token.decode('UTF-8')})
+        if token:
+            return JsonResponse({'data': token.decode('UTF-8')})
+        return JsonResponse({'data': 'error'})
 
 def phanchiamod(province, district):
     phancongs = Phancong.objects.filter(province=province)
@@ -71,7 +73,7 @@ def phanchiamodduan(duanid, province, district):
 @views.token_required_user
 def list_node(request, current_user):
     if request.META['REQUEST_METHOD'] == 'GET':
-        realestatenodes = Realestatenode.objects.filter(userid = current_user.id, status=True)
+        realestatenodes = Realestatenode.objects.filter(userid = current_user.id, status=True).order_by('timecreate')
         if realestatenodes:
             serializer = RealestatenodeSerializer(realestatenodes, many=True)
             return Response(serializer.data)
@@ -215,6 +217,53 @@ def detail_node(request, current_user, node_id):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#15. Doi mat khau
+@api_view(['PUT'])
+@views.token_required_user
+def changepass(request, current_user):
+    if request.method == 'PUT':
+        data=json.loads(json.dumps(request.data))
+        data['oldpassword'] = str(data['oldpassword'])
+        data['password'] = str(data['password'])
+
+        if check_password_hash(current_mod.password, data['oldpassword']) and data['password']!= '':
+            data['id'] = current_user.id
+            data['username'] = current_user.username
+            data['password'] = generate_password_hash(data['password'], method='sha256')
+            data['name'] = current_user.name
+            data['email'] = current_user.email
+            data['phone'] = current_user.phone
+            data['address'] = current_user.address
+            data['company'] = current_user.company
+            data['sex'] = current_user.sex
+            data['birthday'] = current_user.birthday
+            data['coin'] = current_user.coin
+            data['avatar'] = current_user.avatar
+            data['status'] = current_user.status
+            data['rank'] = current_user.rank
+
+            serializer = UserSerializer(current_user, data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({'data':serializer.data})
+            else:
+                return JsonResponse({'data': []})
+        return JsonResponse({'data': []})
+
+#14. Xem lich su giao dich cua users
+@api_view(['GET'])
+@views.token_required_user
+def lichsugiaodich(request, current_user):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        histories = History.objects.filter(user=current_user, status=True).order_by('date')
+        if histories:
+            for history in histories:
+                history.staff = ''
+
+            serializer = HistorySerializer(histories, many=True)
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})
+
 #5. Xem node khac
 @api_view(['GET'])
 @views.token_required_user
@@ -271,18 +320,94 @@ def list_groupnode(request, current_user):
         return JsonResponse({'message': 'No groupnode!!!'})
 
 #10. Tu dong mua coin
-@api_view(['PUT'])
+@api_view(['POST'])
 @views.token_required_user
 def buycoin(request, current_user):
-    if request.method == 'PUT':
-    	request.data['id'] = current_user.id
-    	request.data['password'] = current_user.password
-    	request.data['username'] = current_user.username
-        request.data['email'] = current_user.email
-        request.data['coin'] = int(current_user.coin) + int(request.data['coin'])
-        serializer = UserSerializer(current_user, data=request.data)
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+
+    	data['coin'] = int(data['coin'])
+        data['type'] = True
+    	data['user'] = current_user.id
+        data['staff'] = ''
+        data['status'] = False
+        data['date'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        serializer = HistorySerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return JsonResponse({'data': 'OK'})
+        else:
+            return JsonResponse({'data': []})
+
+
+#15.Doc, Them Duanquantam
+@api_view(['GET', 'POST'])
+@views.token_required_user
+def duanquantam(request, current_user):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        duanquantams = Duanquantam.objects.filter(status=True, user=current_user)
+        if duanquantams:
+            serializer = DuanquantamSerializer(duanquantams, many=True)
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})
+
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+
+        list_id = Duan.objects.all().values_list('id', flat=True)
+        list_id_duanquantam = Duanquantam.objects.filter(user=current_user, status=True).values_list('duan', flat=True)
+
+        if data['duan'] not in list_id or data['duan'] in list_id_duanquantam:
+            return JsonResponse({'data': []})
+
+        duanboquantam = Duanquantam.objects.filter(user=current_user, status=False)
+        if duanboquantam:
+            duanboquantam.delete()
+
+        data['user'] = current_user
+        data['status'] = True
+
+        serializer = DuanquantamSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'data': serializer.data}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#16. kiem tra du an quantam hay k
+@api_view(['POST'])
+@views.token_required_user
+def kiemtraduanquantam(request, current_user):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+
+        duan = Duanquantam.objects.filter(user=current_user, duan=data['duan'], status=True)
+
+        if duan:
+            return JsonResponse({'data': 'OK'})
+        else:
+            return JsonResponse({'data': []})
+
+#17. Bo quan tam 1 duan.
+@api_view(['PUT'])
+@views.token_required_user
+def boduanquantam(request, current_user):
+    if request.method == 'PUT':
+        data=json.loads(json.dumps(request.data))
+
+        duanquantam = Duanquantam.objects.filter(user=current_user, duan=data['duan'], status=True)
+
+        if duanquantam:
+            data['id'] = duanquantam[0].id
+            data['duan'] = duanquantam[0].duan
+            data['user'] = duanquantam[0].user
+            data['status'] = False
+            serializer = DuanquantamSerializer(duanquantam[0], data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({'data': 'OK'})
+            else:
+                return JsonResponse({'data': []})
+
+        return JsonResponse({'data': []})

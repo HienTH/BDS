@@ -114,15 +114,10 @@ class Duanquantam(models.Model):
 
     duan = models.ForeignKey('Duan', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey('User', on_delete=models.CASCADE, blank=True, null=True)
-    details = models.TextField(blank=True, null=True)
-    timemodify = models.DateTimeField()
     status = models.BooleanField(default=True)
 
     class META:
         db_table = u'duanquantam'
-
-    def __str__(self):
-        return self.id
 
 class Realestatenode(models.Model):
     id = models.CharField(max_length=20, primary_key=True)
@@ -217,7 +212,8 @@ class History(models.Model):
     coin = models.IntegerField(default=0)
     type = models.BooleanField(default=1)
     user = models.CharField(max_length=20)
-    staff = models.CharField(max_length=20)
+    staff = models.CharField(max_length=20, blank=True)
+    status = models.BooleanField(default=False)
     date = models.DateTimeField()
     class META:
         db_table = u'history'
@@ -226,6 +222,7 @@ class Tiendo(models.Model):
 
     duanid = models.CharField(max_length=20)
     thumbs = models.TextField(blank=True, null=True)
+    title = models.TextField(blank=True)
     details = models.TextField(blank=True, null=True)
     modname = models.ForeignKey('Mod', on_delete=models.CASCADE, blank=True, null=True)
     time = models.DateTimeField()
@@ -243,3 +240,35 @@ class Phancong(models.Model):
     
     class META:
         db_table = u'phancong'
+
+class Phanhoi(models.Model):
+
+    title = models.TextField()
+    details = models.TextField()
+    email = models.EmailField()
+    time = models.DateTimeField()
+    
+    class META:
+        db_table = u'phanhoi'
+
+'''
+class Thongbaouser(models.Model):
+
+    user = models.ForeignKey('User', on_delete=models.CASCADE, blank=True, null=True)
+    modname = models.ForeignKey('Mod', on_delete=models.CASCADE, blank=True, null=True)
+    thongbao = models.ForeignKey('Thongbao', on_delete=models.CASCADE, blank=True, null=True)
+    details = models.TextField(blank=True, null=True)
+    time = models.DateTimeField()
+    
+    class META:
+        db_table = u'thongbaouser'
+
+class Thongbao(models.Model):
+
+    title = models.TextField()
+    details = models.TextField()
+    time = models.DateTimeField()
+    
+    class META:
+        db_table = u'thongbao'
+'''

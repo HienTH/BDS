@@ -12,7 +12,7 @@ urlpatterns= [
     url(r'^refresh_token/$', views.refresh_token, name='refresh_token'),
 
     #3./manager_user/nodes/
- #   url(r'^nodes/$', views.list_node, name='list_node'),
+    url(r'^nodes/$', views.list_node, name='list_node'),
 
     #3.5 /manager_user/postnodes/node_id/
     url(r'^postnodes/(?P<node_id>.+)/$', views.postagain, name='postagain'),
@@ -35,6 +35,22 @@ urlpatterns= [
     #9. /manager_user/groupnodes/
     url(r'^groupnodes/$', views.list_groupnode, name='list_groupnode'),
 
-    #9. /manager_user/buycoins/
+    #10. /manager_user/buycoins/
     url(r'^buycoins/$', views.buycoin, name='buycoin'),
+
+    #11. /manager_user/duanquantams/
+    url(r'^duanquantams/$', views.duanquantam, name='duanquantam'),
+
+    #12. /manager_user/kiemtraduanquantam/
+    url(r'^kiemtraduanquantam/$', views.kiemtraduanquantam, name='kiemtraduanquantam'),
+
+    #13. /manager_user/boduanquantam/
+    url(r'^boduanquantam/$', views.boduanquantam, name='boduanquantam'),
+
+    #14. /manager_user/lichsugiaodich/
+    url(r'^lichsugiaodich/$', views.lichsugiaodich, name='lichsugiaodich'),
+
+    #15./manager_user/changepassword/
+    url(r'^changepassword/$', views.changepass, name='changepass'),
+    
 ]

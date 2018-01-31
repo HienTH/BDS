@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Admin, User, Mod ,Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, History, Tiendo, Phancong, Duanquantam
+from .models import Admin, User, Mod ,Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, History, Tiendo, Phancong, Duanquantam, Phanhoi
 
 class AdminSerializer(serializers.ModelSerializer):
 
@@ -83,4 +83,10 @@ class DuanquantamSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Duanquantam
+		fields = '__all__'
+
+class PhanhoiSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Phanhoi
 		fields = '__all__'

@@ -456,6 +456,7 @@ def change_coin(request, current_smod):
 
             history['user'] = user.id
             history['staff'] = current_smod.id
+            history['status'] = True
 
             serializer = HistorySerializer(data=history)
             if serializer.is_valid():
@@ -624,7 +625,7 @@ def list_tiendo(request, current_smod):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@views.token_required_mod
+@views.token_required_smod
 def detail_tiendo(request, current_smod, id):
     try:
         tiendo = Tiendo.objects.get(id=id)

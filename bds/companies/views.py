@@ -12,8 +12,8 @@ from django.contrib.auth import authenticate
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
-from .models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Tiendo, Phancong
-from serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, TiendoSerializer, PhancongSerializer
+from .models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Tiendo, Phancong, Phanhoi
+from serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, TiendoSerializer, PhancongSerializer, PhanhoiSerializer
 from django.db.models import Q
 from django.conf import settings
 from django.core.mail import EmailMessage
@@ -707,7 +707,7 @@ def check_mail(request):
         try:
             user = User.objects.get(email=data['email'], status=True)
         except User.DoesNotExist:
-            return JsonResponse({'message': 'Not found!!!'})
+            return JsonResponse({'data': []})
 
         #send mail
         uid = str(uuid.uuid4())
@@ -715,7 +715,7 @@ def check_mail(request):
         message = 'Nhấp vào link để đặt lại mật khẩu:        http://45.119.82.40:8000/user/reset-password/'+token+'.'
         
         send_mail('360 land confirm Account', message, 'hienhdt32@gmail', [user.email])
-        return JsonResponse({'message': 'Found!!!'})
+        return JsonResponse({'data': []})
 
 #1.5 Reset password / OK thi dua pass de dat lai pass.
 @api_view(['GET'])
@@ -762,8 +762,6 @@ def setpassword(request, current_user):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-
 ##########NGuoi dung binh thuong xem thong tin cua SALES
 @api_view(['POST'])
 def profile(request):
@@ -782,8 +780,7 @@ def profile(request):
         serializer = UserSerializer(user)
         serializer = serializer.data
         
-        return Response(serializer)
-        ###node da tham gia
+        return Response(serializer)     
 
 #########TIM KIEM DIA DIEM
 #3. Tim service quanh node theo ban kinh
@@ -792,7 +789,7 @@ def caculator(lat1, lon1, lat2, lon2, radius):
     dlon = lon2 - lon1
     dlat = lat2 - lat1
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-    c = 2 * asin(sqrt(a)) 
+    c = 2 * asin(sqrt(a))
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
     
     if (c * r) <= radius:
@@ -818,8 +815,6 @@ def find_service(request):
         if result:
             return JsonResponse({'message': result})
         return JsonResponse({'message': 'No Servicenode!!!'})
-
-
 
 #6. Doc service node
 @api_view(['GET'])
@@ -1770,7 +1765,7 @@ def searchduanbasic(request):
 
 #13.3 Search node/duan lien quan theo duan
 @api_view(['POST'])
-def searchduannangcao(request):
+def searchduantuongtu(request):
     if request.method == 'POST':
         #duanid
         data=json.loads(json.dumps(request.data))
@@ -1879,50 +1874,31 @@ def nodeinduan(request):
             return JsonResponse({'data': serializer.data})
         return JsonResponse({'data': []})
 
-
-
-
-
-
-#13.8 Tim du an nang cao
-@api_view(['POST'])
-def searchduanadvan(request):
-    if request.method == 'POST':
-        data=request.data
-
-        if data['loaiduan'] == 'Loai du an':
-            duans = Duan.objects.filter(address__icontains=data['tinh'], status=True)
-        else:
-           duans = Duan.objects.filter(type=data['typereal'], address__icontains=data['tinh'], status=True)
-
-        if duans:
-            serializer = DuanSerializer(duans, many=True)
-            return Response(serializer.data)
-        return JsonResponse({'message': 'No duan!!!'})
-
-#14. Search duan theo loaiduan
-@api_view(['POST'])
-def searchtypeduan(request):
-    if request.method == 'POST':
-        duans = Duan.objects.filter(type=request.data['loaiduan'], status=True)
-        if duans:
-            serializer = DuanSerializer(duans, many=True)
-            return Response(serializer.data)
-        return JsonResponse({'message': 'No duan!!!'})
-
-
 #15. Tien do du an
 @api_view(['POST'])
 def getTiendoduanbyID(request):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
-        duan_id = data['duanid']
-        tiendos = Tiendo.objects.filter(duanid=duan_id)
+        duan_id = data['duan']
+        tiendos = Tiendo.objects.filter(duanid=duan_id).order_by('time')
         if tiendos:
             serializer = TiendoSerializer(tiendos, many=True)
             return JsonResponse({'data': serializer.data})
         return JsonResponse({'data': []})
 
+#17. Phan hoi ve cho mappy
+@api_view(['POST'])
+def guiphanhoi(request):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+        data['time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        serializer = PhanhoiSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'data': serializer.data})
+        else:
+            return JsonResponse({'data': []})
 
 """
 #10.1 Xac dinh bound cho tinh,tp thuoc trung uoong

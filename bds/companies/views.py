@@ -581,13 +581,13 @@ def change_coin(request, current_admin):
 		user = User.objects.get(id=request.data['user_id'])
 	except User.DoesNotExist:
 		return JsonResponse({'message': 'Not found!!!'})
-	if request.method == 'PUT':		
+	if request.method == 'PUT':
 		request.data['id'] = user.id
 		request.data['username'] = user.username
 		request.data['password'] = user.password
 		request.data['email'] = user.email
 		request.data['coin'] = int(user.coin) + int(request.data['coin'])
-		serializer = UserSerializer(user, data=request.data)	
+		serializer = UserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -619,7 +619,7 @@ def create_user(request):
         data['coin'] = 0
 
         captcha = {'g-recaptcha-response': data['g-recaptcha-response']}
-        recaptcha = requests.post('http://45.119.82.40:8000/user/recaptcha/', data=captcha).json()
+        recaptcha = requests.post('http://mappy.com.vn:8000/user/recaptcha/', data=captcha).json()
 
         if recaptcha['status'] == False:
             return JsonResponse({'message': 'No result!!!'}, status=status.HTTP_400_BAD_REQUEST)
@@ -629,7 +629,7 @@ def create_user(request):
             serializer.save()
             uid = str(uuid.uuid4())
             token = rest_framework_jwt.utils.jwt_encode_handler({'id': data['id'], 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
-            message = 'Nhấp vào link:        http://45.119.82.40:8000/user/confirm-email/'+token+'.'
+            message = 'Nhấp vào link:        http://mappy.com.vn/confirm-email/'+token+'.'
 
             send_mail('360 land confirm Account', message, 'hienhdt32@gmail.com',[data['email']])
 
@@ -655,9 +655,6 @@ def grecaptcha_verify(request):
         response['message'] = verify_rs.get('error-codes', None) or "Unspecified error."
         return Response(response)
 
-
-
-
 #1.5. Confirm email
 @api_view(['GET'])
 def confirm_user(request, token):
@@ -665,15 +662,15 @@ def confirm_user(request, token):
         try:
             data = rest_framework_jwt.utils.jwt_decode_handler(token)
         except:
-            return JsonResponse({'message': 'Account Fail!'}, status=401)
+            return JsonResponse({'data': 'error'}, status=401)
 
         try:
             current_user = User.objects.get(id=data['id'], status=False)
         except:
-            return JsonResponse({'message': 'Account Fail!'}, status=401)
+            return JsonResponse({'data': 'error'}, status=401)
 
         if not current_user or current_user.status == True:
-            return JsonResponse({'message': 'Account Fail!'}, status=401)
+            return JsonResponse({'data': 'error'}, status=401)
 
         user = {}
         user['id'] = current_user.id
@@ -694,9 +691,9 @@ def confirm_user(request, token):
         serializer = UserSerializer(current_user, data=user)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'message': 'Account OK!'}, status=200)
+            return JsonResponse({'data': 'OK'}, status=200)
 
-        return JsonResponse({'message': 'Account Fail!'}, status=401)
+        return JsonResponse({'data': 'error'}, status=401)
 
 ### Doi mat khau
 #1.4 Check mail khi reset password
@@ -712,9 +709,12 @@ def check_mail(request):
         #send mail
         uid = str(uuid.uuid4())
         token = rest_framework_jwt.utils.jwt_encode_handler({'id': user.id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
-        message = 'Nhấp vào link để đặt lại mật khẩu:        http://45.119.82.40:8000/user/reset-password/'+token+'.'
+        message = 'Nhấp vào link để đặt lại mật khẩu:        http://mappy.com.vn/reset-password/'+token+'.'
         
-        send_mail('360 land confirm Account', message, 'hienhdt32@gmail', [user.email])
+        try:
+            send_mail('360 land confirm Account', message, 'hienhdt32@gmail', [user.email])
+        except:
+            return JsonResponse({'data': []})
         return JsonResponse({'data': []})
 
 #1.5 Reset password / OK thi dua pass de dat lai pass.
@@ -724,45 +724,45 @@ def resetpassword(request, token):
         try:
             data = rest_framework_jwt.utils.jwt_decode_handler(token)
         except:
-            return JsonResponse({'message': 'Account Fail!'}, status=401)
+            return JsonResponse({'data': 'error'}, status=401)
 
         user = User.objects.get(id=data['id'], status=True)
         if not user:
-            JsonResponse({'message': 'No result!!!'})
+            JsonResponse({'data': 'error'})
 
         uid = str(uuid.uuid4())
         token = rest_framework_jwt.utils.jwt_encode_handler({'id': user.id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=2880), 'jti': uid})
         return JsonResponse({'token': token.decode('UTF-8')})
 
 #1.7 Dat lai pass
-@api_view(['POST'])
+@api_view(['PUT'])
 @views.token_required_user
 def setpassword(request, current_user):
-    if request.method == 'POST':
+    if request.method == 'PUT':
         data=json.loads(json.dumps(request.data))
-        request.data['id'] = current_user.id
-        request.data['username'] = current_user.username
-        request.data['password'] = data['password']
-        request.data['email'] = current_user.email
-        request.data['phone'] = current_user.phone
-        request.data['address'] = current_user.address
-        request.data['company'] = current_user.company
-        request.data['sex'] = current_user.sex
-        request.data['birthday'] = current_user.birthday
-        request.data['coin'] = current_user.coin
-        request.data['status'] = current_user.status
-        request.data['rank'] = current_user.rank
-        request.data['name'] = current_user.name
-        request.data['avatar'] = current_user.avatar
+        data['id'] = current_user.id
+        data['username'] = current_user.username
+        data['password'] = generate_password_hash(data['password'], method='sha256')
+        data['email'] = current_user.email
+        data['phone'] = current_user.phone
+        data['address'] = current_user.address
+        data['company'] = current_user.company
+        data['sex'] = current_user.sex
+        data['birthday'] = current_user.birthday
+        data['coin'] = current_user.coin
+        data['status'] = current_user.status
+        data['rank'] = current_user.rank
+        data['name'] = current_user.name
+        data['avatar'] = current_user.avatar
         
-        serializer = UserSerializer(current_user, data=request.data)
+        serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'message':'Reset password success!!!'})
+            return JsonResponse({'data':'OK'})
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'data':'error'})
 
-##########NGuoi dung binh thuong xem thong tin cua SALES
+#NGuoi dung binh thuong xem thong tin cua SALES
 @api_view(['POST'])
 def profile(request):
     if request.method == 'POST':
@@ -771,7 +771,7 @@ def profile(request):
         try:
             user = User.objects.get(username=data['name'])
         except:
-            return JsonResponse({'message': 'No result!!!'})
+            return JsonResponse({'data': 'error'})
 
         user.password = ''
         user.status = ''
@@ -780,7 +780,7 @@ def profile(request):
         serializer = UserSerializer(user)
         serializer = serializer.data
         
-        return Response(serializer)     
+        return JsonResponse({'data': serializer})     
 
 #########TIM KIEM DIA DIEM
 #3. Tim service quanh node theo ban kinh
@@ -881,6 +881,8 @@ def chitietduan(request):
             serializer = DuanSerializer(duan)
             result = serializer.data
             result['status'] = ''
+#            if result['thumbs'] != 'null' and result['thumbs'] != '' and result['thumbs'] != 'NULL' and result['thumbs'] != 'None' and result['thumbs'] != None:
+#               result['thumbs'] = result['thumbs'].split(',')
             return Response(result)
 
         return JsonResponse({'message': 'No duan!!!'})
@@ -899,12 +901,11 @@ def chitietnode(request):
         if realestatenode or realestatenode.status==True:
             serializer = RealestatenodeSerializer(realestatenode)
             result = serializer.data
-#            import pdb; pdb.set_trace();
             result['modid'] = ''
             result['timeto'] = ''
             result['status'] = ''
-            if result['thumbs'] != 'null' and result['thumbs'] != '' and result['thumbs'] != 'NULL' and result['thumbs'] != 'None' and result['thumbs'] != None:
-                result['thumbs'] = result['thumbs'].split(',')
+#            if result['thumbs'] != 'null' and result['thumbs'] != '' and result['thumbs'] != 'NULL' and result['thumbs'] != 'None' and result['thumbs'] != None:
+#                result['thumbs'] = result['thumbs'].split(',')
             return Response(result)
 
         return JsonResponse({'message': 'No node!!!'})
@@ -1216,10 +1217,10 @@ def searchall(request):
 
             if data['type'] == 'CN':
                 if data['type_action'] == '0':
-                    realestatenodes = Realestatenode.objects.filter(status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                    realestatenodes = Realestatenode.objects.filter(status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
             
                 elif data['type_action'] == '1' or data['type_action'] == '2':
-                    realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                    realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
                     
                 else:
                     resultnode = {'node': []}
@@ -1227,10 +1228,10 @@ def searchall(request):
 
             else:
                 if data['type_action'] == '0':
-                    realestatenodes = Realestatenode.objects.filter(type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                    realestatenodes = Realestatenode.objects.filter(type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
             
                 elif data['type_action'] == '1' or data['type_action'] == '2':
-                    realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                    realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
 
                 else:
                     resultnode = {'node': []}
@@ -1437,20 +1438,20 @@ def searchall(request):
 
             if data['type'] == 'CN':
                 if data['type_action'] == '0':
-                    realestatenodes = Realestatenode.objects.filter(status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                    realestatenodes = Realestatenode.objects.filter(status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
             
                 elif data['type_action'] == '1' or data['type_action'] == '2':
-                    realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                    realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
                     
                 else:
                     resultnode = {'node': []}
 
             else:
                 if data['type_action'] == '0':
-                    realestatenodes = Realestatenode.objects.filter(type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                    realestatenodes = Realestatenode.objects.filter(type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
             
                 elif data['type_action'] == '1' or data['type_action'] == '2':
-                    realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                    realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
                     
                 else:
                     resultnode = {'node': []}
@@ -1690,20 +1691,20 @@ def searchnode(request):
 
         if data['type'] == 'CN':
             if data['type_action'] == '0':
-                realestatenodes = Realestatenode.objects.filter(status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                realestatenodes = Realestatenode.objects.filter(status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'],timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
             
             elif data['type_action'] == '1' or data['type_action'] == '2':
-                realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'],timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
 
             else:
                 return JsonResponse({'node': []})
 
         else:
             if data['type_action'] == '0':
-                realestatenodes = Realestatenode.objects.filter(type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                realestatenodes = Realestatenode.objects.filter(type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
             
             elif data['type_action'] == '1' or data['type_action'] == '2':
-                realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat']).order_by('rank').order_by('-timeto')
+                realestatenodes = Realestatenode.objects.filter(type__type=int(data['type_action'])-1, type=data['type'], status=True).filter(tinh__icontains=data['city'], huyen__icontains=data['district'], xa__icontains=data['ward'] , duong__icontains=data['street'], huong__icontains=data['direction']).filter(sophongngu__icontains=data['room']).filter(price__gte=data['pricemin'], price__lte=data['pricemax']).filter(area__gte=data['areamin'], area__lte=data['areamax']).filter(longitude__gte=data['minLng'] ,longitude__lte=data['maxLng'], latitude__gte=data['minLat'] ,latitude__lte=data['maxLat'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('rank').order_by('-timeto')
 
             else:
                 return JsonResponse({'node': []})
@@ -1776,7 +1777,7 @@ def searchduantuongtu(request):
         data['pricefrom'] = duan.pricefrom
 
         serialized=[]
-        realestatenodes = Realestatenode.objects.filter(duanid=data['duan'], status=True)
+        realestatenodes = Realestatenode.objects.filter(duanid=data['duan'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True)
         for obj in realestatenodes:
             serialized.append(RealestatenodeSerializer(obj).data)
 
@@ -1803,7 +1804,7 @@ def searchnodenangcao(request):
         totalto = 0
         ###Truong hop khong thuoc du an nao.
         if node.duanid == 'null' or not node.duanid:
-            realestatenodes = Realestatenode.objects.filter((~Q(id=node.id)), status=True).filter(Q(price=node.price) | Q(pricem2=node.pricem2)).order_by('price').order_by('pricem2')[:10]
+            realestatenodes = Realestatenode.objects.filter((~Q(id=node.id)), timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(),status=True).filter(Q(price=node.price) | Q(pricem2=node.pricem2)).order_by('price').order_by('pricem2')[:10]
             for obj in realestatenodes:
                 serialized.append(RealestatenodeSerializer(obj).data)
             total = realestatenodes.count()
@@ -1814,42 +1815,28 @@ def searchnodenangcao(request):
 
         ###Truong hop thuoc du an ma so node < 10
         if total == 0 and totalto !=1:  ## node thuoc duan
-            realestatenodes = Realestatenode.objects.filter((~Q(id=node.id)), duanid=node.duanid, status=True).order_by('price').order_by('pricem2')[:10]
+            realestatenodes = Realestatenode.objects.filter((~Q(id=node.id)), duanid=node.duanid, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(),status=True).order_by('price').order_by('pricem2')[:10]
             t = realestatenodes.count()
             if t > 0 and t < 10:
                 for obj in realestatenodes:
                     serialized.append(RealestatenodeSerializer(obj).data)
                 x = 10 -t
-                realestatenodes = Realestatenode.objects.filter((~Q(id=node.id)), (~Q(duanid=node.duanid)), tinh__contains=node.tinh, huyen__contains=node.huyen, status=True).order_by('price').order_by('pricem2')[:x]
+                realestatenodes = Realestatenode.objects.filter((~Q(id=node.id)), (~Q(duanid=node.duanid)), tinh__contains=node.tinh, huyen__contains=node.huyen, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True).order_by('price').order_by('pricem2')[:x]
                 for obj in realestatenodes:
                     serialized.append(RealestatenodeSerializer(obj).data)
 
             elif t == 0:
-                realestatenodes = Realestatenode.objects.filter((~Q(id=node.id)), (~Q(duanid=node.duanid)), tinh__contains=node.tinh, huyen__contains=node.huyen, status=True).order_by('price').order_by('pricem2')[:10]
+                realestatenodes = Realestatenode.objects.filter((~Q(id=node.id)), (~Q(duanid=node.duanid)), tinh__contains=node.tinh, huyen__contains=node.huyen, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True).order_by('price').order_by('pricem2')[:10]
                 for obj in realestatenodes:
                     serialized.append(RealestatenodeSerializer(obj).data)
         ## node khong thuoc duan nao
         else:
             t = 10 -total
-            realestatenodes = Realestatenode.objects.filter(tinh__contains=node.tinh, huyen__contains=node.huyen, status=True).order_by('price').order_by('pricem2')[:t]
+            realestatenodes = Realestatenode.objects.filter(tinh__contains=node.tinh, huyen__contains=node.huyen, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True).order_by('price').order_by('pricem2')[:t]
             for obj in realestatenodes:
                 serialized.append(RealestatenodeSerializer(obj).data)
         #serialized.thumbs = serialized.thumbs.split(',')
         return Response(serialized)
-
-#12. Search node theo loai node
-@api_view(['POST'])
-def searchtypenode(request):
-    if request.method == 'POST':
-        data=request.data
-        typereal1 = Typerealestate.objects.filter(type=False, details=data['typerealestate']).values('id')
-        typereal2 = Typerealestate.objects.filter(type=True, details=data['typerealestate']).values('id')
-        realestatenodes = Realestatenode.objects.filter(status=True ).filter(Q(type=typereal1) | Q(type=typereal2))
-        if realestatenodes:
-            serializer = RealestatenodeSerializer(realestatenodes, many=True)
-            return Response(serializer.data)
-        return JsonResponse({'message': 'No node!!!'})
-
 
 ##### Tim kiem theo du an
 def calcudistance(lat1, lon1, lat2, lon2):
@@ -1868,7 +1855,7 @@ def nodeinduan(request):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
 
-        realestatenodes = Realestatenode.objects.filter(duanid=data['duan'], typenode=True, timefrom__lte=datetime.datetime.now() , status=True).order_by('-rank').order_by('-timeto').order_by('-vip')
+        realestatenodes = Realestatenode.objects.filter(duanid=data['duan'], typenode=True, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True).order_by('-rank').order_by('-timeto').order_by('-vip')
         if realestatenodes:
             serializer = RealestatenodeSerializer(realestatenodes, many=True)
             return JsonResponse({'data': serializer.data})

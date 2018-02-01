@@ -141,10 +141,6 @@ urlpatterns= [
     #11.9.6 Tim servicenode
     url(r'^searchservicebound/$', views.searchservicebound, name='searchservicebound'),
 
-
-    #12. tim node theo loai node
-    url(r'^type-node/$', views.searchtypenode, name='searchtypenode'),
-
     #13. /search/duan/ hien thi tat ca cac node thuoc du an
     url(r'^duan/$', views.nodeinduan, name='nodeinduan'),
 

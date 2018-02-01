@@ -6,6 +6,9 @@ urlpatterns= [
     url(r'^users/$', views.list_user, name='list_user'),
     url(r'^users/(?P<user_id>.+)/$', views.detail_user, name='detail_user'),
 
+    #2./manager_mod/userfalse/
+    url(r'^userfalse/$', views.userfalse, name='userfalse'),
+
     #3.5./manager_mod/info/
     url(r'^info/$', views.info, name='info'),
     
@@ -52,14 +55,30 @@ urlpatterns= [
     #17./manager_mod/tiendoduans/<id>/
     url(r'^tiendoduans/(?P<id>.+)/$', views.detail_tiendo, name='detail_tiendo'),
 
+
+
     #19./manager_mod/duyetcoin
     url(r'^duyetcoin/$', views.duyetcoin, name='duyetcoin'),
 
     #20./manager_mod/danhsachduyetcoin
     url(r'^danhsachduyetcoin/$', views.danhsachduyetcoin, name='danhsachduyetcoin'),
-]
 
-'''
-    #5. /manager_mod/smods/
-    #url(r'^smods/$', views.list_smod, name='list_smod'),
-'''
+
+
+    ####Thong bao nguoi dung.
+    #21./manager_mod/guithongbao/
+    url(r'^guithongbao/$', views.guithongbao, name='guithongbao'),
+
+    #22./manager_mod/themthongbaochinh/
+    url(r'^themthongbaochinh/$', views.themthongbaochinh, name='themthongbaochinh'),
+
+    #23./manager_mod/danhsachthongbaochinh/
+    url(r'^danhsachthongbaochinh/$', views.danhsachthongbaochinh, name='danhsachthongbaochinh'),
+
+    #24./manager_mod/danhsachthongbaodagui/
+    url(r'^danhsachthongbaodagui/$', views.danhsachthongbaodagui, name='danhsachthongbaodagui'),
+
+    #24./manager_mod/danhsachphanhoi/
+    url(r'^danhsachphanhoi/$', views.danhsachphanhoi, name='danhsachphanhoi'),
+
+]

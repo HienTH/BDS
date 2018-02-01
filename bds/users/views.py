@@ -10,8 +10,8 @@ from django.contrib.auth import authenticate
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
-from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Phancong, Duanquantam, Tiendo, History
-from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, PhancongSerializer, DuanquantamSerializer, TiendoSerializer, HistorySerializer
+from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Phancong, Duanquantam, Tiendo, History, Thongbaouser
+from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, PhancongSerializer, DuanquantamSerializer, TiendoSerializer, HistorySerializer, ThongbaouserSerializer
 import json
 from logins import views 
 
@@ -33,6 +33,7 @@ def edit_user(request, current_user):
         data['id'] = current_user.id
         data['name'] = current_user.name
         data['username'] = current_user.username
+        data['email'] = current_user.email
         data['password'] = current_user.password
         data['rank'] = current_user.rank
         data['status'] = current_user.status
@@ -40,7 +41,8 @@ def edit_user(request, current_user):
         serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            serializer.data['password'] = ''
+            return JsonResponse({'data': serializer.data})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -68,15 +70,50 @@ def phanchiamodduan(duanid, province, district):
     modname = duan.modname
     return modname
 
+
 #3.Xem Node da dang
+#cho duyet
+@api_view(['GET'])
+@views.token_required_user
+def list_nodewait(request, current_user):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        realestatenodes = Realestatenode.objects.filter(userid = current_user.id, status=False).order_by('timecreate')
+        if realestatenodes:
+            serializer = RealestatenodeSerializer(realestatenodes, many=True)
+            return JsonResponse({'data': serializer.data})
+        return JsonResponse({'data': []})
+
+#het han
+@api_view(['GET'])
+@views.token_required_user
+def list_nodefalse(request, current_user):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        realestatenodes = Realestatenode.objects.filter(userid = current_user.id, status=True, timefrom__gte=datetime.datetime.now()).order_by('timecreate')
+        serialized=[]
+        if realestatenodes:
+            serializer = RealestatenodeSerializer(realestatenodes, many=True)
+            serializer = serializer.data
+            for s in serializer:
+                serialized.append(s)
+
+        realestates = Realestatenode.objects.filter(userid = current_user.id, status=True, timeto__lte=datetime.datetime.now()).order_by('timecreate')
+        if realestates:
+            serializer = RealestatenodeSerializer(realestates, many=True)
+            serializer = serializer.data
+            for s in serializer:
+                serialized.append(s)
+
+        return JsonResponse({'data': serialized})
+
+#con han
 @api_view(['GET', 'POST'])
 @views.token_required_user
 def list_node(request, current_user):
     if request.META['REQUEST_METHOD'] == 'GET':
-        realestatenodes = Realestatenode.objects.filter(userid = current_user.id, status=True).order_by('timecreate')
+        realestatenodes = Realestatenode.objects.filter(userid = current_user.id, status=True, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('timecreate')
         if realestatenodes:
             serializer = RealestatenodeSerializer(realestatenodes, many=True)
-            return Response(serializer.data)
+            return JsonResponse({'data': serializer.data})
         return JsonResponse({'data': []})
 
     # Dang bai moi
@@ -91,14 +128,18 @@ def list_node(request, current_user):
 
     	data['userid'] = current_user.id
     	data['status'] = False
-        data['coin'] = 0
         data['rank'] = 0
         data['timecreate'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         #Kiem tra timefrom va timeto.
-        if (timeto - datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') < 0) | (timeto - timefrom < 0):
-            return JsonResponse({'data': []})
+        if (data['timeto'] - datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') < 0) or (data['timeto'] - data['timefrom'] < 0):
+            return JsonResponse({'data': 'Sai thoi gian'})
+
+        coin = Coin.objects.get(vip=data['vip'])
+        realcoins = coin.coin * int(data['timeto'] - data['timefrom'])
+        if current_user.coin < realcoins:
+            return JsonResponse({'data': 'Khong du coin'})
 
         #Phan chia khu vuc cho mod
         if duanid:
@@ -111,17 +152,16 @@ def list_node(request, current_user):
         else:
             data['modid'] = str(phanchiamod(data['province'], data['district']))
             if data['modid'] == "":
-                return JsonResponse({'data': []})
+                return JsonResponse({'data': 'error'})
         
         serializer = RealestatenodeSerializer(data=data)
-        
         if serializer.is_valid():
             serializer.save()
             return JsonResponse({'data': 'OK'})
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'data': 'error'})
     else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'data': 'error'})
 
 #3.5 Dang lai bai cu cua minh
 @api_view(['POST'])
@@ -135,6 +175,13 @@ def postagain(request, current_user, node_id):
 
         #Tinh gia data['vip']
         coin = Coin.objects.get(vip=data['vip'])
+        if int(data['timefrom'] - realestatenode.timeto) > 0:
+            realcoins = coin.coin * int(data['timeto'] - data['timefrom'])
+        else:
+            realcoins = coin.coin * int(data['timeto'] - realestatenode.timeto)
+
+        if current_user.coin < realcoins:
+            return JsonResponse({'data': 'Khong du coin'})
 
         data['id'] = node_id
         data['title'] = realestatenode.title
@@ -174,13 +221,11 @@ def postagain(request, current_user, node_id):
         data['type'] = realestatenode.type
         data['userid'] = realestatenode.userid
 
-        data['coin'] = coin.coin
-
         serializer = RealestatenodeSerializer(realestatenode, data=data)
         if serializer.is_valid():
             serializer.save()
             request.data={}
-            request.data['coin'] = int(current_user.coin) - int(data['coin'])
+            request.data['coin'] = int(current_user.coin) - realcoins
             request.data['id'] = current_user.id
             request.data['username'] = current_user.username
             request.data['password'] = current_user.password
@@ -226,7 +271,7 @@ def changepass(request, current_user):
         data['oldpassword'] = str(data['oldpassword'])
         data['password'] = str(data['password'])
 
-        if check_password_hash(current_mod.password, data['oldpassword']) and data['password']!= '':
+        if check_password_hash(current_user.password, data['oldpassword']) and data['password']!= '':
             data['id'] = current_user.id
             data['username'] = current_user.username
             data['password'] = generate_password_hash(data['password'], method='sha256')
@@ -247,8 +292,8 @@ def changepass(request, current_user):
                 serializer.save()
                 return JsonResponse({'data':serializer.data})
             else:
-                return JsonResponse({'data': []})
-        return JsonResponse({'data': []})
+                return JsonResponse({'data': 'error'})
+        return JsonResponse({'data': 'error'})
 
 #14. Xem lich su giao dich cua users
 @api_view(['GET'])
@@ -338,7 +383,7 @@ def buycoin(request, current_user):
             serializer.save()
             return JsonResponse({'data': 'OK'})
         else:
-            return JsonResponse({'data': []})
+            return JsonResponse({'data': 'error'})
 
 
 #15.Doc, Them Duanquantam
@@ -387,7 +432,7 @@ def kiemtraduanquantam(request, current_user):
         if duan:
             return JsonResponse({'data': 'OK'})
         else:
-            return JsonResponse({'data': []})
+            return JsonResponse({'data': 'error'})
 
 #17. Bo quan tam 1 duan.
 @api_view(['PUT'])
@@ -411,3 +456,13 @@ def boduanquantam(request, current_user):
                 return JsonResponse({'data': []})
 
         return JsonResponse({'data': []})
+
+@api_view(['GET'])
+@views.token_required_user
+def danhsachthongbao(request, current_user):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        thongbaousers = Thongbaouser.objects.all().order_by('-time')
+        if thongbaousers:
+            serializer = ThongbaouserSerializer(thongbaousers, many=True)
+            return JsonResponse({'data': serializer.data})
+        return JsonResponse({'message': []})

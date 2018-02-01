@@ -10,8 +10,8 @@ from django.contrib.auth import authenticate
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
-from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, History, Tiendo
-from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, HistorySerializer, TiendoSerializer
+from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, History, Tiendo, Thongbao, Thongbaouser, Phanhoi
+from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, HistorySerializer, TiendoSerializer, ThongbaoSerializer, ThongbaouserSerializer, PhanhoiSerializer
 
 import json
 from logins import views
@@ -21,11 +21,23 @@ from logins import views
 @views.token_required_mod
 def list_user(request, current_mod):
     if request.META['REQUEST_METHOD'] == 'GET':
-        users = User.objects.all()
+        users = User.objects.filter(status=True)
         if users:
         	serializer = UserSerializer(users, many=True)
         	return JsonResponse({"data": serializer.data})
         return JsonResponse({'data': []})
+
+#2.xem USER false
+@api_view(['GET'])
+@views.token_required_mod
+def userfalse(request, current_mod):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        users = User.objects.filter(status=False)
+        if users:
+            serializer = UserSerializer(users, many=True)
+            return JsonResponse({"data": serializer.data})
+        return JsonResponse({'data': []})
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @views.token_required_mod
@@ -230,8 +242,15 @@ def confirm_node(request, current_mod):
     except:
         return JsonResponse({'message': 'Not result!!!'})
 
-    if str(realestatenode.modid) == current_mod.id:
+    if str(realestatenode.modid) != current_mod.id:
         return JsonResponse({'message': 'Not result!!!'})
+
+    current_user = User.objects.get(id=realestatenode.userid)
+
+    coin = Coin.objects.get(vip=realestatenode.vip)
+    realcoins = coin.coin * int(realestatenode.timeto - realestatenode.timefrom)
+    if current_user.coin < realcoins:
+        return JsonResponse({'data': 'Khong du coin'})
 
     if request.method == 'PUT':
         data['id'] = realestatenode.id
@@ -278,7 +297,26 @@ def confirm_node(request, current_mod):
         serializer = RealestatenodeSerializer(realestatenode, data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'message': 'OK'})
+
+            data['id'] = current_user.id
+            data['username'] = current_user.username
+            data['password'] = current_user.password
+            data['name'] = current_user.name
+            data['email'] = current_user.email
+            data['phone'] = current_user.phone
+            data['address'] = current_user.address
+            data['company'] = current_user.company
+            data['sex'] = current_user.sex
+            data['birthday'] = current_user.birthday
+            data['coin'] = int(current_user.coin) - realcoins
+            data['avatar'] = current_user.avatar
+            data['status'] = current_user.status
+            data['rank'] = current_user.rank
+
+            serializer = UserSerializer(current_user, data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({'message': 'OK'})
 
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -414,6 +452,9 @@ def duyetcoin(request, current_mod):
     if request.method == 'PUT':
         data=json.loads(json.dumps(request.data))
 
+        if current_mod.typemod == 0 and current_mod.rank == 0:
+            return JsonResponse({'data': []})
+
         history = History.objects.get(id=data['historyid'])
         if not history or history.status == True:
             return JsonResponse({'data': []})
@@ -458,7 +499,7 @@ def duyetcoin(request, current_mod):
         else:
             return JsonResponse({'data': []})
 
-#20.Duyet coin khi user nap
+#20.Danh sach duyet coin khi user nap
 @api_view(['GET'])
 @views.token_required_mod
 def danhsachduyetcoin(request, current_mod):
@@ -643,36 +684,126 @@ def detail_tiendo(request, current_mod, id):
         tiendo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-'''
-#5. Doc SMOD
 @api_view(['GET'])
 @views.token_required_mod
-def list_smod(request, current_mod):
-    if request.META['REQUEST_METHOD'] == 'GET':
-        smods = Mod.objects.filter(rank=True)
-        if smods:
-            output = []
-            for smod in smods:
-                admin_data = {}
-                admin_data['name'] = smod.name
-                admin_data['email'] = smod.email
-                admin_data['phone'] = smod.phone
-                admin_data['sex'] = smod.sex
-                admin_data['address'] = smod.address
-                output.append(admin_data)
+def danhsachthongbaochinh(request, current_mod):
+    if request.method == 'GET':
+        thongbaos = Thongbao.objects.all()
+        if thongbaos:
+            serializer = ThongbaoSerializer(thongbaos, many=True)
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})
 
-            return JsonResponse({'SMOD': output})
-        return JsonResponse({'message': 'No Smod!!!'})
+@api_view(['GET'])
+@views.token_required_mod
+def danhsachthongbaodagui(request, current_mod):
+    if request.method == 'GET':
+        thongbaousers = Thongbaouser.objects.all()
+        if thongbaousers:
+            serializer = ThongbaouserSerializer(thongbaousers, many=True)
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})
 
-1.1 Them user(sales)
-    #if request.method == 'POST':
-    #    data=json.loads(json.dumps(request.data))
-    #    hashed_password = generate_password_hash(data['password'], method='sha256')
-    #    request.data['password']=hashed_password
-    #    serializer = UserSerializer(data=request.data)
-    #    if serializer.is_valid():
-    #        serializer.save()
-    #        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #    else:
-    #        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-''' 
+
+@api_view(['GET'])
+@views.token_required_mod
+def danhsachphanhoi(request, current_mod):
+    if request.method == 'GET':
+        phanhois = Phanhoi.objects.all()
+        if phanhois:
+            serializer = PhanhoiSerializer(phanhois, many=True)
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})
+
+
+@api_view(['POST'])
+@views.token_required_mod
+def themthongbaochinh(request, current_mod):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+        
+        data['time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        serializer = ThongbaoSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'data': serializer.data})
+        else:
+            return JsonResponse({'data': 'error'})
+
+@api_view(['POST'])
+@views.token_required_mod
+def guithongbao(request, current_mod):
+    if request.method == 'POST':
+        list_to = request.POST.getlist('to')
+        seen_all = int(request.POST['seen_all'])
+        details = request.POST['details']
+        thongbao = int(request.POST['thongbao'])
+
+        if seen_all == 1:
+            if thongbao != '':          
+                thongbaos = Thongbao.objects.get(id=thongbao)
+
+                if not thongbaos:
+                    return JsonResponse({'data': 'error'})
+
+                data = {'details':'', 'modname': '', 'time': '', 'thongbao': '', 'user': ''}
+                data['details'] = thongbaos.details
+                data['modname'] = current_mod.id
+                data['time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                data['thongbao'] = thongbao
+                import pdb; pdb.set_trace();
+
+                user = User.objects.filter(status=True)
+                for u in user:
+                    data['user'] = u.id
+                    serializer = ThongbaouserSerializer(data=data)
+                    if serializer.is_valid():
+                        serializer.save()
+            else:
+                data = {'details':'', 'modname': '', 'time': '', 'thongbao': '', 'user': ''}
+                data['details'] = details
+                data['modname'] = current_mod.id
+                data['time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                data['thongbao'] = ''
+
+                user = User.objects.filter(status=True)
+                for u in user:
+                    data['user'] = u.id
+                    serializer = ThongbaouserSerializer(data=data)
+                    if serializer.is_valid():
+                        serializer.save()
+        
+        else:
+            if not list_to:
+                return JsonResponse({'data': 'error'})
+
+            if thongbao != '':
+                thongbaos = Thongbao.objects.get(id=thongbao)
+                if not thongbaos:
+                    return JsonResponse({'data': 'error'})
+                data = {'details':'', 'modname': '', 'time': '', 'thongbao': '', 'user': ''}
+                data['details'] = thongbaos.details
+                data['modname'] = current_mod.id
+                data['time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                data['thongbao'] = thongbao
+
+                for u in list_to:
+                    data['user'] = u.id
+                    serializer = ThongbaouserSerializer(data=data)
+                    if serializer.is_valid():
+                        serializer.save()
+            else:
+                data = {'details':'', 'modname': '', 'time': '', 'thongbao': '', 'user': ''}
+                data['details'] = details
+                data['modname'] = current_mod.id
+                data['time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                data['thongbao'] = ''
+
+                user = User.objects.filter(status=True)
+                for u in list_to:
+                    data['user'] = u.id
+                    serializer = ThongbaouserSerializer(data=data)
+                    if serializer.is_valid():
+                        serializer.save()
+        return JsonResponse({'data': 'OK'})

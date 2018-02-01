@@ -65,12 +65,11 @@ urlpatterns= [
 
     ###./manager_smod/tiendoduans/<id>/
     url(r'^tiendoduans/(?P<id>.+)/$', views.detail_tiendo, name='detail_tiendo'),
+
+
+    #19./manager_smod/duyetcoin
+    url(r'^duyetcoin/$', views.duyetcoin, name='duyetcoin'),
+
+    #20./manager_smod/danhsachduyetcoin
+    url(r'^danhsachduyetcoin/$', views.danhsachduyetcoin, name='danhsachduyetcoin'),
 ]
-'''
-    #2./manager_smod/admins/
-    url(r'^admins/$', views.list_admin, name='list_admin'),    
-
-        #5./manager_smod/smods/
-    url(r'^smods/$', views.list_smod, name='list_smod'),
-
-'''

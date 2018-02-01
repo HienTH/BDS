@@ -656,69 +656,64 @@ def detail_tiendo(request, current_smod, id):
         tiendo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-'''
-#2.xem admins
-@api_view(['GET'])
+#19.Duyet coin khi user nap
+@api_view(['PUT'])
 @views.token_required_smod
-def list_admin(request, current_smod):
-    if request.META['REQUEST_METHOD'] == 'GET':
-        admins = Admin.objects.all()
-        if admins:
-            output = []
-            for admin in admins:
-                admin_data = {}
-                admin_data['rank'] = admin.rank
-                admin_data['name'] = admin.name
-                output.append(admin_data)
-
-            return JsonResponse({'ADMIN': output})
-        return JsonResponse({'message': 'No Admin!!!'})
-
-    if request.method == 'POST':
+def duyetcoin(request, current_smod):
+    if request.method == 'PUT':
         data=json.loads(json.dumps(request.data))
 
-        #sinh id cua user
-        list_id = User.objects.all().values_list('id', flat=True)
-        data['id'] = str(uuid.uuid4().get_hex().upper()[0:10])
-        while data['id'] in list_id:
-            data['id'] = str(uuid.uuid4().get_hex().upper()[0:10])
+        history = History.objects.get(id=data['historyid'])
+        if not history or history.status == True:
+            return JsonResponse({'data': []})
+        
+        current_user = User.objects.get(id=history.user)
+        if not current_user or current_user.status == False:
+            return JsonResponse({'data': []})
 
-        data['password']=generate_password_hash(data['password'], method='sha256')
-        data['coin'] = 0
-        data['status'] = 1
+        data['id'] = current_user.id
+        data['username'] = current_user.username
+        data['password'] = current_user.password
+        data['name'] = current_user.name
+        data['email'] = current_user.email
+        data['phone'] = current_user.phone
+        data['address'] = current_user.address
+        data['company'] = current_user.company
+        data['sex'] = current_user.sex
+        data['birthday'] = current_user.birthday
+        data['coin'] = int(current_user.coin) + int(history.coin)
+        data['avatar'] = current_user.avatar
+        data['status'] = current_user.status
+        data['rank'] = current_user.rank
 
-        serializer = UserSerializer(data=data)
+        serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'data': serializer.data})
+
+            data['id'] = history.id
+            data['coin'] = history.coin
+            data['type'] = history.type
+            data['user'] = history.user
+            data['staff'] = current_smod.id
+            data['date'] = history.date
+            data['status'] = True
+            
+            serializer = HistorySerializer(history, data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({'data': 'OK'})
+            else:
+                return JsonResponse({'data': []})
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'data': []})
 
-
-    #5. Doc SMOD
+#20.Danh sach duyet coin khi user nap
 @api_view(['GET'])
 @views.token_required_smod
-def list_smod(request, current_smod):
-    if request.META['REQUEST_METHOD'] == 'GET':
-        smods = Mod.objects.filter(rank=True)
-        if smods:
-            output = []
-            for smod in smods:
-                admin_data = {}
-                admin_data['name'] = smod.name
-                admin_data['rank'] = smod.rank
-                admin_data['email'] = smod.email
-                admin_data['phone'] = smod.phone
-                admin_data['birthday'] = smod.birthday
-                admin_data['sex'] = smod.sex
-                admin_data['address'] = smod.address
-                admin_data['status'] = smod.status
-
-                output.append(admin_data)
-
-            return JsonResponse({'SMOD': output})
-        return JsonResponse({'message': 'No Admin!!!'})
-
-
-'''
+def danhsachduyetcoin(request, current_smod):
+    if request.method == 'GET':
+        historys = History.objects.filter(status=False)
+        serializer = HistorySerializer(historys, many=True)
+        if serializer:
+            return JsonResponse({'data': serializer.data})
+        return JsonResponse({'data': []})

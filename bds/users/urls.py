@@ -14,6 +14,12 @@ urlpatterns= [
     #3./manager_user/nodes/
     url(r'^nodes/$', views.list_node, name='list_node'),
 
+    #3.2/manager_user/nodefalse/
+    url(r'^nodefalse/$', views.list_nodefalse, name='list_nodefalse'),
+
+    #3.3/manager_user/nodewait/
+    url(r'^nodewait/$', views.list_nodewait, name='list_nodewait'),
+
     #3.5 /manager_user/postnodes/node_id/
     url(r'^postnodes/(?P<node_id>.+)/$', views.postagain, name='postagain'),
 
@@ -52,5 +58,8 @@ urlpatterns= [
 
     #15./manager_user/changepassword/
     url(r'^changepassword/$', views.changepass, name='changepass'),
+
+    #16./manager_user/danhsachthongbao/
+    url(r'^danhsachthongbao/$', views.danhsachthongbao, name='danhsachthongbao'),
     
 ]

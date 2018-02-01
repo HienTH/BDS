@@ -251,14 +251,13 @@ class Phanhoi(models.Model):
     class META:
         db_table = u'phanhoi'
 
-'''
 class Thongbaouser(models.Model):
 
-    user = models.ForeignKey('User', on_delete=models.CASCADE, blank=True, null=True)
-    modname = models.ForeignKey('Mod', on_delete=models.CASCADE, blank=True, null=True)
-    thongbao = models.ForeignKey('Thongbao', on_delete=models.CASCADE, blank=True, null=True)
+    modname = models.TextField(blank=True, null=True)
+    user = models.TextField(blank=True, null=True)
     details = models.TextField(blank=True, null=True)
     time = models.DateTimeField()
+    thongbao = models.ForeignKey('Thongbao', on_delete=models.CASCADE, blank=True, null=True)
     
     class META:
         db_table = u'thongbaouser'
@@ -271,4 +270,3 @@ class Thongbao(models.Model):
     
     class META:
         db_table = u'thongbao'
-'''

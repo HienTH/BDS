@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th1 31, 2018 lúc 04:14 PM
+-- Thời gian đã tạo: Th2 02, 2018 lúc 02:26 AM
 -- Phiên bản máy phục vụ: 5.7.20-0ubuntu0.17.10.1
 -- Phiên bản PHP: 7.1.11-0ubuntu0.17.10.1
 
@@ -126,7 +126,13 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (63, 'Can delete admin', 21, 'delete_admin'),
 (64, 'Can add phanhoi', 22, 'add_phanhoi'),
 (65, 'Can change phanhoi', 22, 'change_phanhoi'),
-(66, 'Can delete phanhoi', 22, 'delete_phanhoi');
+(66, 'Can delete phanhoi', 22, 'delete_phanhoi'),
+(67, 'Can add thongbaouser', 23, 'add_thongbaouser'),
+(68, 'Can change thongbaouser', 23, 'change_thongbaouser'),
+(69, 'Can delete thongbaouser', 23, 'delete_thongbaouser'),
+(70, 'Can add thongbao', 24, 'add_thongbao'),
+(71, 'Can change thongbao', 24, 'change_thongbao'),
+(72, 'Can delete thongbao', 24, 'delete_thongbao');
 
 -- --------------------------------------------------------
 
@@ -257,15 +263,15 @@ CREATE TABLE `companies_duan` (
 
 INSERT INTO `companies_duan` (`id`, `name`, `address`, `tinh`, `huyen`, `xa`, `details_address`, `intro`, `status`, `pricefrom`, `infoduan`, `tiendo`, `latitude`, `longitude`, `thumbs`, `uutien`, `timecreate`, `timemodify`, `modname_id`, `type_id`) VALUES
 ('0DB2E50A9D6A41FE', 'Khu căn hộ Vĩnh Lộc', 'Đường Hương lộ 80, xã Vĩnh Lộc A, Bình Chánh, Tp.HCM', 'Hồ Chí Minh', 'Bình Chánh', 'Vĩnh Lộc', NULL, 'Thông tin tổng quan dự án Khu căn hộ VĨnh Lộc thức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu VĨNh Lộc, Hồ Chí Minḥ\nTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 10.8087320327759, 106.571517944336, NULL, 1, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', '16B651', 'loaiduan1'),
-('152EB89AAE54442C', 'CT1 Trung Văn - Vinaconex 3', 'Đường Trung Văn, Xã Trung Văn, Nam Từ Liêm, Hà Nội', 'Hà Nội', 'Nam Từ Liêm', 'Trung Văn', NULL, 'Thông tin tổng quan dự án CT1 Trung Văn - Vinaconex 3 hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị CT1 Trung Văn - Vinaconex 3Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9936695098877, 105.778076171875, NULL, 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod10', 'loaiduan1'),
-('2956060C61C140CA', 'HH1 Linh Đàm', 'Đường Linh Đường, Phường Hoàng Liệt, Hoàng Mai, Hà Nội', 'Hà Nội', 'Hoàng Mai', 'Hoàng Liệt', NULL, 'Thông tin tổng quan dự án HH1 Linh Đàm xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới HH1 Linh Đàm Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9647350311279, 105.826362609863, NULL, 1, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod2', 'loaiduan1'),
-('5BB00D5F0D9649E4', 'Khu đô thị mới Dương Nội', 'Đường Tố Hữu, Phường La Khê, Hà Đông, Hà Nội', 'Hà Nội', 'Hà Đông', 'La Khê', NULL, 'Thông tin tổng quan dự án Khu đô thị mới Dương Nội thức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới Dương Nội\nTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9719924926758, 105.756340026855, NULL, 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod200', 'loaiduan1'),
-('63AB0D377C1A409E', 'CT1 Trung Văn - Vinaconex 3', 'Đường Trung Văn, Xã Trung Văn, Nam Từ Liêm, Hà Nội', 'Hà Nội', 'Nam Từ Liêm', 'Trung Văn', NULL, 'Thông tin tổng quan dự án CT1 Trung Văn - Vinaconex 3 hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị CT1 Trung Văn - Vinaconex 3Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9936695098877, 105.778076171875, NULL, 1, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod10', 'loaiduan1'),
-('8BDFDD510E0C4739', 'Gamuda tinh', 'Phố Yên Duyên, Phường Yên Sở, Hoàng Mai, Hà Nội', 'Hà Nội', 'Hoàng Mai,', 'Yên Sở', NULL, 'Thông tin tổng quan dự án Gamuda tinhthức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới Gamuda tinhnTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9698810577393, 105.871681213379, NULL, 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod3', 'loaiduan1'),
-('B379F7C94DE640C7', 'Sky Park Residence', 'Đường Tôn Thất Thuyết, Phường Dịch Vọng Hậu, Cầu Giấy, Hà Nội', 'Hà Nội', 'Cầu Giấy', 'Dịch Vọng Hậu', NULL, 'Thông tin tổng quan dự án Sky Park Residence xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới Sky Park Residence Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 21.0277194976807, 105.78589630127, NULL, 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', '16B651', 'loaiduan1'),
-('B6A7CCE71E754B29', 'The Premier Hà Nội', 'Đường Tôn Thất Thuyết, Phường Dịch Vọng Hậu, Cầu Giấy, Hà Nội', 'Hà Nội', 'Cầu Giấy', 'Dịch Vọng Hậu', NULL, 'Thông tin tổng quan dự án The Premier Hà Nộithức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án The Premier Hà Nội\nTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 21.0291118621826, 105.784629821777, NULL, 1, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', '16B651', 'loaiduan1'),
+('152EB89AAE54442C', 'CT1 Trung Văn - Vinaconex 3', 'Đường Trung Văn, Xã Trung Văn, Nam Từ Liêm, Hà Nội', 'Hà Nội', 'Nam Từ Liêm', 'Trung Văn', NULL, 'Thông tin tổng quan dự án CT1 Trung Văn - Vinaconex 3 hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị CT1 Trung Văn - Vinaconex 3Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9936695098877, 105.778076171875, 'http://nguyenhoangtrong.com/wp-content/uploads/2014/09/chung-cu-ct1-trung-van-vinaconex3-1.jpg', 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod10', 'loaiduan1'),
+('2956060C61C140CA', 'HH1 Linh Đàm', 'Đường Linh Đường, Phường Hoàng Liệt, Hoàng Mai, Hà Nội', 'Hà Nội', 'Hoàng Mai', 'Hoàng Liệt', NULL, 'Thông tin tổng quan dự án HH1 Linh Đàm xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới HH1 Linh Đàm Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9647350311279, 105.826362609863, 'http://chungcuhh1linhdam.sanhathanh.com/uploads/News/chung-cu-hh1-linh-dam-1.png,http://tvigroup.vn/Content/Images/Project/122014/hh%20Linh%20Dam.jpg', 1, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod2', 'loaiduan1'),
+('5BB00D5F0D9649E4', 'Khu đô thị mới Dương Nội', 'Đường Tố Hữu, Phường La Khê, Hà Đông, Hà Nội', 'Hà Nội', 'Hà Đông', 'La Khê', NULL, 'Thông tin tổng quan dự án Khu đô thị mới Dương Nội thức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới Dương Nội\nTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9719924926758, 105.756340026855, 'http://www.canhogiadinhviet.com/upload/category/danh-gia-vi-tri-tien-ich-can-ho-the-cbd-premium-home-quan-2-1498666539.jpg,http://sanphuongdong.vn/webroot/img/images/khu-do-thi-duong-noi(1).jpg', 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod200', 'loaiduan1'),
+('63AB0D377C1A409E', 'CT1 Trung Văn - Vinaconex 3', 'Đường Trung Văn, Xã Trung Văn, Nam Từ Liêm, Hà Nội', 'Hà Nội', 'Nam Từ Liêm', 'Trung Văn', NULL, 'Thông tin tổng quan dự án CT1 Trung Văn - Vinaconex 3 hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị CT1 Trung Văn - Vinaconex 3Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9936695098877, 105.778076171875, 'http://nhadathanoivn.com/admin/webroot/upload/image/images/1988.jpg,http://2.bp.blogspot.com/-eU2CKL2dj4w/UyswnU_kHYI/AAAAAAAAB5k/2920HT6dbYI/s1600/chung-cu-ct1-trung-van-vinaconex3-tong-the.jpg', 1, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod10', 'loaiduan1'),
+('8BDFDD510E0C4739', 'Gamuda tinh', 'Phố Yên Duyên, Phường Yên Sở, Hoàng Mai, Hà Nội', 'Hà Nội', 'Hoàng Mai,', 'Yên Sở', NULL, 'Thông tin tổng quan dự án Gamuda tinhthức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới Gamuda tinhnTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9698810577393, 105.871681213379, 'http://gamudacityvip.com/wp-content/uploads/2016/01/%5E47241A0CD7B3BF9BACB9F75A2A1658B6142A1475CFB4708E5F%5Epimgpsh_fullsize_distr-2.jpg,https://media.laodong.vn/Uploaded/hoangtragiang/2016_07_10/Fa_twoResidence_aerialView.resized_HPQQ.jpg', 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod3', 'loaiduan1'),
+('B379F7C94DE640C7', 'Sky Park Residence', 'Đường Tôn Thất Thuyết, Phường Dịch Vọng Hậu, Cầu Giấy, Hà Nội', 'Hà Nội', 'Cầu Giấy', 'Dịch Vọng Hậu', NULL, 'Thông tin tổng quan dự án Sky Park Residence xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới Sky Park Residence Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 21.0277194976807, 105.78589630127, 'http://chungcuskypark.net/wp-content/uploads/2017/02/chung-cu-sky-park-residene.png,http://nhadatxanhmienbac.com/wp-content/uploads/2017/12/du-an-chung-cu-golden-park-duong-dinh-nghe-so-2-pham-van-bach-01.jpg', 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', '16B651', 'loaiduan1'),
+('B6A7CCE71E754B29', 'The Premier Hà Nội', 'Đường Tôn Thất Thuyết, Phường Dịch Vọng Hậu, Cầu Giấy, Hà Nội', 'Hà Nội', 'Cầu Giấy', 'Dịch Vọng Hậu', NULL, 'Thông tin tổng quan dự án The Premier Hà Nộithức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án The Premier Hà Nội\nTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 21.0291118621826, 105.784629821777, 'https://static.bancong.vn/images/1184x466/projects/1184_466/2017/09/29/the_premier_2.jpg,https://media.sosanhnha.com/batdongsan/2017/03/23/1490205629-the-premier-ha-noi-tai-duong-ton-that-thuyet-phuong-dich-vong-hau-cau-giay-ha-no-i-picture3425.jpg', 1, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', '16B651', 'loaiduan1'),
 ('D7493DD5611C4E42', 'HH1 Linh Đàm', 'Đường Linh Đường, Phường Hoàng Liệt, Hoàng Mai, Hà Nội', 'Hà Nội', 'Hoàng Mai', 'Hoàng Liệt', NULL, 'Thông tin tổng quan dự án HH1 Linh Đàm xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.', 1, 0, 'Tên dự án Khu đô thị mới HH1 Linh Đàm Tổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 20.9647350311279, 105.826362609863, NULL, 3, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', '16B651', 'loaiduan1'),
-('duan1', 'C7 Giảng Võ', 'Đường Trần Huy Liệu, Phường Giảng Võ, Ba Đình, Hà Nội', 'Hà Nội', 'Ba Đình', 'Giảng Võ', NULL, 'Thông tin tổng quan dự án C7 Giảng Võ\nNhà C7 Giảng Võ là tòa nhà đầu tiên được xây lại với phương thức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.\n \n- Tên dự án: Chung cư C7 Giảng Võ\n- Vị trí dự án: Đường Trần Huy Liệu, phường Giảng Võ, quận Ba Đình, TP.Hà Nội.\n- Chủ đầu tư: Công ty CP tư vấn, đầu tư và phát triển nhà Hà Nội - HANDIC\n- Đơn vị thi công: Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36\n- Đơn vị tư vấn: Công ty cổ phần tư vấn xây dựng An Khánh\n- Tổng mức đầu tư: 91 tỷ đồng\n- Diện tích khu đất: 1660,7 m2\n- Diện tích xây dựng: 653,9 m2\n- Quy mô: 17 tầng với 1 tầng hầm\n- Diện tích đất sân vườn và cây xanh: 1000m2\n- Tổng mức đầu tư 91 Tỷ đồng', 1, 1.5, 'Tên dự án C7 Giảng Võ\nĐịa chỉĐường Trần Huy Liệu, Phường Giảng Võ, Ba Đình, Hà Nội\nTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 21.027744, 105.822208, NULL, 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod2', 'loaiduan1'),
+('duan1', 'C7 Giảng Võ', 'Đường Trần Huy Liệu, Phường Giảng Võ, Ba Đình, Hà Nội', 'Hà Nội', 'Ba Đình', 'Giảng Võ', NULL, 'Thông tin tổng quan dự án C7 Giảng Võ\nNhà C7 Giảng Võ là tòa nhà đầu tiên được xây lại với phương thức xã hội hóa nhà ở để thay thế cho những nhà tập thể cũ đã xuống cấp ở khu vực Giảng Võ. \nDự án nằm trong chuỗi hợp tác giữa Công ty CP Tư vấn Handic - Đầu tư và phát triển nhà Hà Nội với Công ty CP Đầu tư và Sản xuất Việt Hàn. Trong khi đó, Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36 thi công, Công ty cổ phần tư vấn xây dựng An Khánh chịu trách nhiệm tư vấn giám sát.\n \n- Tên dự án: Chung cư C7 Giảng Võ\n- Vị trí dự án: Đường Trần Huy Liệu, phường Giảng Võ, quận Ba Đình, TP.Hà Nội.\n- Chủ đầu tư: Công ty CP tư vấn, đầu tư và phát triển nhà Hà Nội - HANDIC\n- Đơn vị thi công: Công ty TNHH Nhà nước một thành viên đầu tư xây lắp thương mại 36\n- Đơn vị tư vấn: Công ty cổ phần tư vấn xây dựng An Khánh\n- Tổng mức đầu tư: 91 tỷ đồng\n- Diện tích khu đất: 1660,7 m2\n- Diện tích xây dựng: 653,9 m2\n- Quy mô: 17 tầng với 1 tầng hầm\n- Diện tích đất sân vườn và cây xanh: 1000m2\n- Tổng mức đầu tư 91 Tỷ đồng', 1, 1.5, 'Tên dự án C7 Giảng Võ\nĐịa chỉĐường Trần Huy Liệu, Phường Giảng Võ, Ba Đình, Hà Nội\nTổng diện tích1.661 m²\nDiện tích xây dựng654 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàQuý I/2011\nQuy mô dự án17 tầng với 1 tầng hầm', NULL, 21.027744, 105.822208, 'http://img.thuechungcuhn.com//2016/07/14/20160714164310-9ee5.jpg,http://cdn.home-designing.com/wp-content/uploads/2012/06/Modern-interior-grafitti-art.jpg,http://www.alanyahomes.net/wp-content/uploads/2017/01/small-apartment-design.jpg', 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod2', 'loaiduan1'),
 ('duan10', 'Vườn Lài Village\r\n', 'Đường Vườn Lài, phường An Phú Đông, quận 12, Tp.HCM\n', 'Hồ Chí Minh', 'Quận 12', 'An Phú', NULL, 'Thông tin dự án Vườn Lài Village\r\nVườn Lài Village nằm trên đường Vườn Lài, phường An Phú Đông, quận 12, Tp.HCM. Dự án được phân lô khoa học, đa dạng diện tích, tận dụng tối đa diện tích cây xanh và diện tích sử dụng. Đây hứa hẹn sẽ là nơi an cư và đầu tư lý tưởng cho khách hàng.\r\n- Tên dự án: Vườn Lài Village\r\n- Chủ đầu tư: Công ty CP BĐS Linkhouse\r\n- Tổng diện tích: 2,370.4m2\r\n- Diện tích xây dựng: 1,602.4m2\r\n- Tỷ lệ xây dựng: 67,6%\r\n- Các loại diện tích: 52m2, 54m2, 58m2, 61m2, 62m2, 63m2, 64m2, 65m2, 66m2, 67m2, 68m2, 70m2, 72m2, 85m2, 96m2...', 1, 3.3, 'Tên dự án Vườn Lài Village\r\nĐịa chỉĐường Vườn Lài, phường An Phú Đông, quận 12, Tp.HCM\r\nTổng diện tích2.370 m²\r\nDiện tích xây dựng1.602 m²\r\nLoại hình phát triểnBiệt thự liền kề', NULL, 10.863539, 106.690548, NULL, 1, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod10', 'loaiduan10'),
 ('duan11', 'HC Golden City\r\n', 'Tổ 10, phường Bồ Đề, Long Biên, Hà Nội\r\n', 'Hà Nội', 'Long Biên', 'Bồ Đề', NULL, 'Thông tin dự án HC Golden City\r\nHC Golden City (liền kề 319 Bồ Đề) thuộc tổ 10 phường Bồ Đề, quận Long Biên, Hà Nội. Dự án nằm ngay bên cạnh tuyến đường Nguyễn Văn Cừ, gần trung tâm Aeon, cách khu vực phố Cổ chưa tới 4km.\r\n- Tên dự án: HC Golden City\r\n- Chủ đầu tư: Công ty 319 Bộ Quốc phòng\r\n- Quy mô: Gồm gần 100 lô liền kề, biệt thự\r\n- Loại hình: Liền kề, Shophouse, căn hộ cao cấp, biệt thự cao cấp...', 1, 3, 'Tên dự án HC Golden City\r\nChủ đầu tưCông ty xây dựng 319 Bộ Quốc phòng\r\nĐịa chỉTổ 10, phường Bồ Đề, Long Biên, Hà Nội\r\nLoại hình phát triểnBiệt thự liền kề\r\nGiá bán70 triệu/m²\r\nQuy mô dự ánGần 100 lô liền kề, biệt thự', NULL, 21.037956, 105.872865, NULL, 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod3', 'loaiduan10'),
 ('duan2', 'Hà Nội Aqua Central', 'Số 44 Yên Phụ, phường Trúc Bạch, quận Ba Đình, Hà Nội', 'Hà Nội', 'Ba Đình', 'Trúc Bạch', NULL, 'Thông tin dự án Hà Nội Aqua Central\nHà Nội Aqua Central - 44 Yên Phụ là dự án chung cư cao 21 tầng với tổng cộng 238 căn hộ và penthouse. Các căn hộ tại dự án được lắp đặt đầy đủ nội thất gắn tường từ những thương hiệu nổi tiếng đến từ Hoa Kỳ, Nhật Bản và châu Âu với phong cách hài hòa, bố cục sang trọng, màu sắc trang nhã.\nChung cư 44 Yên Phụ được thiết kế vườn cảnh trong các căn hộ đem tới không gian tươi mát, gần gũi thiên nhiên, ngập tràn gió trời và ánh nắng, không gian sống vô cùng tinh tế thể hiện tích cách con người và văn hóa đặc trưng của Phố cổ Hà Nội.\n- Tên dự án: Hà Nội Aqua Central - chung cư 44 Yên Phụ\n- Loại hình: Tòa nhà hỗn hợp văn phòng, thương mại dịch vụ khách sạn và căn hộ thương mại cao cấp\n- Chủ đầu tư: Công ty CP Tháp nước Hà Nội\n- Đơn vị thi công: Sông Đà 207 và Long Giang\n- Tổng diện tích: 6.468m2\n- Mật độ xây dựng: 50.6%\n- Quy mô: Tòa nhà 21 tầng, trong đó:\n+ Tầng hầm: 3 tầng hầm, tổng diện tích 9894m2\n+ Tầng 1-3: Trung tâm thương mại\n+ Tầng 4 -20: Căn hộ thương mại (tầng 21A-21B: căn Penthouse)\n- Thời gian khởi công: 08/2016\n- Dự kiến hoàn thành: 10/2018', 1, 2, 'Tên dự án Hà Nội Aqua Central\nChủ đầu tưCông ty CP Tháp nước Hà Nội\nĐịa chỉSố 44 Yên Phụ, phường Trúc Bạch, quận Ba Đình, Hà Nội\nTổng diện tích6.468 m²\nLoại hình phát triểnCăn hộ, Chung cư\nBàn giao nhàTháng 10/2018\nGiá bán60 triệu/m²\nQuy mô dự ánTòa nhà 21 tầng nổi và 3 tầng hầm', NULL, 21.047574, 105.809298, NULL, 2, '2017-12-24 03:53:03.893541', '2017-12-24 03:53:03.996581', 'mod3', 'loaiduan1'),
@@ -498,9 +504,9 @@ CREATE TABLE `companies_realestatenode` (
 INSERT INTO `companies_realestatenode` (`id`, `title`, `latitude`, `longitude`, `price`, `pricem2`, `area`, `tinh`, `huyen`, `xa`, `duong`, `details_address`, `address`, `huong`, `sophongngu`, `tang`, `sotang`, `rongtien`, `rongduong`, `details`, `status`, `thumbs`, `panorama_image`, `tenduan`, `tenlienhe`, `diachi`, `dienthoai`, `email`, `rank`, `timefrom`, `timeto`, `typenode`, `vip`, `modname`, `timecreate`, `timemodify`, `duanid_id`, `modid_id`, `type_id`, `userid_id`) VALUES
 ('42D57796F2', 'Bán nhà Riêng', 0, 0, -1, 0, 0, 'HN', 'Ba Đình', '', '', '', '', '', 0, NULL, NULL, 0, 0, '', 1, NULL, NULL, '', 'ha quoc', '', '01688955695', 'quoc@gmail.com', 1, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', 'mod3', 'typereal1', 'user1'),
 ('78FB350CC4', 'Cần mua nhà riêng', 0, 0, -1, 0, 0, 'HN', '7', '', '', '', '', '', 0, NULL, NULL, 0, 0, '', 0, NULL, NULL, '', 'ha+quoc+hung', '', '01688955695', 'hung%40gmail.com', 1, '2017-08-12 00:00:00.000000', '2017-10-12 00:00:00.000000', 0, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', 'mod10', 'typereal1', 'user1'),
-('A74AE9E7F6E64A2', 'trvew', 21.0026988983154, 105.792427062988, 2, 0, 0, 'HN', 'Ba Đình', '', '', 'Trúc Bạch, Ba Đình, Hà Nội', '', '', 2, NULL, NULL, 0, 0, '', 1, NULL, NULL, '', 'ha quoc', '', '01688955695', 'quoc@gmail.com', 3, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', NULL, 'mod200', 'typereal1', 'user1'),
-('E44883FBEE', 'Cần thuê nhà', 0, 0, -1, 0, 0, 'HN', '7', '', '', '', '', '', 0, NULL, NULL, 0, 0, '', 0, NULL, NULL, '', 'ha+quoc+hung', '', '01688955695', 'hung%40gmail.com', 1, '2017-08-12 00:00:00.000000', '2017-10-12 00:00:00.000000', 0, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', '16B651', 'typereal1', 'user1'),
-('node1', 'VINHOMES LIỄU GIAI METROPOLIS, MỘT SỐ CĂN ĐẸP CHÍNH CHỦ BÁN LẠI, CẬP NHẬT MỚI NHẤT NGÀY 16/11/2017', 21.031885, 105.813755, 2.4, 0, 70, 'Hà Nội', 'Ba Đình', 'Liễu Giai', 'Liễu Giai', NULL, 'Liễu Giai, Ba Đình, hà Nội', 'Tây', 2, NULL, NULL, 0, 0, 'Gia re cam ket', 1, NULL, NULL, '', 'hung', 'Ha Noi', '09121231', 'haquochung@gmail.com', 2, '2017-08-12 00:00:00.000000', '2017-08-30 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan1', 'mod2', 'typereal1', 'user1'),
+('A74AE9E7F6E64A2', 'trvew', 21.0026988983154, 105.792427062988, 2, 0, 0, 'HN', 'Ba Đình', '', '', 'Trúc Bạch, Ba Đình, Hà Nội', '', '', 2, NULL, NULL, 0, 0, '', 1, NULL, NULL, '', 'ha quoc', '', '01688955695', 'quoc@gmail.com', 3, '2017-11-15 00:00:00.000000', '2018-02-07 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', 'mod200', 'typereal1', 'user1'),
+('E44883FBEE', 'Cần thuê nhà', 0, 0, -1, 0, 0, 'HN', '7', '', '', '', '', '', 0, NULL, NULL, 0, 0, '', 1, NULL, NULL, '', 'ha+quoc+hung', '', '01688955695', 'hung%40gmail.com', 1, '2017-12-31 00:00:00.000000', '2018-02-23 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', '16B651', 'typereal1', 'user1'),
+('node1', 'VINHOMES LIỄU GIAI METROPOLIS, MỘT SỐ CĂN ĐẸP CHÍNH CHỦ BÁN LẠI, CẬP NHẬT MỚI NHẤT NGÀY 16/11/2017', 21.031885, 105.813755, 2.4, 0, 70, 'Hà Nội', 'Ba Đình', 'Liễu Giai', 'Liễu Giai', NULL, 'Liễu Giai, Ba Đình, hà Nội', 'Tây', 2, NULL, NULL, 0, 0, 'Gia re cam ket', 1, 'http://img.thuechungcuhn.com//2016/07/14/20160714164310-9ee5.jpg,http://cdn.home-designing.com/wp-content/uploads/2012/06/Modern-interior-grafitti-art.jpg,http://www.alanyahomes.net/wp-content/uploads/2017/01/small-apartment-design.jpg', NULL, '', 'hung', 'Ha Noi', '09121231', 'haquochung@gmail.com', 2, '2017-08-12 00:00:00.000000', '2017-08-30 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan1', 'mod2', 'typereal1', 'user1'),
 ('node2', 'BÁN SUẤT MUA CĂN HỘ B6 GIẢNG VÕ, GIÁ 49TR/M2, CHỌN CĂN TẦNG ĐẸP 75-80-95-127M2. LH: 0984289885', 21.027666, 105.824105, 0.7, 0, 900, 'Hồ Chí Minh', 'Bình Chánh', 'Bình Lợi', '2C', NULL, 'Bình Lợi, Bình Chánh, Hồ Chí Minh', 'Đông', 2, NULL, NULL, 0, 0, 'Gia re cam ket', 1, NULL, NULL, '', 'hien', 'Ha Noi', '09101231', 'haduchien@gmail.com', 1, '2017-08-12 00:00:00.000000', '2017-08-20 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', 'mod3', 'typereal2', 'user2'),
 ('node3', 'CĐT Tháp nước bán suất ngoại giao Hà Nội Aqua Central, liên hệ CĐT: 09492158988\n', 21.046274, 105.844371, 0.7, 0, 80.03, 'Hà Nội', 'Ba Đình', 'Trúc Bạch', 'Yên Phụ', NULL, 'Trúc Bạch, Ba Đình, Hà Nội', 'Nam', 3, NULL, NULL, 0, 0, 'Gia re cam ket', 1, NULL, NULL, '', 'hien', 'Ha Noi', '09101231', 'haduchien@gmail.com', 2, '2017-08-12 00:00:00.000000', '2017-08-20 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan4', 'mod3', 'typereal7', 'user2'),
 ('node5', 'PHÒNG KINH DOANH GOLDEN FIELD MỸ ĐÌNH, MỞ BÁN ĐỢT CUỐI, GIÁ TỪ 29TR/M2, TẶNG GÓI NỘI THẤT 60TR\n', 21.030084, 105.76747, 3.5, 0, 135.01, 'Hà Nội', 'Nam Từ Liêm', 'Mỹ Đình', '', NULL, 'Mỹ Đình, Nam Từ Liêm, Hà Nội', 'Đông', 4, NULL, NULL, 0, 0, 'Gia re cam ket', 1, NULL, NULL, '', 'hung', 'Ha Noi', '09121231', 'haquochung@gmail.com', 1, '2017-08-12 00:00:00.000000', '2017-08-20 00:00:00.000000', 0, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', 'mod2', 'typereal7', 'user1');
@@ -541,6 +547,52 @@ INSERT INTO `companies_servicenode` (`id`, `name`, `latitude`, `longitude`, `add
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `companies_thongbao`
+--
+
+CREATE TABLE `companies_thongbao` (
+  `id` int(11) NOT NULL,
+  `title` longtext NOT NULL,
+  `details` longtext NOT NULL,
+  `time` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `companies_thongbao`
+--
+
+INSERT INTO `companies_thongbao` (`id`, `title`, `details`, `time`) VALUES
+(1, 'Cho các người dùng mới', 'CHao mung ban den voi mappy', '2018-02-01 12:45:01.000000'),
+(2, 'Khuyến mai xuân 2018', 'Khuyến mại nhân dịp xuân.', '2018-02-01 13:40:54.000000'),
+(3, 'Hướng dẫn nạp tiền', 'Sau đây la huong dẫn than toán tại mappy.com.vn', '2018-02-01 13:41:30.000000');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `companies_thongbaouser`
+--
+
+CREATE TABLE `companies_thongbaouser` (
+  `id` int(11) NOT NULL,
+  `modname` longtext,
+  `user` longtext,
+  `details` longtext,
+  `time` datetime(6) NOT NULL,
+  `thongbao_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `companies_thongbaouser`
+--
+
+INSERT INTO `companies_thongbaouser` (`id`, `modname`, `user`, `details`, `time`, `thongbao_id`) VALUES
+(2, 'mod10', 'user1', 'CHao mung ban den voi mappy', '2018-02-01 13:23:38.000000', NULL),
+(3, 'mod10', 'user2', 'CHao mung ban den voi mappy', '2018-02-01 13:23:44.000000', NULL),
+(4, 'mod10', 'user2', 'CHao mung ban den voi mappy', '2018-02-01 13:38:48.000000', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `companies_tiendo`
 --
 
@@ -560,9 +612,9 @@ CREATE TABLE `companies_tiendo` (
 --
 
 INSERT INTO `companies_tiendo` (`id`, `duanid`, `thumbs`, `details`, `time`, `timemodify`, `modname_id`, `title`) VALUES
-(1, 'duan1', 'https://lh4.googleusercontent.com/-0voGSd3R7a8/WjuJpEQsuLI/AAAAAAAAFMg/4cTKdHzmDm0gKJS82YBMZq3YLQ-dURGcgCLcBGAs/s1600/tien-do-du-an-dong-sai-gon-17.jpg', 'Dự án đang hoàn thiện giai đoạn I', '2017-12-21 00:00:00.000000', '2018-01-26 00:00:00.000000', NULL, ''),
-(2, 'duan10', 'https://lh4.googleusercontent.com/-Br4KLXd6drk/WjqCf8Li_oI/AAAAAAAAFJw/qJJyxvPSI6QqHHCpZlzLul-8saE3VJiTwCLcBGAs/s1600/tien-do-can-ho-viva-riverside-12.jpg', 'Dự án đang trong giai đoạn hoàn thiện', '2018-01-17 00:00:00.000000', '2018-01-26 00:00:00.000000', 'mod10', ''),
-(3, 'duan10', 'https://lh4.googleusercontent.com/-OHoHmHbfoDY/WjqCgsbYmOI/AAAAAAAAFJ4/YBLt8L40lZIbWuG82Zt1PCH3IVTxp7L9gCLcBGAs/s1600/tien-do-can-ho-viva-riverside-14.jpg', 'Dự án trong giai đoạn II', '2018-01-19 00:00:00.000000', '2018-01-26 00:00:00.000000', 'mod10', ''),
+(1, 'duan1', 'https://lh4.googleusercontent.com/-0voGSd3R7a8/WjuJpEQsuLI/AAAAAAAAFMg/4cTKdHzmDm0gKJS82YBMZq3YLQ-dURGcgCLcBGAs/s1600/tien-do-du-an-dong-sai-gon-17.jpg', 'Dự án đang hoàn thiện giai đoạn I', '2017-12-21 00:00:00.000000', '2018-01-26 00:00:00.000000', 'mod10', 'Tiến hành giai đoạn I'),
+(2, 'duan10', 'https://lh4.googleusercontent.com/-Br4KLXd6drk/WjqCf8Li_oI/AAAAAAAAFJw/qJJyxvPSI6QqHHCpZlzLul-8saE3VJiTwCLcBGAs/s1600/tien-do-can-ho-viva-riverside-12.jpg', 'Dự án đang trong giai đoạn hoàn thiện', '2018-01-17 00:00:00.000000', '2018-01-26 00:00:00.000000', 'mod10', 'Hòan thiện'),
+(3, 'duan10', 'https://lh4.googleusercontent.com/-OHoHmHbfoDY/WjqCgsbYmOI/AAAAAAAAFJ4/YBLt8L40lZIbWuG82Zt1PCH3IVTxp7L9gCLcBGAs/s1600/tien-do-can-ho-viva-riverside-14.jpg', 'Dự án trong giai đoạn II', '2018-01-19 00:00:00.000000', '2018-01-26 00:00:00.000000', 'mod10', 'Hoàn thành giai đoạn II'),
 (4, 'duan1', 'https://vinhomes-quan9.info/wp-content/uploads/2016/08/vinhomes-quan-9-1-1.jpg', 'Được dự kiến hoàn thành', '2018-01-23 00:00:00.000000', '2018-01-30 00:00:00.000000', 'mod2', 'Quý 1-2018'),
 (5, 'duan1', 'http://vinhometancang.co/wp-content/uploads/2016/03/MB-P4.jpg', 'Nhanh nnhanh', '2018-01-25 00:00:00.000000', '2018-01-30 00:00:00.000000', 'mod2', 'Tiep theo trong quy 1 2018'),
 (6, 'duan1', 'http://vinhomesriversidelongbien.vn/wp-content/uploads/sites/107/2016/09/phoi-canh-vinhome-riverside-the-harmony-tieu-khu-nguyet-que.jpg', 'Giơsi thiệu về tiến độ hiện tại', '2018-01-27 00:00:00.000000', '2018-01-30 00:00:00.000000', 'mod2', 'hoàn thành cơ bản giai đoạn 1 quý 1 năm 2018');
@@ -719,6 +771,8 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (22, 'companies', 'phanhoi'),
 (20, 'companies', 'realestatenode'),
 (10, 'companies', 'servicenode'),
+(24, 'companies', 'thongbao'),
+(23, 'companies', 'thongbaouser'),
 (16, 'companies', 'tiendo'),
 (18, 'companies', 'typerealestate'),
 (8, 'companies', 'typeservice'),
@@ -766,7 +820,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (20, 'companies', '0007_auto_20180126_1606', '2018-01-26 16:06:26.704961'),
 (21, 'companies', '0008_tiendo_title', '2018-01-26 18:01:19.445642'),
 (22, 'companies', '0009_phanhoi', '2018-01-31 07:05:39.861914'),
-(23, 'companies', '0010_history_status', '2018-01-31 07:35:32.779326');
+(23, 'companies', '0010_history_status', '2018-01-31 07:35:32.779326'),
+(24, 'companies', '0011_auto_20180201_1138', '2018-02-01 11:38:48.074155');
 
 -- --------------------------------------------------------
 
@@ -923,6 +978,19 @@ ALTER TABLE `companies_servicenode`
   ADD KEY `companies_servicenod_type_id_1f4f944f_fk_companies` (`type_id`);
 
 --
+-- Chỉ mục cho bảng `companies_thongbao`
+--
+ALTER TABLE `companies_thongbao`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `companies_thongbaouser`
+--
+ALTER TABLE `companies_thongbaouser`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `companies_thongbaous_thongbao_id_cd92a720_fk_companies` (`thongbao_id`);
+
+--
 -- Chỉ mục cho bảng `companies_tiendo`
 --
 ALTER TABLE `companies_tiendo`
@@ -995,7 +1063,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT cho bảng `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT cho bảng `auth_user`
 --
@@ -1042,6 +1110,16 @@ ALTER TABLE `companies_phanhoi`
 ALTER TABLE `companies_servicenode`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
+-- AUTO_INCREMENT cho bảng `companies_thongbao`
+--
+ALTER TABLE `companies_thongbao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT cho bảng `companies_thongbaouser`
+--
+ALTER TABLE `companies_thongbaouser`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
 -- AUTO_INCREMENT cho bảng `companies_tiendo`
 --
 ALTER TABLE `companies_tiendo`
@@ -1055,12 +1133,12 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT cho bảng `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT cho bảng `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
@@ -1138,6 +1216,12 @@ ALTER TABLE `companies_realestatenode`
 --
 ALTER TABLE `companies_servicenode`
   ADD CONSTRAINT `companies_servicenod_type_id_1f4f944f_fk_companies` FOREIGN KEY (`type_id`) REFERENCES `companies_typeservice` (`id`);
+
+--
+-- Các ràng buộc cho bảng `companies_thongbaouser`
+--
+ALTER TABLE `companies_thongbaouser`
+  ADD CONSTRAINT `companies_thongbaous_thongbao_id_cd92a720_fk_companies` FOREIGN KEY (`thongbao_id`) REFERENCES `companies_thongbao` (`id`);
 
 --
 -- Các ràng buộc cho bảng `companies_tiendo`

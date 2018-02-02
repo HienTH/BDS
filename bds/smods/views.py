@@ -205,8 +205,6 @@ def detail_mod(request, current_smod, mod_id):
         mod.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-
 #10.Xac thuc RealEstatenode dang thuoc quyen
 @api_view(['PUT'])
 @views.token_required_smod
@@ -217,6 +215,13 @@ def confirm_node(request, current_smod):
         realestatenode = Realestatenode.objects.get(id=data['realestatenode_id'], modid__in=ktra, status=False)
     except:
         return JsonResponse({'message': 'Not result!!!'})
+
+    current_user = User.objects.get(id=realestatenode.userid)
+
+    coin = Coin.objects.get(vip=realestatenode.vip)
+    realcoins = coin.coin * int(realestatenode.timeto - realestatenode.timefrom)
+    if current_user.coin < realcoins:
+        return JsonResponse({'data': 'Khong du coin'})
 
     if request.method == 'PUT':
         data['id'] = realestatenode.id
@@ -234,6 +239,10 @@ def confirm_node(request, current_smod):
         data['address'] = realestatenode.address
         data['huong'] = realestatenode.huong
         data['sophongngu'] = realestatenode.sophongngu
+        data['tang'] = realestatenode.tang
+        data['sotang'] = realestatenode.sotang
+        data['rongtien'] = realestatenode.rongtien
+        data['rongduong'] = realestatenode.rongduong
         data['details'] = realestatenode.details
         data['status'] = True
         data['thumbs'] = realestatenode.thumbs
@@ -246,20 +255,38 @@ def confirm_node(request, current_smod):
         data['rank'] = realestatenode.rank
         data['timefrom'] = realestatenode.timefrom
         data['timeto'] = realestatenode.timeto
-        data['type'] = realestatenode.type
-        data['userid'] = realestatenode.userid
+        data['typenode'] = realestatenode.typenode
+        data['vip'] = realestatenode.vip
+        data['modname'] = realestatenode.modname
+        data['timecreate'] = realestatenode.timecreate
+        data['timemodify'] = realestatenode.timemodify
         data['duanid'] = realestatenode.duanid
         data['modid'] = realestatenode.modid
-        data['tang'] = realestatenode.tang
-        data['sotang'] = realestatenode.sotang
-        data['rongtien'] = realestatenode.rongtien
-        data['rongduong'] = realestatenode.rongduong
+        data['type'] = realestatenode.type
+        data['userid'] = realestatenode.userid
 
         serializer = RealestatenodeSerializer(realestatenode, data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'message': 'OK'})
+            data['id'] = current_user.id
+            data['username'] = current_user.username
+            data['password'] = current_user.password
+            data['name'] = current_user.name
+            data['email'] = current_user.email
+            data['phone'] = current_user.phone
+            data['address'] = current_user.address
+            data['company'] = current_user.company
+            data['sex'] = current_user.sex
+            data['birthday'] = current_user.birthday
+            data['coin'] = int(current_user.coin) - realcoins
+            data['avatar'] = current_user.avatar
+            data['status'] = current_user.status
+            data['rank'] = current_user.rank
 
+            serializer = UserSerializer(current_user, data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({'message': 'OK'})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

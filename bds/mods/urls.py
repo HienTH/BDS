@@ -72,6 +72,12 @@ urlpatterns= [
     #22./manager_mod/themthongbaochinh/
     url(r'^themthongbaochinh/$', views.themthongbaochinh, name='themthongbaochinh'),
 
+    #27./manager_mod/chitietthongbaochinh/<id>/
+    url(r'^chitietthongbaochinh/(?P<thongbao_id>.+)/$', views.chitietthongbaochinh, name='chitietthongbaochinh'),
+
+    #26./manager_mod/suathongbaochinh/<id>/
+    url(r'^suathongbaochinh/(?P<thongbao_id>.+)/$', views.suathongbaochinh, name='suathongbaochinh'),
+
     #23./manager_mod/danhsachthongbaochinh/
     url(r'^danhsachthongbaochinh/$', views.danhsachthongbaochinh, name='danhsachthongbaochinh'),
 

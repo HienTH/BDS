@@ -10,8 +10,8 @@ from django.contrib.auth import authenticate
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
-from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Phancong, Duanquantam, Tiendo, History, Thongbaouser
-from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, PhancongSerializer, DuanquantamSerializer, TiendoSerializer, HistorySerializer, ThongbaouserSerializer
+from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Phancong, Duanquantam, Tiendo, History, Thongbaouser, Coin
+from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, PhancongSerializer, DuanquantamSerializer, TiendoSerializer, HistorySerializer, ThongbaouserSerializer, CoinSerializer
 import json
 from logins import views 
 
@@ -133,11 +133,14 @@ def list_node(request, current_user):
         data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         #Kiem tra timefrom va timeto.
-        if (data['timeto'] - datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') < 0) or (data['timeto'] - data['timefrom'] < 0):
+        timef = datetime.datetime.strptime(data['timefrom'], '%Y-%m-%d %H:%M:%S')
+        timet = datetime.datetime.strptime(data['timeto'], '%Y-%m-%d %H:%M:%S')
+
+        if ((timet - datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')).days <= 0) or ((timet - timef).days <= 0):
             return JsonResponse({'data': 'Sai thoi gian'})
 
         coin = Coin.objects.get(vip=data['vip'])
-        realcoins = coin.coin * int(data['timeto'] - data['timefrom'])
+        realcoins = coin.coin * (timet - timef).days
         if current_user.coin < realcoins:
             return JsonResponse({'data': 'Khong du coin'})
 
@@ -175,15 +178,22 @@ def postagain(request, current_user, node_id):
 
         #Tinh gia data['vip']
         coin = Coin.objects.get(vip=data['vip'])
-        if int(data['timefrom'] - realestatenode.timeto) > 0:
-            realcoins = coin.coin * int(data['timeto'] - data['timefrom'])
+
+        timef = datetime.datetime.strptime(data['timefrom'], '%Y-%m-%d %H:%M:%S')
+        timet = datetime.datetime.strptime(data['timeto'], '%Y-%m-%d %H:%M:%S')
+
+        if (timet - timef).days <= 0:
+            return JsonResponse({'data':'Sai thoi gian'})
+
+        if (timef - realestatenode.timeto).days > 0:
+            realcoins = coin.coin * (timet - timef).days
         else:
-            realcoins = coin.coin * int(data['timeto'] - realestatenode.timeto)
+            realcoins = coin.coin * (timet - realestatenode.timeto).days
 
         if current_user.coin < realcoins:
             return JsonResponse({'data': 'Khong du coin'})
 
-        data['id'] = node_id
+        data['id'] = realestatenode.id
         data['title'] = realestatenode.title
         data['latitude'] = realestatenode.latitude
         data['longitude'] = realestatenode.longitude
@@ -224,17 +234,26 @@ def postagain(request, current_user, node_id):
         serializer = RealestatenodeSerializer(realestatenode, data=data)
         if serializer.is_valid():
             serializer.save()
-            request.data={}
-            request.data['coin'] = int(current_user.coin) - realcoins
-            request.data['id'] = current_user.id
-            request.data['username'] = current_user.username
-            request.data['password'] = current_user.password
-            serializer = UserSerializer(current_user, data=request.data)
+            data={}
+            data['id'] = current_user.id
+            data['username'] = current_user.username
+            data['password'] = current_user.password
+            data['name'] = current_user.name
+            data['email'] = current_user.email
+            data['phone'] = current_user.phone
+            data['address'] = current_user.address
+            data['company'] = current_user.company
+            data['sex'] = current_user.sex
+            data['birthday'] = current_user.birthday
+            data['coin'] = int(current_user.coin) - realcoins
+            data['avatar'] = current_user.avatar
+            data['status'] = current_user.status
+            data['rank'] = current_user.rank
+            serializer = UserSerializer(current_user, data=data)
             if serializer.is_valid():
                 serializer.save()
                 return JsonResponse({'data': 'OK'})
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'data': 'error'})
 
 #4. Sua Node cua minh
 @api_view(['PUT'])
@@ -461,8 +480,18 @@ def boduanquantam(request, current_user):
 @views.token_required_user
 def danhsachthongbao(request, current_user):
     if request.META['REQUEST_METHOD'] == 'GET':
-        thongbaousers = Thongbaouser.objects.all().order_by('-time')
+        thongbaousers = Thongbaouser.objects.filter(user=current_user.id).order_by('-time')
         if thongbaousers:
             serializer = ThongbaouserSerializer(thongbaousers, many=True)
+            return JsonResponse({'data': serializer.data})
+        return JsonResponse({'message': []})
+
+@api_view(['GET'])
+@views.token_required_user
+def chitietthongbao(request, current_user, thongbao_id):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        chitietthongbao = Thongbaouser.objects.filter(id=int(thongbao_id), user=current_user.id)
+        if chitietthongbao:
+            serializer = ThongbaouserSerializer(chitietthongbao[0])
             return JsonResponse({'data': serializer.data})
         return JsonResponse({'message': []})

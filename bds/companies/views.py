@@ -709,7 +709,7 @@ def check_mail(request):
         #send mail
         uid = str(uuid.uuid4())
         token = rest_framework_jwt.utils.jwt_encode_handler({'id': user.id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
-        message = 'Nhấp vào link để đặt lại mật khẩu:        http://mappy.com.vn/reset-password/'+token+'.'
+        message = 'Nhấp vào link để đặt lại mật khẩu:        http://mappy.com.vn/login?mode=resetpassword&token='+token+'.'
         
         try:
             send_mail('360 land confirm Account', message, 'hienhdt32@gmail', [user.email])

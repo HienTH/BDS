@@ -248,7 +248,7 @@ def confirm_node(request, current_mod):
     current_user = User.objects.get(id=realestatenode.userid)
 
     coin = Coin.objects.get(vip=realestatenode.vip)
-    realcoins = coin.coin * int(realestatenode.timeto - realestatenode.timefrom)
+    realcoins = coin.coin * (realestatenode.timeto - realestatenode.timefrom).days
     if current_user.coin < realcoins:
         return JsonResponse({'data': 'Khong du coin'})
 
@@ -684,15 +684,6 @@ def detail_tiendo(request, current_mod, id):
         tiendo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET'])
-@views.token_required_mod
-def danhsachthongbaochinh(request, current_mod):
-    if request.method == 'GET':
-        thongbaos = Thongbao.objects.all()
-        if thongbaos:
-            serializer = ThongbaoSerializer(thongbaos, many=True)
-            return JsonResponse({'data':serializer.data})
-        return JsonResponse({'data': []})
 
 @api_view(['GET'])
 @views.token_required_mod
@@ -715,6 +706,43 @@ def danhsachphanhoi(request, current_mod):
             return JsonResponse({'data':serializer.data})
         return JsonResponse({'data': []})
 
+###thong bao chinh
+@api_view(['GET'])
+@views.token_required_mod
+def danhsachthongbaochinh(request, current_mod):
+    if request.method == 'GET':
+        thongbaos = Thongbao.objects.all()
+        if thongbaos:
+            serializer = ThongbaoSerializer(thongbaos, many=True)
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})
+
+@api_view(['GET'])
+@views.token_required_mod
+def chitietthongbaochinh(request, current_mod, thongbao_id):
+    if request.method == 'GET':
+        thongbaos = Thongbao.objects.get(id=thongbao_id)
+        if thongbaos:
+            serializer = ThongbaoSerializer(thongbaos)
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})
+
+@api_view(['PUT'])
+@views.token_required_mod
+def suathongbaochinh(request, current_mod, thongbao_id):
+    if request.method == 'PUT':
+        data=json.loads(json.dumps(request.data))
+        data['time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        thongbao = Thongbao.objects.get(id=thongbao_id)
+        if not thongbao:
+            return JsonResponse({'data': []})
+
+        serializer = ThongbaoSerializer(thongbao, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})
 
 @api_view(['POST'])
 @views.token_required_mod
@@ -730,6 +758,7 @@ def themthongbaochinh(request, current_mod):
             return JsonResponse({'data': serializer.data})
         else:
             return JsonResponse({'data': 'error'})
+
 
 @api_view(['POST'])
 @views.token_required_mod

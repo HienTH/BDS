@@ -61,5 +61,8 @@ urlpatterns= [
 
     #16./manager_user/danhsachthongbao/
     url(r'^danhsachthongbao/$', views.danhsachthongbao, name='danhsachthongbao'),
+
+    #17./manager_user/chitietthongbao/
+    url(r'^chitietthongbao/(?P<thongbao_id>.+)/$', views.chitietthongbao, name='chitietthongbao'),
     
 ]

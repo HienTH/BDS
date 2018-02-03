@@ -29,7 +29,13 @@ def info(request, current_user):
 @views.token_required_user
 def edit_user(request, current_user):
     if request.method == 'PUT':
-        data=json.loads(json.dumps(request.data))
+        data['phone'] = request.POST['phone']
+        data['address'] = request.POST['address']
+        data['company'] = request.POST['company']
+        data['sex'] = request.POST['sex']
+        data['details'] = request.POST['details']
+        data['avatar'] = request.POST['avatar']
+
         data['id'] = current_user.id
         data['name'] = current_user.name
         data['username'] = current_user.username
@@ -38,6 +44,8 @@ def edit_user(request, current_user):
         data['rank'] = current_user.rank
         data['status'] = current_user.status
         data['coin'] = current_user.coin
+        import pdb; pdb.set_trace();
+        
         serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():
             serializer.save()
@@ -243,6 +251,7 @@ def postagain(request, current_user, node_id):
             data['phone'] = current_user.phone
             data['address'] = current_user.address
             data['company'] = current_user.company
+            data['details'] = current_user.details
             data['sex'] = current_user.sex
             data['birthday'] = current_user.birthday
             data['coin'] = int(current_user.coin) - realcoins
@@ -305,6 +314,7 @@ def changepass(request, current_user):
             data['avatar'] = current_user.avatar
             data['status'] = current_user.status
             data['rank'] = current_user.rank
+            data['details'] = current_user.details
 
             serializer = UserSerializer(current_user, data=data)
             if serializer.is_valid():
@@ -495,3 +505,22 @@ def chitietthongbao(request, current_user, thongbao_id):
             serializer = ThongbaouserSerializer(chitietthongbao[0])
             return JsonResponse({'data': serializer.data})
         return JsonResponse({'message': []})
+
+"""
+        data=json.loads(json.dumps(request.data))
+        data['id'] = current_user.id
+        data['name'] = current_user.name
+        data['username'] = current_user.username
+        data['email'] = current_user.email
+        data['password'] = current_user.password
+        data['rank'] = current_user.rank
+        data['status'] = current_user.status
+        data['coin'] = current_user.coin
+        serializer = UserSerializer(current_user, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            serializer.data['password'] = ''
+            return JsonResponse({'data': serializer.data})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+"""

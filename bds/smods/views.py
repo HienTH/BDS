@@ -27,6 +27,17 @@ def list_user(request, current_smod):
         	return JsonResponse({'data': serializer.data})
         return JsonResponse({'data': []})
 
+#2.xem USER false
+@api_view(['GET'])
+@views.token_required_smod
+def userfalse(request, current_smod):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        users = User.objects.filter(status=False)
+        if users:
+            serializer = UserSerializer(users, many=True)
+            return JsonResponse({"data": serializer.data})
+        return JsonResponse({'data': []})
+
 @api_view(['GET', 'PUT', 'DELETE'])
 @views.token_required_smod
 def detail_user(request, current_smod, user_id):
@@ -219,7 +230,7 @@ def confirm_node(request, current_smod):
     current_user = User.objects.get(id=realestatenode.userid)
 
     coin = Coin.objects.get(vip=realestatenode.vip)
-    realcoins = coin.coin * int(realestatenode.timeto - realestatenode.timefrom)
+    realcoins = coin.coin * (realestatenode.timeto - realestatenode.timefrom).days
     if current_user.coin < realcoins:
         return JsonResponse({'data': 'Khong du coin'})
 
@@ -282,6 +293,7 @@ def confirm_node(request, current_smod):
             data['avatar'] = current_user.avatar
             data['status'] = current_user.status
             data['rank'] = current_user.rank
+            data['details'] = current_user.details
 
             serializer = UserSerializer(current_user, data=data)
             if serializer.is_valid():
@@ -467,6 +479,7 @@ def change_coin(request, current_smod):
         data['sex'] = user.sex
         data['birthday'] = user.birthday
         data['avatar'] = user.avatar
+        data['details'] = user.details
         data['status'] = user.status
         data['rank'] = user.rank
         history['coin'] = abs(data['coin'])
@@ -706,6 +719,7 @@ def duyetcoin(request, current_smod):
         data['phone'] = current_user.phone
         data['address'] = current_user.address
         data['company'] = current_user.company
+        data['details'] = current_user.details
         data['sex'] = current_user.sex
         data['birthday'] = current_user.birthday
         data['coin'] = int(current_user.coin) + int(history.coin)

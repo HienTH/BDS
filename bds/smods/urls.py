@@ -6,6 +6,9 @@ urlpatterns= [
     url(r'^users/$', views.list_user, name='list_user'),
     url(r'^users/(?P<user_id>.+)/$', views.detail_user, name='detail_user'),
 
+    #2./manager_smod/userfalse/
+    url(r'^userfalse/$', views.userfalse, name='userfalse'),
+
     #3.5./manager_smod/info/
     url(r'^info/$', views.info, name='info'),
 

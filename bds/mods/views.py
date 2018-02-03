@@ -292,7 +292,7 @@ def confirm_node(request, current_mod):
         data['duanid'] = realestatenode.duanid
         data['modid'] = realestatenode.modid
         data['type'] = realestatenode.type
-        data['userid'] = realestatenode.userid
+        data['userid'] = realestatenode.user_id
 
         serializer = RealestatenodeSerializer(realestatenode, data=data)
         if serializer.is_valid():
@@ -312,6 +312,7 @@ def confirm_node(request, current_mod):
             data['avatar'] = current_user.avatar
             data['status'] = current_user.status
             data['rank'] = current_user.rank
+            data['details'] = current_user.details
 
             serializer = UserSerializer(current_user, data=data)
             if serializer.is_valid():
@@ -342,8 +343,8 @@ def list_duan(request, current_mod):
             data['id'] = str(uuid.uuid4().get_hex().upper()[0:16])
         
         data['modname'] = current_mod.id
-        data['timecreate'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        data['timemodify'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data['timecreate'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         serializer = DuanSerializer(data=data)
         if serializer.is_valid():
@@ -372,7 +373,7 @@ def detail_duan(request, current_mod, duan_id):
 
         data['id'] = duan.id
         data['modname'] = duan.modname
-        data['timemodify'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         serializer = DuanSerializer(duan, data=data)
         if serializer.is_valid():
@@ -420,6 +421,7 @@ def change_coin(request, current_mod):
         data['birthday'] = user.birthday
         data['avatar'] = user.avatar
         data['status'] = user.status
+        data['details'] = user.details
         data['rank'] = user.rank
         history['coin'] = abs(data['coin'])
         data['coin'] = int(user.coin) + int(data['coin'])
@@ -477,6 +479,7 @@ def duyetcoin(request, current_mod):
         data['avatar'] = current_user.avatar
         data['status'] = current_user.status
         data['rank'] = current_user.rank
+        data['details'] = current_user.details
 
         serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():

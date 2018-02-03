@@ -617,6 +617,7 @@ def create_user(request):
         data['status'] = False
         data['rank'] = 1
         data['coin'] = 0
+        data['details'] = ''
 
         captcha = {'g-recaptcha-response': data['g-recaptcha-response']}
         recaptcha = requests.post('http://mappy.com.vn:8000/user/recaptcha/', data=captcha).json()
@@ -687,6 +688,7 @@ def confirm_user(request, token):
         user['rank'] = current_user.rank
         user['name'] = current_user.name
         user['avatar'] = current_user.avatar
+        user['details'] = current_user.details
 
         serializer = UserSerializer(current_user, data=user)
         if serializer.is_valid():
@@ -701,18 +703,17 @@ def confirm_user(request, token):
 def check_mail(request):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
-        try:
-            user = User.objects.get(email=data['email'], status=True)
-        except User.DoesNotExist:
+        user = User.objects.filter(email=data['email'])
+        if not user or user[0].status==False:
             return JsonResponse({'data': []})
 
         #send mail
         uid = str(uuid.uuid4())
-        token = rest_framework_jwt.utils.jwt_encode_handler({'id': user.id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
+        token = rest_framework_jwt.utils.jwt_encode_handler({'id': user[0].id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
         message = 'Nhấp vào link để đặt lại mật khẩu:        http://mappy.com.vn/login?mode=resetpassword&token='+token+'.'
         
         try:
-            send_mail('360 land confirm Account', message, 'hienhdt32@gmail', [user.email])
+            send_mail('360 land confirm Account', message, 'hienhdt32@gmail', [user[0].email])
         except:
             return JsonResponse({'data': []})
         return JsonResponse({'data': []})
@@ -754,6 +755,7 @@ def setpassword(request, current_user):
         data['rank'] = current_user.rank
         data['name'] = current_user.name
         data['avatar'] = current_user.avatar
+        data['details'] = current_user.details
         
         serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():
@@ -781,6 +783,24 @@ def profile(request):
         serializer = serializer.data
         
         return JsonResponse({'data': serializer})     
+
+#NGuoi dung binh thuong xem thong tin node cua sale
+@api_view(['POST'])
+def listnodesale(request):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+        try:
+            user = User.objects.get(id=data['id'])
+        except:
+            return JsonResponse({'data': 'error'})
+
+        if user.status==False:
+            return JsonResponse({'data': 'error'})
+
+        realestatenodes = Realestatenode.objects.filter(userid=data['id'] , timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True)
+        #import pdb; pdb.set_trace();
+        serializer = RealestatenodeSerializer(realestatenodes, many=True)
+        return JsonResponse({'data': serializer.data})
 
 #########TIM KIEM DIA DIEM
 #3. Tim service quanh node theo ban kinh

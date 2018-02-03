@@ -54,6 +54,7 @@ class User(models.Model):
     avatar = models.CharField(max_length=1000, blank=True)
     status = models.BooleanField(default=True)
     rank = models.IntegerField(default=1)
+    details = models.TextField(default=None, blank=True)
 
     class META:
     	db_table = u'user'

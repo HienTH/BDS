@@ -83,6 +83,9 @@ urlpatterns= [
     #4. /user/profile
     url(r'^profile/$', views.profile, name='profile'),
 
+    #5. /user/listnodesale/
+    url(r'^listnodesale/$', views.listnodesale, name='listnodesale'),
+
 #########Xem thong tin chi tiet
     #6. /user/servicenodes/
     url(r'^servicenodes/$', views.list_servicenode, name='list_servicenode'),

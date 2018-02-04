@@ -10,8 +10,8 @@ from django.contrib.auth import authenticate
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
-from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, History, Tiendo, Thongbao, Thongbaouser, Phanhoi
-from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, HistorySerializer, TiendoSerializer, ThongbaoSerializer, ThongbaouserSerializer, PhanhoiSerializer
+from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, History, Tiendo, Thongbao, Thongbaouser, Phanhoi, Coin, Phancong
+from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, HistorySerializer, TiendoSerializer, ThongbaoSerializer, ThongbaouserSerializer, PhanhoiSerializer, CoinSerializer, PhancongSerializer
 
 import json
 from logins import views
@@ -152,12 +152,23 @@ def list_mod(request, current_mod):
             return Response({'data':output})
         return JsonResponse({'message': 'No Smod!!!'})
 
+#Danh sach nodefalse.
+@api_view(['GET'])
+@views.token_required_mod
+def list_nodefalse(request, current_mod):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        realestatenodes = Realestatenode.objects.filter(modid=current_mod.id, status=False)
+        if realestatenodes:
+            serializer = RealestatenodeSerializer(realestatenodes, many=True)
+            return JsonResponse({'data': serializer.data})
+        return JsonResponse({'data': []})
+
 #7 Doc Node, Them Node thuoc quyen
 @api_view(['GET', 'POST'])
 @views.token_required_mod
 def list_node(request, current_mod):
     if request.META['REQUEST_METHOD'] == 'GET':
-        realestatenodes = Realestatenode.objects.filter(modid=current_mod.id)
+        realestatenodes = Realestatenode.objects.filter(modid=current_mod.id, status=True)
         if realestatenodes:
             serializer = RealestatenodeSerializer(realestatenodes, many=True)
             return JsonResponse({'data': serializer.data})
@@ -565,6 +576,7 @@ def detail_servicenode(request, current_mod, servicenode_id):
         data['id'] = servicenode.id
         data['modname'] = current_mod.id
         data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data['timecreate'] = servicenode.timecreate
         
         serializer = ServicenodeSerializer(servicenode, data=data)
         if serializer.is_valid():
@@ -839,3 +851,15 @@ def guithongbao(request, current_mod):
                     if serializer.is_valid():
                         serializer.save()
         return JsonResponse({'data': 'OK'})
+
+
+###Xem phan cong bai dang.
+@api_view(['GET'])
+@views.token_required_mod
+def xemphancong(request, current_mod):
+    if request.method == 'GET':
+        phancongs = Phancong.objects.all()
+        if phancongs:
+            serializer = PhancongSerializer(phancongs, many=True)
+            return JsonResponse({'data':serializer.data})
+        return JsonResponse({'data': []})

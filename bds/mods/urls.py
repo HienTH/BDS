@@ -21,6 +21,9 @@ urlpatterns= [
     #6. /manager_mod/mods/
     url(r'^mods/$', views.list_mod, name='list_mod'),
 
+    #7. /manager_mod/nodefalse/ Node chua duyet
+    url(r'^nodefalse/$', views.list_nodefalse, name='list_nodefalse'),
+    
     #7,8. /manager_mod/nodes/
     url(r'^nodes/$', views.list_node, name='list_node'),
     url(r'^nodes/(?P<node_id>.+)/$', views.detail_node, name='detail_node'),
@@ -86,5 +89,8 @@ urlpatterns= [
 
     #24./manager_mod/danhsachphanhoi/
     url(r'^danhsachphanhoi/$', views.danhsachphanhoi, name='danhsachphanhoi'),
+
+    #30. /manager_mod/xemphancong/    Xem bang phan cong.
+    url(r'^xemphancong/$', views.xemphancong, name='xemphancong'),
 
 ]

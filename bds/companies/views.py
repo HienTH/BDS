@@ -1756,15 +1756,16 @@ def searchduanbasic(request):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
         
-        duans = Duan.objects.filter(name__icontains=data['input'], status=True)
-        duan1 = Duan.objects.filter(intro__icontains=data['input'], status=True)
+        duans = Duan.objects.filter(name__icontains=data['input'], tinh__icontains=data['tinh'], huyen__icontains=data['huyen'], status=True)
+
+        duan1 = Duan.objects.filter(intro__icontains=data['input'], tinh__icontains=data['tinh'], huyen__icontains=data['huyen'], status=True)
 
         loaiduan = Loaiduan.objects.filter(name__icontains=data['input']).values('id')
-        duan2 = Duan.objects.filter(type_id__in = loaiduan, status=True)
+        duan2 = Duan.objects.filter(type_id__in = loaiduan, tinh__icontains=data['tinh'], huyen__icontains=data['huyen'], status=True)
 
-        duan3 = Duan.objects.filter(address__icontains=data['input'], status=True)
+#        duan3 = Duan.objects.filter(address__icontains=data['input'], tinh=data['tinh'], huyen=data['huyen'], status=True)
 
-        if duans | duan1 | duan2 | duan3:
+        if duans | duan1 | duan2:# | duan3:
             serialized=[]
             for obj in duans:
                 serialized.append(DuanSerializer(obj).data)
@@ -1777,9 +1778,9 @@ def searchduanbasic(request):
                 if obj not in duans:
                     serialized.append(DuanSerializer(obj).data)
 
-            for obj in duan3:
-                if obj not in duan1:
-                    serialized.append(DuanSerializer(obj).data)
+#            for obj in duan3:
+#                if obj not in duan1:
+#                    serialized.append(DuanSerializer(obj).data)
 
             return Response(serialized)
         return JsonResponse({'message': 'No duan!!!'})

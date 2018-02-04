@@ -13,6 +13,7 @@ import rest_framework_jwt
 from companies.models import Admin, User, Mod, Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, Phancong, Duanquantam, Tiendo, History, Thongbaouser, Coin
 from companies.serializers import AdminSerializer, UserSerializer, ModSerializer, TyperealestateSerializer, RealestatenodeSerializer, LoaiduanSerializer, DuanSerializer, TypeserviceSerializer, ServicenodeSerializer, GroupnodeSerializer, PhancongSerializer, DuanquantamSerializer, TiendoSerializer, HistorySerializer, ThongbaouserSerializer, CoinSerializer
 import json
+import csv
 from logins import views 
 
 #1.Xem USER
@@ -65,19 +66,6 @@ def refresh_token(request, current_user):
             return JsonResponse({'data': token.decode('UTF-8')})
         return JsonResponse({'data': 'error'})
 
-def phanchiamod(province, district):
-    phancongs = Phancong.objects.filter(province=province)
-    for phancong in phancongs:
-        list_district = phancong.district.split(',')
-        if district in list_district:
-            return phancong.mod_id
-    return ""
-
-def phanchiamodduan(duanid, province, district):
-    duan = Duan.objects.get(id=duanid)
-    modname = duan.modname
-    return modname
-
 
 #3.Xem Node da dang
 #cho duyet
@@ -113,6 +101,22 @@ def list_nodefalse(request, current_user):
 
         return JsonResponse({'data': serialized})
 
+def phanchiamod(province, district):
+    phancongs = Phancong.objects.filter(province=province)
+    if not phancongs:
+        return ''
+
+    for phancong in phancongs:
+        list_district = phancong.district.split(',')
+        if district in list_district:
+            return phancong.modname
+    return '16B651'
+
+def phanchiamodduan(duanid, province, district):
+    duan = Duan.objects.get(id=duanid)
+    modname = duan.modname
+    return modname
+
 #con han
 @api_view(['GET', 'POST'])
 @views.token_required_user
@@ -144,7 +148,7 @@ def list_node(request, current_user):
         timef = datetime.datetime.strptime(data['timefrom'], '%Y-%m-%d %H:%M:%S')
         timet = datetime.datetime.strptime(data['timeto'], '%Y-%m-%d %H:%M:%S')
 
-        if ((timet - datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')).days <= 0) or ((timet - timef).days <= 0):
+        if ((timet - datetime.datetime.now()).days <= 0) or ((timet - timef).days <= 0):
             return JsonResponse({'data': 'Sai thoi gian'})
 
         coin = Coin.objects.get(vip=data['vip'])
@@ -153,15 +157,18 @@ def list_node(request, current_user):
             return JsonResponse({'data': 'Khong du coin'})
 
         #Phan chia khu vuc cho mod
-        if duanid:
+        duanid = ''
+        if data['duanid'] != '':
+            duanid = Duan.objects.get(id=data['duanid'])
+        if duanid != '':
             #kiem tra chinh xac id du an.
             list_duanid = Duan.objects.filter(status=True).values_list('id', flat=True)
             if duanid not in list_duanid:
-                return JsonResponse({'data': []})
+                return JsonResponse({'data': 'error'})
 
-            data['modid'] = str(phanchiamodduan(duanid, province, district))
+            data['modid'] = str(phanchiamodduan(duanid.id, duanid.tinh, duanid.huyen))
         else:
-            data['modid'] = str(phanchiamod(data['province'], data['district']))
+            data['modid'] = str(phanchiamod(data['tinh'], data['huyen']))
             if data['modid'] == "":
                 return JsonResponse({'data': 'error'})
         
@@ -170,7 +177,7 @@ def list_node(request, current_user):
             serializer.save()
             return JsonResponse({'data': 'OK'})
         else:
-            return JsonResponse({'data': 'error'})
+            return JsonResponse({'data': serializer.errors})
     else:
         return JsonResponse({'data': 'error'})
 
@@ -190,7 +197,7 @@ def postagain(request, current_user, node_id):
         timef = datetime.datetime.strptime(data['timefrom'], '%Y-%m-%d %H:%M:%S')
         timet = datetime.datetime.strptime(data['timeto'], '%Y-%m-%d %H:%M:%S')
 
-        if (timet - timef).days <= 0:
+        if (timet - timef).days <= 0 or (timet - realestatenode.timeto).days <= 0:
             return JsonResponse({'data':'Sai thoi gian'})
 
         if (timef - realestatenode.timeto).days > 0:

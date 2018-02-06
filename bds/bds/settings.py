@@ -97,16 +97,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'bds.urls'
 
 #for gmail
-#from .email_info import EMAIL_USE_TLS, EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_BACKEND
-
-#EMAIL_BACKEND = EMAIL_BACKEND
-#EMAIL_USE_TLS = EMAIL_USE_TLS
-#EMAIL_HOST = EMAIL_HOST
-#EMAIL_PORT = EMAIL_PORT
-#EMAIL_HOST_USER = EMAIL_HOST_USER
-#EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
-#DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 from .email_info import EMAIL_USE_TLS, EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
@@ -173,6 +163,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -190,5 +181,6 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'

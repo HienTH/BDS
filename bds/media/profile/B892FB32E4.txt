@@ -1,0 +1,52 @@
+User:
+1. List sales(trong 1 dự án).
+2. Street view (bật ra ngoài, lấy 1 cái làm mẫu add vào DB).
+3. Giao diện của tiến độ dự án. (batdongsan.com.vn).
+
+4. Node, dự án nổi bật trong cùng một khu vực nào đó, vd:phường, quận, huyện.
+THêm trường quy định Mức Đánh Giá. (Mod sẽ nhập) -> thêm vào cho phần của MOD(Backend).
+
+5. Đăng nhập, đăng ký, reset password:
+5.1. Cho user bình thường.
+5.2. Đăng nhập, đăng ký bằng fb.
+
+6. Bound: Nam Từ Liêm, Bắc Từ Liêm + Hà Nội.(back-end).
+
+7. Nhấp vào dự án tương tự.(lỗi).
+8. Chỉ đường.
+
+--profile--
+public:
+1. THông tin đánh giá.
+2. Info bản thân:
+Lĩnh vực hoạt động chủ yếu, công ty đang họat động.
+3. Thống kê lượt tương tác.
+
+private:
+Sửa profile user (tất cả các thông số).
+1. Sửa lại chọn gói khi đăng bài (theo thời gian).
+2. Đăng lại bài đăng của mình.
+3. THêm CRUD typeservice giống servicenode.
+4. List bài đăng của nó(thêm mới và sửa, thêm trường trạng thái).
+5. Sửa info bản thân.
+6. Lịch sử đăng bài.
+7. Thống kê lượt tương tác.
+
+Y/C:---sao cho load nhẹ hơn, tối ưu js---
+
+
+
+Smod: (Smod quản lý mod).
+1. Thêm sửa xóa node của mod (thuộc quyền) - smod(tất cả).
+2. Chia bài đăng cho mod quản lý cho hợp lý.
+3. Thống kê: Theo thời gian, tháng, năm.
+4. Thêm sửa xóa, khu vực (nhưng loại mod thì vẫn giữ nguyên).
+5. Smod thống kê theo dõi mod hoạt động như thế nào??? 1 ngày duyệt bao nhiêu bài đăng.
+6. Lịch sử họ chuyển tiền giao dịch như thế nào???.
+
+
+
+Mod:
+1. Thêm sửa xóa node của mod (thuộc quyền) - smod(tất cả).
+2. Thêm các trường thời gian sửa xóa vào trong các bảng chi tiết để theo dõi lịch sử sửa xóa.
+3. Thống kê: Theo thời gian, tháng, năm.

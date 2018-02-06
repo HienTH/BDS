@@ -51,10 +51,10 @@ class User(models.Model):
     sex = models.BooleanField(default=True, blank=True)
     birthday = models.CharField(max_length=50, blank=True, null=True)
     coin = models.CharField(max_length=50)
-    avatar = models.CharField(max_length=1000, blank=True)
     status = models.BooleanField(default=True)
     rank = models.IntegerField(default=1)
     details = models.TextField(default=None, blank=True)
+    avatar = models.TextField(blank=True)
 
     class META:
     	db_table = u'user'
@@ -146,6 +146,7 @@ class Realestatenode(models.Model):
     status = models.BooleanField(default=True)
     thumbs = models.TextField(blank=True, null=True)
     panorama_image = models.CharField(max_length=2000, blank=True, null=True)
+    video = models.TextField(blank=True, null=True)
     duanid = models.ForeignKey('Duan', on_delete=models.CASCADE, blank=True, null=True)
     tenduan = models.TextField(blank=True) 
     tenlienhe = models.CharField(max_length=200)

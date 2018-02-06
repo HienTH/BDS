@@ -34,6 +34,9 @@ urlpatterns= [
     #10./manager_mod/confirm_node/
     url(r'^confirm_node/$', views.confirm_node, name='confirm_node'),
     
+    #10.5 /manager_mod/list_duanmod/
+    url(r'^list_duanmod/$', views.list_duanmod, name='list_duanmod'),
+
     #11./manager_mod/duans/
     url(r'^duans/$', views.list_duan, name='list_duan'),
     url(r'^duans/(?P<duan_id>.+)/$', views.detail_duan, name='detail_duan'),

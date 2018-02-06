@@ -916,16 +916,22 @@ def chitietnode(request):
             realestatenode =Realestatenode.objects.get(id=data['id'])
         except:
             return JsonResponse({'message': 'No node!!!'})
-
         result = {}
         if realestatenode or realestatenode.status==True:
+            user = User.objects.get(id=realestatenode.userid)
+            if not user:
+                return JsonResponse({'message': 'No node!!!'})
+
             serializer = RealestatenodeSerializer(realestatenode)
             result = serializer.data
             result['modid'] = ''
             result['timeto'] = ''
             result['status'] = ''
-#            if result['thumbs'] != 'null' and result['thumbs'] != '' and result['thumbs'] != 'NULL' and result['thumbs'] != 'None' and result['thumbs'] != None:
-#                result['thumbs'] = result['thumbs'].split(',')
+            result['tenlienhe'] = user.name
+            result['dienthoai'] = user.phone
+            result['email'] = user.email
+            result['diachi'] = user.address
+            result['username'] = user.username
             return Response(result)
 
         return JsonResponse({'message': 'No node!!!'})
@@ -934,7 +940,7 @@ def indexd(distric, province):
     #read csv, and split on "," the line
     csv_file = csv.reader(open('VNM_adm2.csv', "rb"), delimiter=str(u','))
     for row in csv_file:
-        if row[11] == distric and row[5] == province:
+        if row[11] == str(distric) and row[5] == str(province):
             return str(row[6])
 
 def indexdpro(province):
@@ -980,8 +986,10 @@ def bound_distric(request):
                 root = root.find('.//{http://earth.google.com/kml/2.1}Polygon')
                 root = root.find('.//{http://earth.google.com/kml/2.1}LinearRing')
                 con = root.find('.//{http://earth.google.com/kml/2.1}coordinates')
+                distric = []
                 a = {'outerBoundaryIs': con.text}
-                return JsonResponse({'message': a})
+                distric.append(a)
+                return JsonResponse({'message': distric})
 
             if data['distric'] == "Nam Tu Liem" and data['province'] == "Ha Noi":
                 root = ET.parse("NTL.kml", parser=ET.XMLParser(encoding='utf-8') )
@@ -990,8 +998,10 @@ def bound_distric(request):
                 root = root.find('.//{http://earth.google.com/kml/2.1}Polygon')
                 root = root.find('.//{http://earth.google.com/kml/2.1}LinearRing')
                 con = root.find('.//{http://earth.google.com/kml/2.1}coordinates')
+                distric = []
                 a = {'outerBoundaryIs': con.text}
-                return JsonResponse({'message': a})
+                distric.append(a)
+                return JsonResponse({'message': distric})
 
             root = ET.parse("VNM_adm2.kml", parser=ET.XMLParser(encoding='utf-8'))
             root = root.find('.//{http://earth.google.com/kml/2.2}Document')
@@ -1261,6 +1271,7 @@ def searchall(request):
                 serializer = RealestatenodeSerializer(realestatenodes, many=True)
                 
                 resultnode = {'node': serializer.data}
+###giam cho nay.                
                 return Response({'node': resultnode['node'], 'project': []})
             resultnode = {'node': []}
             return Response({'node': resultnode['node'], 'project': []})
@@ -1802,7 +1813,12 @@ def searchduantuongtu(request):
         for obj in realestatenodes:
             serialized.append(RealestatenodeSerializer(obj).data)
 
-        total = realestatenodes.count()
+#        serialized=[]
+#        duans = Duan.objects.filter(tinh__icontains=duan.tinh, huyen__icontains=duan.huyen , status=True)
+#        for obj in duans:
+#            serialized.append(DuanSerializer(obj).data)
+
+        total = duans.count()
         if total < 10:
             x = 10 - total
             duans = Duan.objects.filter(pricefrom__gte=data['pricefrom'], status=True).order_by('pricefrom')[:x]

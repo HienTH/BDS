@@ -8,6 +8,9 @@ urlpatterns= [
     #2./manager_user/edit/
     url(r'^edit/$', views.edit_user, name='edit_user'),
 
+    #2./manager_user/editavatar/
+    url(r'^editavatar/$', views.edit_avataruser, name='edit_avataruser'),
+
     #2.5 REFRESH TOKEN
     url(r'^refresh_token/$', views.refresh_token, name='refresh_token'),
 
@@ -62,7 +65,22 @@ urlpatterns= [
     #16./manager_user/danhsachthongbao/
     url(r'^danhsachthongbao/$', views.danhsachthongbao, name='danhsachthongbao'),
 
-    #17./manager_user/chitietthongbao/
-    url(r'^chitietthongbao/(?P<thongbao_id>.+)/$', views.chitietthongbao, name='chitietthongbao'),
+    #17./manager_user/danhsachthongbao/
+    url(r'^danhsachthongbao/(?P<thongbao_id>.+)/$', views.chitietthongbao, name='chitietthongbao'),
     
+    #18./manager_user/uploadpanorama/
+    url(r'^uploadpanorama/$', views.upload_panorama, name='upload_panorama'),
+
+    #19./manager_user/uploadanh360/
+    url(r'^uploadanh360/$', views.upload_anh360, name='upload_anh360'),
+
+    #20./manager_user/uploadvideo/
+    url(r'^uploadvideo/$', views.upload_video, name='upload_video'),
+
+    #21./manager_user/uploadthumbnail/
+    url(r'^uploadthumbnail/$', views.upload_thumbnail, name='upload_thumbnail'),
+
+    #22./manager_user/delete_thumbnail/
+    url(r'^deletethumbnail/$', views.delete_thumbnail, name='delete_thumbnail'),
+
 ]

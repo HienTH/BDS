@@ -303,7 +303,7 @@ def confirm_node(request, current_mod):
         data['duanid'] = realestatenode.duanid
         data['modid'] = realestatenode.modid
         data['type'] = realestatenode.type
-        data['userid'] = realestatenode.user_id
+        data['userid'] = realestatenode.userid
 
         serializer = RealestatenodeSerializer(realestatenode, data=data)
         if serializer.is_valid():
@@ -332,6 +332,17 @@ def confirm_node(request, current_mod):
 
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#11.Xem Duan truc thuoc mod
+@api_view(['GET'])
+@views.token_required_mod
+def list_duanmod(request, current_mod):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        duans = Duan.objects.filter(modid=current_mod.id, status=True)
+        if duans:
+            serializer = DuanSerializer(duans, many=True)
+            return JsonResponse({'data': serializer.data})
+        return JsonResponse({'data': []})
 
 #11.Xem, Them, Sua, Xoa Duan
 @api_view(['GET', 'POST'])

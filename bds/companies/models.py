@@ -55,6 +55,7 @@ class User(models.Model):
     rank = models.IntegerField(default=1)
     details = models.TextField(default=None, blank=True)
     avatar = models.TextField(blank=True)
+    social = models.TextField(blank=True)
 
     class META:
     	db_table = u'user'
@@ -100,6 +101,9 @@ class Duan(models.Model):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     thumbs = models.TextField(blank=True, null=True)
+    anh360 = models.TextField(blank=True, null=True)
+    panorama_image = models.TextField(blank=True, null=True)
+    video = models.TextField(blank=True, null=True)
     modname = models.ForeignKey('Mod', on_delete=models.CASCADE, blank=True, null=True)
     uutien = models.IntegerField(default=0)
     timecreate = models.DateTimeField()
@@ -145,10 +149,11 @@ class Realestatenode(models.Model):
     details = models.TextField(blank=True, null=True)
     status = models.BooleanField(default=True)
     thumbs = models.TextField(blank=True, null=True)
+    anh360 = models.TextField(blank=True, null=True)
     panorama_image = models.CharField(max_length=2000, blank=True, null=True)
     video = models.TextField(blank=True, null=True)
     duanid = models.ForeignKey('Duan', on_delete=models.CASCADE, blank=True, null=True)
-    tenduan = models.TextField(blank=True) 
+    tenduan = models.TextField(blank=True)
     tenlienhe = models.CharField(max_length=200)
     diachi = models.CharField(max_length=2000, blank=True)
     dienthoai = models.CharField(max_length=200)

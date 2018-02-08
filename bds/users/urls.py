@@ -29,6 +29,9 @@ urlpatterns= [
     #4. /manager_user/nodes/node_id/
     url(r'^nodes/(?P<node_id>.+)/$', views.detail_node, name='detail_node'),
 
+    #4.5 /manager_user/delete_node/
+    url(r'^delete_node/(?P<node_id>.+)/$', views.delete_node, name='delete_node'),
+
     #5. /manager_user/allnode/
     url(r'^allnode/$', views.allnode, name='allnode'),
 
@@ -81,6 +84,6 @@ urlpatterns= [
     url(r'^uploadthumbnail/$', views.upload_thumbnail, name='upload_thumbnail'),
 
     #22./manager_user/delete_thumbnail/
-    url(r'^deletethumbnail/$', views.delete_thumbnail, name='delete_thumbnail'),
+    #url(r'^deletethumbnail/$', views.delete_thumbnail, name='delete_thumbnail'),
 
 ]

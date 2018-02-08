@@ -594,6 +594,9 @@ def change_coin(request, current_admin):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
 ##################################################################################
 
 ##NGUOI dung chua Dang Nhap
@@ -618,6 +621,8 @@ def create_user(request):
         data['rank'] = 1
         data['coin'] = 0
         data['details'] = ''
+        data['avatar'] = ''
+        data['social'] = ''
 
         captcha = {'g-recaptcha-response': data['g-recaptcha-response']}
         recaptcha = requests.post('http://mappy.com.vn:8000/user/recaptcha/', data=captcha).json()
@@ -637,6 +642,67 @@ def create_user(request):
             return Response({'message': 'OK!!!'}, status=200)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def register_facebook(request):
+    if request.method == 'POST':
+        request.data=json.loads(json.dumps(request.data))
+        if not request.data['email'] or not request.data['id'] or not request.data['name']:
+            return JsonResponse({'status': 'unavailable'})
+
+        #Dang ky.
+        #sinh id cua user
+        list_id = User.objects.all().values_list('id', flat=True)
+        data['id'] = str(uuid.uuid4().get_hex().upper()[0:10])
+        while data['id'] in list_id:
+            data['id'] = str(uuid.uuid4().get_hex().upper()[0:10])
+        
+        data['username'] = request.data['id']
+        data['name'] = request.data['name']
+        request.data['password'] = 'hoAnghOaTham$192'
+        hashed_password = generate_password_hash(request.data['password'], method='sha256')
+        data['password']=hashed_password
+        data['status'] = True
+        data['rank'] = 1
+        data['coin'] = 0
+        data['phone'] = ''
+        data['address'] = ''
+        data['company'] = ''
+        data['sex'] = True
+        data['birthday'] = ''
+        data['avatar'] = ''
+        data['details'] = ''
+        data['social'] = ''
+
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            uid = str(uuid.uuid4())
+            token = rest_framework_jwt.utils.jwt_encode_handler({'id': data['id'], 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
+            return JsonResponse({'status': 'available', 'token': token})
+        else:
+            return JsonResponse({'status': 'unavailable'})
+
+@api_view(['POST'])
+def login_facebook(request):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+        if not data['id']:
+            return JsonResponse({'status': 'unavailable'})
+
+        #Kiem tra fb account ton tai hay chua.
+        #Ton tai -> dang nhap
+        list_username = User.objects.all().values_list('username', flat=True)
+        if data['id'] in list_username:
+            user = User.objects.filter(username=data['id'])
+            if not user[0]:
+                return JsonResponse({'status': 'unavailable'})
+            uid = str(uuid.uuid4())
+            token = rest_framework_jwt.utils.jwt_encode_handler({'id': user[0].id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
+            return JsonResponse({'status': 'available', 'token': token})
+
+        #Chua ton tai -> dang nhap
+        return JsonResponse({'status': 'unavailable'})
 
 #1.9 Check captcha
 @api_view(['POST'])
@@ -689,6 +755,7 @@ def confirm_user(request, token):
         user['name'] = current_user.name
         user['avatar'] = current_user.avatar
         user['details'] = current_user.details
+        user['social'] = current_user.social
 
         serializer = UserSerializer(current_user, data=user)
         if serializer.is_valid():
@@ -756,6 +823,7 @@ def setpassword(request, current_user):
         data['name'] = current_user.name
         data['avatar'] = current_user.avatar
         data['details'] = current_user.details
+        data['social'] = current_user.social
         
         serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():
@@ -771,10 +839,11 @@ def profile(request):
         data=json.loads(json.dumps(request.data))
 
         try:
-            user = User.objects.get(username=data['name'])
+            user = User.objects.get(id=data['id'])
         except:
             return JsonResponse({'data': 'error'})
 
+        user.username = ''    
         user.password = ''
         user.status = ''
         user.rank = 0
@@ -901,8 +970,7 @@ def chitietduan(request):
             serializer = DuanSerializer(duan)
             result = serializer.data
             result['status'] = ''
-#            if result['thumbs'] != 'null' and result['thumbs'] != '' and result['thumbs'] != 'NULL' and result['thumbs'] != 'None' and result['thumbs'] != None:
-#               result['thumbs'] = result['thumbs'].split(',')
+
             return Response(result)
 
         return JsonResponse({'message': 'No duan!!!'})
@@ -936,6 +1004,22 @@ def chitietnode(request):
 
         return JsonResponse({'message': 'No node!!!'})
 
+#13. List sales theo duan
+@api_view(['POST'])
+def nodeinduan(request):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+
+        realestatenodes = Realestatenode.objects.filter(duanid=data['duan'], typenode=True, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True).order_by('-rank').order_by('-timeto').order_by('-vip')
+        if realestatenodes:
+            serializer = RealestatenodeSerializer(realestatenodes, many=True)
+            result = serializer.data
+            for r in result:
+                user = User.objects.get(id=r['userid'])
+                r['username'] = user.username
+            return JsonResponse({'data': result})
+        return JsonResponse({'data': []})
+
 def indexd(distric, province):
     #read csv, and split on "," the line
     csv_file = csv.reader(open('VNM_adm2.csv', "rb"), delimiter=str(u','))
@@ -949,6 +1033,32 @@ def indexdpro(province):
     for row in csv_file:
         if row[5] == province:
             return str(row[4])
+
+#10.1 Xac dinh bound cho tinh,tp thuoc trung uong
+@api_view(['POST'])
+def bound_province(request):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+
+        i = indexdpro(data['province'])
+
+        root = ET.parse("VNM_adm1.kml", parser=ET.XMLParser(encoding='utf-8') )
+        root = root.find('.//{http://earth.google.com/kml/2.2}Document')
+        root = root.findall('.//{http://earth.google.com/kml/2.2}Placemark')
+        for con in root:
+            style = con.find('.//{http://earth.google.com/kml/2.2}styleUrl')
+            if style.text == '#'+str(i):
+                con = con.find('.//{http://earth.google.com/kml/2.2}MultiGeometry')
+                con = con.findall('.//{http://earth.google.com/kml/2.2}Polygon')
+                distric = []
+                for con in con:
+                    con = con.find('.//{http://earth.google.com/kml/2.2}outerBoundaryIs')
+                    con = con.find('.//{http://earth.google.com/kml/2.2}LinearRing')
+                    con = con.find('.//{http://earth.google.com/kml/2.2}coordinates')
+                    a = {'outerBoundaryIs': con.text}
+                    distric.append(a)
+                return JsonResponse({'message': distric})
+        return JsonResponse({'message': 'None result!!!'})
 
 #10. Xac dinh bound cho quan
 @api_view(['POST'])
@@ -1774,9 +1884,7 @@ def searchduanbasic(request):
         loaiduan = Loaiduan.objects.filter(name__icontains=data['input']).values('id')
         duan2 = Duan.objects.filter(type_id__in = loaiduan, tinh__icontains=data['tinh'], huyen__icontains=data['huyen'], status=True)
 
-#        duan3 = Duan.objects.filter(address__icontains=data['input'], tinh=data['tinh'], huyen=data['huyen'], status=True)
-
-        if duans | duan1 | duan2:# | duan3:
+        if duans | duan1 | duan2:
             serialized=[]
             for obj in duans:
                 serialized.append(DuanSerializer(obj).data)
@@ -1789,9 +1897,39 @@ def searchduanbasic(request):
                 if obj not in duans:
                     serialized.append(DuanSerializer(obj).data)
 
-#            for obj in duan3:
-#                if obj not in duan1:
-#                    serialized.append(DuanSerializer(obj).data)
+            return Response(serialized)
+        return JsonResponse({'message': 'No duan!!!'})
+
+#13.8 Tim du an dang bai
+@api_view(['POST'])
+def searchduaninput(request):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+        
+        duans = Duan.objects.filter(name__icontains=data['input'], status=True)
+        duan1 = Duan.objects.filter(intro__icontains=data['input'], status=True)
+
+        loaiduan = Loaiduan.objects.filter(name__icontains=data['input']).values('id')
+        duan2 = Duan.objects.filter(type_id__in = loaiduan, status=True)
+
+        duan3 = Duan.objects.filter(address__icontains=data['input'], status=True)
+
+        if duans | duan1 | duan2 | duan3:
+            serialized=[]
+            for obj in duans:
+                serialized.append(DuanSerializer(obj).data)
+
+            for obj in duan1:
+                if obj not in duans:
+                    serialized.append(DuanSerializer(obj).data)
+
+            for obj in duan2:
+                if obj not in duans:
+                    serialized.append(DuanSerializer(obj).data)
+
+            for obj in duan3:
+                if obj not in duan1:
+                    serialized.append(DuanSerializer(obj).data)
 
             return Response(serialized)
         return JsonResponse({'message': 'No duan!!!'})
@@ -1818,7 +1956,7 @@ def searchduantuongtu(request):
 #        for obj in duans:
 #            serialized.append(DuanSerializer(obj).data)
 
-        total = duans.count()
+        total = realestatenodes.count()
         if total < 10:
             x = 10 - total
             duans = Duan.objects.filter(pricefrom__gte=data['pricefrom'], status=True).order_by('pricefrom')[:x]
@@ -1886,18 +2024,6 @@ def calcudistance(lat1, lon1, lat2, lon2):
     
     return c * r
 
-#13. List sales theo duan
-@api_view(['POST'])
-def nodeinduan(request):
-    if request.method == 'POST':
-        data=json.loads(json.dumps(request.data))
-
-        realestatenodes = Realestatenode.objects.filter(duanid=data['duan'], typenode=True, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True).order_by('-rank').order_by('-timeto').order_by('-vip')
-        if realestatenodes:
-            serializer = RealestatenodeSerializer(realestatenodes, many=True)
-            return JsonResponse({'data': serializer.data})
-        return JsonResponse({'data': []})
-
 #15. Tien do du an
 @api_view(['POST'])
 def getTiendoduanbyID(request):
@@ -1924,30 +2050,36 @@ def guiphanhoi(request):
         else:
             return JsonResponse({'data': []})
 
-"""
-#10.1 Xac dinh bound cho tinh,tp thuoc trung uoong
+#18. Tim kiem sales
 @api_view(['POST'])
-def bound_province(request):
+def timkiemsale(request):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
+        user = User.objects.filter(status=True, name__icontains=data['name'], company__icontains=data['company']).order_by('-rank')
+        serializer = UserSerializer(user, many=True)
 
-        i = indexdpro(data['province'])
+        for s in serializer.data:
+            s['username'] = ''
+            s['password'] = ''
+            s['coin'] = ''
+            s['status'] = ''
+            s['rank'] = ''
+        return JsonResponse({'data': serializer.data})
 
-        root = ET.parse("VNM_adm1.kml", parser=ET.XMLParser(encoding='utf-8') )
-        root = root.find('.//{http://earth.google.com/kml/2.2}Document')
-        root = root.findall('.//{http://earth.google.com/kml/2.2}Placemark')
-        for con in root:
-            style = con.find('.//{http://earth.google.com/kml/2.2}styleUrl')
-            if style.text == '#'+str(i):
-                con = con.find('.//{http://earth.google.com/kml/2.2}MultiGeometry')
-                con = con.findall('.//{http://earth.google.com/kml/2.2}Polygon')
-                distric = []
-                for con in con:
-                    con = con.find('.//{http://earth.google.com/kml/2.2}outerBoundaryIs')
-                    con = con.find('.//{http://earth.google.com/kml/2.2}LinearRing')
-                    con = con.find('.//{http://earth.google.com/kml/2.2}coordinates')
-                    a = {'outerBoundaryIs': con.text}
-                    distric.append(a)
-                return JsonResponse({'message': distric})
-        return JsonResponse({'message': 'None result!!!'})
-"""
+#19. Thong ke sale
+@api_view(['POST'])
+def thongkesale(request):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+        user = User.objects.get(id=data['userid'])
+        if not user:
+            return JsonResponse({'data': 'error'})
+        kq = ''
+        x = 1
+        for x in range(13):
+            node = Realestatenode.objects.filter(timecreate__month=str(x), timecreate__year=data['year'], userid=data['userid'], status=True)
+            if x < 12:
+                kq = kq + str(node.count()) + ','
+            if x == 12:
+                kq = kq + str(node.count())
+        return JsonResponse({'data': kq})

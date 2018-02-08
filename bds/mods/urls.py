@@ -96,4 +96,13 @@ urlpatterns= [
     #30. /manager_mod/xemphancong/    Xem bang phan cong.
     url(r'^xemphancong/$', views.xemphancong, name='xemphancong'),
 
+    #31./manager_mod/uploadpanorama/
+    url(r'^uploadpanorama/$', views.upload_panorama, name='upload_panorama'),
+
+    #32./manager_mod/uploadanh360/
+    url(r'^uploadanh360/$', views.upload_anh360, name='upload_anh360'),
+
+    #34./manager_mod/uploadthumbnail/
+    url(r'^uploadthumbnail/$', views.upload_thumbnail, name='upload_thumbnail'),
+
 ]

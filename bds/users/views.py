@@ -12,6 +12,7 @@ from django.views.decorators.http import require_POST
 from werkzeug.security import generate_password_hash, check_password_hash
 from django.contrib.auth import authenticate
 from django.conf import settings
+from django.utils import timezone
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
@@ -63,7 +64,7 @@ def edit_user(request, current_user):
 def edit_avataruser(request, current_user):
     if request.method == 'POST':
         if not request.FILES:
-            return JsonResponse({'data': {'error'}})
+            return JsonResponse({'data': 'error'})
 
         matches = re.search('\w+\.(jpg|gif|png)',request.FILES['avatar'].name)
         if not matches:
@@ -71,10 +72,10 @@ def edit_avataruser(request, current_user):
         Y = str(datetime.datetime.now().year)
         m = str(datetime.datetime.now().month)
         d = str(datetime.datetime.now().day)
-
+        
         name = request.FILES['avatar'].name.split('.')
         request.FILES['avatar'].name = current_user.id + '.' + name[len(name)-1]
-        save_path = os.path.join(settings.MEDIA_ROOT, 'profile/'+Y+'/'+m+'/'+d+'/', request.FILES['avatar'].name)
+        save_path = os.path.join(settings.MEDIA_ROOT, 'thumbnail/'+Y+'/'+m+'/'+d+'/', request.FILES['avatar'].name)
         if default_storage.exists(save_path):
                 default_storage.delete(save_path)
         path = default_storage.save(save_path, request.FILES['avatar'])
@@ -95,12 +96,13 @@ def edit_avataruser(request, current_user):
         data['rank'] = current_user.rank
         data['details'] = current_user.details
         data['avatar'] = 'http://mappy.com.vn/media/profile/'+Y+'/'+m+'/'+d+'/' + request.FILES['avatar'].name
+        data['social'] = current_user.social
 
         serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():
             serializer.save()
             serializer.data['password'] = ''
-            return JsonResponse({'data': serializer.data})
+            return JsonResponse({'data': 'OK'})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -151,9 +153,6 @@ def list_nodefalse(request, current_user):
 
 def phanchiamod(province, district):
     phancongs = Phancong.objects.filter(province=province)
-    if not phancongs:
-        return ''
-
     for phancong in phancongs:
         list_district = phancong.district.split(',')
         if district in list_district:
@@ -175,35 +174,22 @@ def upload_thumbnail(request, current_user):
             m = str(datetime.datetime.now().month)
             d = str(datetime.datetime.now().day)
             if request.FILES['thumbnail'].size > 51200000:
-                return JsonResponse({'data': 'Sai kich co'})
+                return JsonResponse({'data': 'Sai kích cỡ', 'status': 'error'})
 
             matches = re.search('\w+\.(jpg|gif|png)',request.FILES['thumbnail'].name)
             if not matches:
-                return JsonResponse({'data': 'Khong dung dinh dang anh'})
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
+
             namethumbnail = request.FILES['thumbnail'].name.split('.')
             request.FILES['thumbnail'].name = current_user.id + '.' + namethumbnail[len(namethumbnail)-1]
 
             save_path = os.path.join(settings.MEDIA_ROOT, 'thumbnail/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['thumbnail'].name)
+
             path = default_storage.save(save_path, request.FILES['thumbnail'])
 
-            url_thumbnail ='http://mappy.com.vn/media/thumbnail/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['thumbnail'].name
-            return JsonResponse({'data': url_thumbnail})
-        return JsonResponse({'data': 'error'})
-
-#Xoa anh moi up
-@api_view(['DELETE'])
-@views.token_required_user
-def delete_thumbnail(request, current_user):
-    if request.method == 'DELETE':
-        data=json.loads(json.dumps(request.data))
-        url = data['url_thumbnail'].split('/')[5]
-        if not url or url != current_user.id:
-            return JsonResponse({'data': 'error'})
-        save_path = data['url_thumbnail']
-        if default_storage.exists(save_path):
-            default_storage.delete(save_path)
-            return JsonResponse({'data': 'OK'})
-        return JsonResponse({'data': 'error'})
+            url_thumbnail ='http://mappy.com.vn/media/thumbnail/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/' + path.split('/')[10]
+            return JsonResponse({'data': url_thumbnail, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
 
 #Up load anh panorama
 @api_view(['POST'])
@@ -216,17 +202,17 @@ def upload_panorama(request, current_user):
             d = str(datetime.datetime.now().day)
             matches = re.search('\w+\.(jpg|gif|png)',request.FILES['panorama'].name)
             if not matches:
-                return JsonResponse({'data': 'Khong dung dinh dang anh'})
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
 
             namepanorama = request.FILES['panorama'].name.split('.')
             request.FILES['panorama'].name = current_user.id + '.' + namepanorama[len(namepanorama)-1]
 
-            save_path = os.path.join(settings.MEDIA_ROOT, 'panorama/'+Y+'/'+m+'/'+d+'/', request.FILES['panorama'].name)
+            save_path = os.path.join(settings.MEDIA_ROOT, 'panorama/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['panorama'].name)
             path = default_storage.save(save_path, request.FILES['panorama'])
 
-            url_panorama ='http://mappy.com.vn/media/panorama/'+Y+'/'+m+'/'+d+'/' + request.FILES['panorama'].name
-            return JsonResponse({'data': url_panorama})
-        return JsonResponse({'data': 'error'})
+            url_panorama ='http://mappy.com.vn/media/panorama/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['panorama'].name
+            return JsonResponse({'data': url_panorama, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!','status': 'error'})
 
 #Up load anh 360
 @api_view(['POST'])
@@ -240,17 +226,17 @@ def upload_anh360(request, current_user):
 
             matches = re.search('\w+\.(jpg|gif|png)',request.FILES['anh360'].name)
             if not matches:
-                return JsonResponse({'data': 'Khong dung dinh dang anh'})
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
 
             nameanh360 = request.FILES['anh360'].name.split('.')
             request.FILES['anh360'].name = current_user.id + '.' + nameanh360[len(nameanh360)-1]
 
-            save_path = os.path.join(settings.MEDIA_ROOT, 'anh360/'+Y+'/'+m+'/'+d+'/', request.FILES['anh360'].name)
+            save_path = os.path.join(settings.MEDIA_ROOT, 'anh360/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['anh360'].name)
             path = default_storage.save(save_path, request.FILES['anh360'])
 
-            url_anh360 ='http://mappy.com.vn/media/anh360/'+Y+'/'+m+'/'+d+'/' + request.FILES['anh360'].name
-            return JsonResponse({'data': url_anh360})
-        return JsonResponse({'data': 'error'})
+            url_anh360 ='http://mappy.com.vn/media/anh360/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['anh360'].name
+            return JsonResponse({'data': url_anh360, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
 
 #Up load video
 @api_view(['POST'])
@@ -264,17 +250,31 @@ def upload_video(request, current_user):
 
             matchesvideo = re.search('\w+\.(mp4|mkv)',request.FILES['video'].name)
             if not matchesvideo:
-                return JsonResponse({'data': 'Khong dung dinh dang video'})
+                return JsonResponse({'data': 'Không đúng định dạng video', 'status': 'error'})
 
             namevideo = request.FILES['video'].name.split('.')
             request.FILES['video'].name = current_user.id + '.' + namevideo[len(namevideo)-1]
 
-            save_path = os.path.join(settings.MEDIA_ROOT, 'video/'+Y+'/'+m+'/'+d+'/', request.FILES['video'].name)
+            save_path = os.path.join(settings.MEDIA_ROOT, 'video/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['video'].name)
             path = default_storage.save(save_path, request.FILES['video'])
 
-            url_video ='http://mappy.com.vn/media/video/'+Y+'/'+m+'/'+d+'/' + request.FILES['video'].name
-            return JsonResponse({'data': url_video})
-        return JsonResponse({'data': 'error'})
+            url_video ='http://mappy.com.vn/media/video/'+current_user.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['video'].name
+            return JsonResponse({'data': url_video, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
+
+def indexd(distric, province):
+    #read csv, and split on "," the line
+    csv_file = csv.reader(open('VNM_adm2.csv', "rb"), delimiter=str(u','))
+    for row in csv_file:
+        if row[11] == str(distric) and row[5] == str(province):
+            return str(row[6])
+
+def indexdpro(province):
+    #read csv, and split on "," the line
+    csv_file = csv.reader(open('VNM_adm2.csv', "rb"), delimiter=str(u','))
+    for row in csv_file:
+        if row[5] == province:
+            return str(row[4])
 
 #con han
 @api_view(['GET', 'POST'])
@@ -284,8 +284,8 @@ def list_node(request, current_user):
         realestatenodes = Realestatenode.objects.filter(userid = current_user.id, status=True, timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now()).order_by('timecreate')
         if realestatenodes:
             serializer = RealestatenodeSerializer(realestatenodes, many=True)
-            return JsonResponse({'data': serializer.data})
-        return JsonResponse({'data': []})
+            return JsonResponse({'data': serializer.data, 'status': 'success'})
+        return JsonResponse({'data': 'Khong co node', 'status': 'error'})
 
     # Dang bai moi
     if request.method == 'POST':
@@ -307,13 +307,13 @@ def list_node(request, current_user):
         timef = datetime.datetime.strptime(data['timefrom'], '%Y-%m-%d %H:%M:%S')
         timet = datetime.datetime.strptime(data['timeto'], '%Y-%m-%d %H:%M:%S')
         if ((timet - datetime.datetime.now()).days <= 0) or ((timet - timef).days <= 0):
-            return JsonResponse({'data': 'Sai thoi gian'})
+            return JsonResponse({'data': 'Thời gian sai', 'status': 'error'})
 
         #kiem tra coin
         coin = Coin.objects.get(vip=data['vip'])
         realcoins = coin.coin * (timet - timef).days
         if current_user.coin < realcoins:
-            return JsonResponse({'data': 'Khong du coin'})
+            return JsonResponse({'data': 'Không đủ coin', 'status': 'error'})
 
         #Phan chia khu vuc cho mod
         duanid = ''
@@ -322,7 +322,7 @@ def list_node(request, current_user):
         if duanid != '': #node thuoc duan
             list_duanid = Duan.objects.filter(status=True).values_list('id', flat=True)
             if duanid.id not in list_duanid:
-                return JsonResponse({'data': 'error'})
+                return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
 
             data['rongtien']= 0
             data['rongduong']= 0
@@ -331,18 +331,18 @@ def list_node(request, current_user):
 
             data['modid'] = str(phanchiamodduan(duanid.id, duanid.tinh, duanid.huyen))
         else:   #node rieng
-            data['modid'] = str(phanchiamod(data['tinh'], data['huyen']))
+            data['modid'] = str(phanchiamod(indexdpro(data['tinh']),indexd(data['huyen'])))
             if data['modid'] == "":
-                return JsonResponse({'data': 'error'})
+                return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
         
         serializer = RealestatenodeSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'data': 'OK'})
+            return JsonResponse({'status': 'success'})
         else:
-            return JsonResponse({'data': serializer.errors})
+            return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'success'})
     else:
-        return JsonResponse({'data': 'error'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'success'})
 
 #3.5 Dang lai bai cu cua minh
 @api_view(['POST'])
@@ -393,7 +393,9 @@ def postagain(request, current_user, node_id):
         data['details'] = realestatenode.details
         data['status'] = realestatenode.status
         data['thumbs'] = realestatenode.thumbs
+        data['anh360'] = realestatenode.anh360
         data['panorama_image'] = realestatenode.panorama_image
+        data['video'] = realestatenode.video
         data['tenduan'] = realestatenode.tenduan
         data['tenlienhe'] = realestatenode.tenlienhe
         data['diachi'] = realestatenode.diachi
@@ -428,6 +430,7 @@ def postagain(request, current_user, node_id):
             data['avatar'] = current_user.avatar
             data['status'] = current_user.status
             data['rank'] = current_user.rank
+            data['social'] = current_user.social
             serializer = UserSerializer(current_user, data=data)
             if serializer.is_valid():
                 serializer.save()
@@ -469,22 +472,9 @@ def delete_node(request, current_user, node_id):
     except:
         return JsonResponse({'message': 'Not found!!!'})
 
-    if request.method == 'PUT':
-        request.data['id'] = node_id
-        request.data['status'] = realestatenode.status
-        request.data['rank'] = realestatenode.rank
-        request.data['timefrom'] = realestatenode.timefrom
-        request.data['timeto'] = realestatenode.timeto
-        request.data['type'] = realestatenode.type
-        request.data['duanid'] = realestatenode.duanid
-        request.data['modid'] = realestatenode.modid
-
-        serializer = RealestatenodeSerializer(realestatenode, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'DELETE':
+        realestatenode.delete()
+        return JsonResponse({'data': 'OK'})
 
 #15. Doi mat khau
 @api_view(['PUT'])
@@ -511,6 +501,7 @@ def changepass(request, current_user):
             data['status'] = current_user.status
             data['rank'] = current_user.rank
             data['details'] = current_user.details
+            data['social'] = current_user.social
 
             serializer = UserSerializer(current_user, data=data)
             if serializer.is_valid():
@@ -703,20 +694,18 @@ def chitietthongbao(request, current_user, thongbao_id):
         return JsonResponse({'message': []})
 
 """
+#Xoa anh moi up
+@api_view(['DELETE'])
+@views.token_required_user
+def delete_thumbnail(request, current_user):
+    if request.method == 'DELETE':
         data=json.loads(json.dumps(request.data))
-        data['id'] = current_user.id
-        data['name'] = current_user.name
-        data['username'] = current_user.username
-        data['email'] = current_user.email
-        data['password'] = current_user.password
-        data['rank'] = current_user.rank
-        data['status'] = current_user.status
-        data['coin'] = current_user.coin
-        serializer = UserSerializer(current_user, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            serializer.data['password'] = ''
-            return JsonResponse({'data': serializer.data})
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        url = data['url_thumbnail'].split('/')[5]
+        if not url or url != current_user.id:
+            return JsonResponse({'data': 'error'})
+        save_path = data['url_thumbnail']
+        if default_storage.exists(save_path):
+            default_storage.delete(save_path)
+            return JsonResponse({'data': 'OK'})
+        return JsonResponse({'data': 'error'})
 """

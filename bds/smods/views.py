@@ -257,7 +257,9 @@ def confirm_node(request, current_smod):
         data['details'] = realestatenode.details
         data['status'] = True
         data['thumbs'] = realestatenode.thumbs
+        data['anh360'] = realestatenode.anh360
         data['panorama_image'] = realestatenode.panorama_image
+        data['video'] = realestatenode.video
         data['tenduan'] = realestatenode.tenduan
         data['tenlienhe'] = realestatenode.tenlienhe
         data['diachi'] = realestatenode.diachi
@@ -294,6 +296,7 @@ def confirm_node(request, current_smod):
             data['status'] = current_user.status
             data['rank'] = current_user.rank
             data['details'] = current_user.details
+            data['social'] = current_user.social
 
             serializer = UserSerializer(current_user, data=data)
             if serializer.is_valid():
@@ -482,6 +485,7 @@ def change_coin(request, current_smod):
         data['details'] = user.details
         data['status'] = user.status
         data['rank'] = user.rank
+        data['social'] = user.social
         history['coin'] = abs(data['coin'])
         data['coin'] = int(user.coin) + int(data['coin'])
 
@@ -726,6 +730,7 @@ def duyetcoin(request, current_smod):
         data['avatar'] = current_user.avatar
         data['status'] = current_user.status
         data['rank'] = current_user.rank
+        data['social'] = current_user.social
 
         serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():

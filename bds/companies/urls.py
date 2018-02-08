@@ -57,6 +57,12 @@ urlpatterns= [
     #1. /user/create/
     url(r'^create/$', views.create_user, name='create_user'),
 
+    #1.2. /user/register_facebook/
+    url(r'^register_facebook/$', views.register_facebook, name='register_facebook'),
+
+    #1.2. /user/login_facebook/
+    url(r'^login_facebook/$', views.login_facebook, name='login_facebook'),
+
     #1.4 /user/check-mail/
     url(r'^check_mail/$', views.check_mail, name='check_mail'),
     
@@ -115,7 +121,7 @@ urlpatterns= [
     url(r'^distric/$', views.bound_distric, name='bound_distric'),
 
     #10.1 /user/province/
-    #url(r'^province/$', views.bound_province, name='bound_province'),
+    url(r'^province/$', views.bound_province, name='bound_province'),
 
     #10.2 /user/ward/
     url(r'^ward/$', views.bound_ward, name='bound_ward'),
@@ -155,14 +161,23 @@ urlpatterns= [
     url(r'^nodenangcao/$', views.searchnodenangcao, name='searchnodenangcao'),
 
 ###########Goi y sau khi nhap vao input
-    #13.7 /search/duanbasic/ goi y sau khi nhap vao o input
+    #13.7 /search/duanbasic/ goi y dang bai
     url(r'^duanbasic/$', views.searchduanbasic, name='searchduanbasic'),
+
+    #13.8 /search/getduaninput/ goi y sau khi nhap vao o input
+    url(r'^getduaninput/$', views.searchduaninput, name='searchduaninput'),
 
     #15. Tien do du an. /search/tiendoduan/
     url(r'^tiendoduan/$', views.getTiendoduanbyID, name='getTiendoduanbyID'),
 
     #17. gui phan hoi. /search/guiphanhoi/
     url(r'^guiphanhoi/$', views.guiphanhoi, name='guiphanhoi'),
+
+    #18. Tim kiem sale. /search/timkiemsale/
+    url(r'^timkiemsale/$', views.timkiemsale, name='timkiemsale'),
+
+    #19. Thong ke sale. /search/thongkesale/
+    url(r'^thongkesale/$', views.thongkesale, name='thongkesale'),
     
 ]
 """

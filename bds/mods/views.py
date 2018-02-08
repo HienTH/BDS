@@ -286,7 +286,9 @@ def confirm_node(request, current_mod):
         data['details'] = realestatenode.details
         data['status'] = True
         data['thumbs'] = realestatenode.thumbs
+        data['anh360'] = realestatenode.anh360
         data['panorama_image'] = realestatenode.panorama_image
+        data['video'] = realestatenode.video
         data['tenduan'] = realestatenode.tenduan
         data['tenlienhe'] = realestatenode.tenlienhe
         data['diachi'] = realestatenode.diachi
@@ -324,6 +326,7 @@ def confirm_node(request, current_mod):
             data['status'] = current_user.status
             data['rank'] = current_user.rank
             data['details'] = current_user.details
+            data['social'] = current_user.social
 
             serializer = UserSerializer(current_user, data=data)
             if serializer.is_valid():
@@ -343,6 +346,81 @@ def list_duanmod(request, current_mod):
             serializer = DuanSerializer(duans, many=True)
             return JsonResponse({'data': serializer.data})
         return JsonResponse({'data': []})
+
+
+#Up load anh thumbnail
+@api_view(['POST'])
+@views.token_required_mod
+def upload_thumbnail(request, current_mod):
+    if request.method == 'POST':
+        if 'thumbnail' in request.FILES:
+            Y = str(datetime.datetime.now().year)
+            m = str(datetime.datetime.now().month)
+            d = str(datetime.datetime.now().day)
+            if request.FILES['thumbnail'].size > 51200000:
+                return JsonResponse({'data': 'Sai kích cỡ', 'status': 'error'})
+
+            matches = re.search('\w+\.(jpg|gif|png)',request.FILES['thumbnail'].name)
+            if not matches:
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
+
+            namethumbnail = request.FILES['thumbnail'].name.split('.')
+            request.FILES['thumbnail'].name = current_mod.id + '.' + namethumbnail[len(namethumbnail)-1]
+
+            save_path = os.path.join(settings.MEDIA_ROOT, 'thumbnail/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['thumbnail'].name)
+
+            path = default_storage.save(save_path, request.FILES['thumbnail'])
+
+            url_thumbnail ='http://mappy.com.vn/media/thumbnail/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + path.split('/')[10]
+            return JsonResponse({'data': url_thumbnail, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
+
+#Up load anh panorama
+@api_view(['POST'])
+@views.token_required_mod
+def upload_panorama(request, current_mod):
+    if request.method == 'POST':
+        if request.FILES['panorama']:
+            Y = str(datetime.datetime.now().year)
+            m = str(datetime.datetime.now().month)
+            d = str(datetime.datetime.now().day)
+            matches = re.search('\w+\.(jpg|gif|png)',request.FILES['panorama'].name)
+            if not matches:
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
+
+            namepanorama = request.FILES['panorama'].name.split('.')
+            request.FILES['panorama'].name = current_mod.id + '.' + namepanorama[len(namepanorama)-1]
+
+            save_path = os.path.join(settings.MEDIA_ROOT, 'panorama/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['panorama'].name)
+            path = default_storage.save(save_path, request.FILES['panorama'])
+
+            url_panorama ='http://mappy.com.vn/media/panorama/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['panorama'].name
+            return JsonResponse({'data': url_panorama, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
+
+#Up load anh 360
+@api_view(['POST'])
+@views.token_required_mod
+def upload_anh360(request, current_mod):
+    if request.method == 'POST':
+        if request.FILES['anh360']:
+            Y = str(datetime.datetime.now().year)
+            m = str(datetime.datetime.now().month)
+            d = str(datetime.datetime.now().day)
+
+            matches = re.search('\w+\.(jpg|gif|png)',request.FILES['anh360'].name)
+            if not matches:
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
+
+            nameanh360 = request.FILES['anh360'].name.split('.')
+            request.FILES['anh360'].name = current_mod.id + '.' + nameanh360[len(nameanh360)-1]
+
+            save_path = os.path.join(settings.MEDIA_ROOT, 'anh360/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['anh360'].name)
+            path = default_storage.save(save_path, request.FILES['anh360'])
+
+            url_anh360 ='http://mappy.com.vn/media/anh360/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['anh360'].name
+            return JsonResponse({'data': url_anh360, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
 
 #11.Xem, Them, Sua, Xoa Duan
 @api_view(['GET', 'POST'])
@@ -371,9 +449,9 @@ def list_duan(request, current_mod):
         serializer = DuanSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse({'status': 'success'})
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status':'error'})
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @views.token_required_mod
@@ -444,6 +522,7 @@ def change_coin(request, current_mod):
         data['avatar'] = user.avatar
         data['status'] = user.status
         data['details'] = user.details
+        data['social'] = user.social
         data['rank'] = user.rank
         history['coin'] = abs(data['coin'])
         data['coin'] = int(user.coin) + int(data['coin'])
@@ -502,6 +581,7 @@ def duyetcoin(request, current_mod):
         data['status'] = current_user.status
         data['rank'] = current_user.rank
         data['details'] = current_user.details
+        data['social'] = current_user.social
 
         serializer = UserSerializer(current_user, data=data)
         if serializer.is_valid():

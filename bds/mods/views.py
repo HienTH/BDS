@@ -7,6 +7,10 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 from werkzeug.security import generate_password_hash, check_password_hash
 from django.contrib.auth import authenticate
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import parser_classes
+from django.core.files.storage import default_storage
+from django.conf import settings
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
@@ -15,6 +19,8 @@ from companies.serializers import AdminSerializer, UserSerializer, ModSerializer
 
 import json
 from logins import views
+import re
+import os
 
 #1.xem USER
 @api_view(['GET'])
@@ -209,7 +215,7 @@ def detail_node(request, current_mod, node_id):
     
     if request.method == 'GET':
         serializer = RealestatenodeSerializer(realestatenode)
-        return Response(serializer.data)
+        return Response({'data': serializer.data})
 
     if request.method == 'PUT':
         data=json.loads(json.dumps(request.data))
@@ -341,12 +347,11 @@ def confirm_node(request, current_mod):
 @views.token_required_mod
 def list_duanmod(request, current_mod):
     if request.META['REQUEST_METHOD'] == 'GET':
-        duans = Duan.objects.filter(modid=current_mod.id, status=True)
+        duans = Duan.objects.filter(modname=current_mod.id, status=True)
         if duans:
             serializer = DuanSerializer(duans, many=True)
             return JsonResponse({'data': serializer.data})
         return JsonResponse({'data': []})
-
 
 #Up load anh thumbnail
 @api_view(['POST'])
@@ -360,7 +365,7 @@ def upload_thumbnail(request, current_mod):
             if request.FILES['thumbnail'].size > 51200000:
                 return JsonResponse({'data': 'Sai kích cỡ', 'status': 'error'})
 
-            matches = re.search('\w+\.(jpg|gif|png)',request.FILES['thumbnail'].name)
+            matches = re.search('\w+\.(jpg|gif|png|jpeg)',request.FILES['thumbnail'].name)
             if not matches:
                 return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
 
@@ -371,7 +376,7 @@ def upload_thumbnail(request, current_mod):
 
             path = default_storage.save(save_path, request.FILES['thumbnail'])
 
-            url_thumbnail ='http://mappy.com.vn/media/thumbnail/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + path.split('/')[10]
+            url_thumbnail ='https://www.mappy.com.vn/media/thumbnail/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + path.split('/')[11]
             return JsonResponse({'data': url_thumbnail, 'status': 'success'})
         return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
 
@@ -384,7 +389,7 @@ def upload_panorama(request, current_mod):
             Y = str(datetime.datetime.now().year)
             m = str(datetime.datetime.now().month)
             d = str(datetime.datetime.now().day)
-            matches = re.search('\w+\.(jpg|gif|png)',request.FILES['panorama'].name)
+            matches = re.search('\w+\.(jpg|gif|png|jpeg)',request.FILES['panorama'].name)
             if not matches:
                 return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
 
@@ -394,7 +399,7 @@ def upload_panorama(request, current_mod):
             save_path = os.path.join(settings.MEDIA_ROOT, 'panorama/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['panorama'].name)
             path = default_storage.save(save_path, request.FILES['panorama'])
 
-            url_panorama ='http://mappy.com.vn/media/panorama/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['panorama'].name
+            url_panorama ='https://www.mappy.com.vn/media/panorama/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['panorama'].name
             return JsonResponse({'data': url_panorama, 'status': 'success'})
         return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
 
@@ -403,22 +408,22 @@ def upload_panorama(request, current_mod):
 @views.token_required_mod
 def upload_anh360(request, current_mod):
     if request.method == 'POST':
-        if request.FILES['anh360']:
+        if request.FILES['anh_360']:
             Y = str(datetime.datetime.now().year)
             m = str(datetime.datetime.now().month)
             d = str(datetime.datetime.now().day)
 
-            matches = re.search('\w+\.(jpg|gif|png)',request.FILES['anh360'].name)
+            matches = re.search('\w+\.(jpg|gif|png|jpeg)',request.FILES['anh_360'].name)
             if not matches:
                 return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
 
-            nameanh360 = request.FILES['anh360'].name.split('.')
-            request.FILES['anh360'].name = current_mod.id + '.' + nameanh360[len(nameanh360)-1]
+            nameanh360 = request.FILES['anh_360'].name.split('.')
+            request.FILES['anh_360'].name = current_mod.id + '.' + nameanh360[len(nameanh360)-1]
 
-            save_path = os.path.join(settings.MEDIA_ROOT, 'anh360/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['anh360'].name)
-            path = default_storage.save(save_path, request.FILES['anh360'])
+            save_path = os.path.join(settings.MEDIA_ROOT, 'anh360/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['anh_360'].name)
+            path = default_storage.save(save_path, request.FILES['anh_360'])
 
-            url_anh360 ='http://mappy.com.vn/media/anh360/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['anh360'].name
+            url_anh360 ='https://www.mappy.com.vn/media/anh360/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['anh_360'].name
             return JsonResponse({'data': url_anh360, 'status': 'success'})
         return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
 
@@ -459,7 +464,7 @@ def detail_duan(request, current_mod, duan_id):
     try:
         duan =Duan.objects.get(id=duan_id)
     except Duan.DoesNotExist:
-        return JsonResponse({'data': []})
+        return JsonResponse({'data': [], 'message': 'error'})
 
     if request.method == 'GET':
         serializer = DuanSerializer(duan)
@@ -473,6 +478,7 @@ def detail_duan(request, current_mod, duan_id):
 
         data['id'] = duan.id
         data['modname'] = duan.modname
+        data['timecreate'] = duan.timecreate
         data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         serializer = DuanSerializer(duan, data=data)

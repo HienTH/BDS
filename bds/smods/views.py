@@ -7,6 +7,10 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 from werkzeug.security import generate_password_hash, check_password_hash
 from django.contrib.auth import authenticate
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import parser_classes
+from django.core.files.storage import default_storage
+from django.conf import settings
 import uuid, datetime
 from functools import wraps
 import rest_framework_jwt
@@ -15,6 +19,8 @@ from companies.serializers import AdminSerializer, UserSerializer, ModSerializer
 
 from logins import views
 import json
+import re
+import os
 
 #1.xem, them, sua, xoa USER
 @api_view(['GET', 'POST'])
@@ -22,7 +28,7 @@ import json
 def list_user(request, current_smod):
     if request.META['REQUEST_METHOD'] == 'GET':
         users = User.objects.all()
-        if users: 	       	
+        if users:
         	serializer = UserSerializer(users, many=True)
         	return JsonResponse({'data': serializer.data})
         return JsonResponse({'data': []})
@@ -305,6 +311,80 @@ def confirm_node(request, current_smod):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#Up load anh thumbnail
+@api_view(['POST'])
+@views.token_required_smod
+def upload_thumbnail(request, current_smod):
+    if request.method == 'POST':
+        if 'thumbnail' in request.FILES:
+            Y = str(datetime.datetime.now().year)
+            m = str(datetime.datetime.now().month)
+            d = str(datetime.datetime.now().day)
+            if request.FILES['thumbnail'].size > 51200000:
+                return JsonResponse({'data': 'Sai kích cỡ', 'status': 'error'})
+
+            matches = re.search('\w+\.(jpg|gif|png|jpeg)',request.FILES['thumbnail'].name)
+            if not matches:
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
+
+            namethumbnail = request.FILES['thumbnail'].name.split('.')
+            request.FILES['thumbnail'].name = current_smod.id + '.' + namethumbnail[len(namethumbnail)-1]
+
+            save_path = os.path.join(settings.MEDIA_ROOT, 'thumbnail/'+current_smod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['thumbnail'].name)
+
+            path = default_storage.save(save_path, request.FILES['thumbnail'])
+
+            url_thumbnail ='https://www.mappy.com.vn/media/thumbnail/'+current_smod.id+'/'+Y+'/'+m+'/'+d+'/' + path.split('/')[11]
+            return JsonResponse({'data': url_thumbnail, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
+
+#Up load anh panorama
+@api_view(['POST'])
+@views.token_required_smod
+def upload_panorama(request, current_smod):
+    if request.method == 'POST':
+        if request.FILES['panorama']:
+            Y = str(datetime.datetime.now().year)
+            m = str(datetime.datetime.now().month)
+            d = str(datetime.datetime.now().day)
+            matches = re.search('\w+\.(jpg|gif|png|jpeg)',request.FILES['panorama'].name)
+            if not matches:
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
+
+            namepanorama = request.FILES['panorama'].name.split('.')
+            request.FILES['panorama'].name = current_smod.id + '.' + namepanorama[len(namepanorama)-1]
+
+            save_path = os.path.join(settings.MEDIA_ROOT, 'panorama/'+current_smod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['panorama'].name)
+            path = default_storage.save(save_path, request.FILES['panorama'])
+
+            url_panorama ='https://www.mappy.com.vn/media/panorama/'+current_smod.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['panorama'].name
+            return JsonResponse({'data': url_panorama, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
+
+#Up load anh 360
+@api_view(['POST'])
+@views.token_required_smod
+def upload_anh360(request, current_smod):
+    if request.method == 'POST':
+        if request.FILES['anh_360']:
+            Y = str(datetime.datetime.now().year)
+            m = str(datetime.datetime.now().month)
+            d = str(datetime.datetime.now().day)
+
+            matches = re.search('\w+\.(jpg|gif|png|jpeg)',request.FILES['anh_360'].name)
+            if not matches:
+                return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
+
+            nameanh360 = request.FILES['anh_360'].name.split('.')
+            request.FILES['anh_360'].name = current_smod.id + '.' + nameanh360[len(nameanh360)-1]
+
+            save_path = os.path.join(settings.MEDIA_ROOT, 'anh360/'+current_smod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['anh_360'].name)
+            path = default_storage.save(save_path, request.FILES['anh_360'])
+
+            url_anh360 ='https://www.mappy.com.vn/media/anh360/'+current_smod.id+'/'+Y+'/'+m+'/'+d+'/' + request.FILES['anh_360'].name
+            return JsonResponse({'data': url_anh360, 'status': 'success'})
+        return JsonResponse({'data': 'Lỗi hệ thống! Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất!', 'status': 'error'})
+
 #Xem, Them, Sua, Xoa Duan
 @api_view(['GET', 'POST'])
 @views.token_required_smod
@@ -325,9 +405,9 @@ def list_duan(request, current_smod):
         while data['id'] in list_id:
             data['id'] = str(uuid.uuid4().get_hex().upper()[0:16])
         
-        list_idmod = Mod.objects.filter(rank=0, status=True).values_list('id', flat=True)
-        if data['modname'] not in list_idmod:
-            return JsonResponse({'data': []})
+        list_idmod = Mod.objects.filter(rank=0, type=current_smod.id, status=True).values_list('id', flat=True)
+        if list_idmod:
+            data['modname'] = list_idmod[0]
 
         data['timecreate'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data['timemodify'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -573,6 +653,17 @@ def detail_servicenode(request, current_smod, servicenode_id):
     elif request.method == 'DELETE':
         servicenode.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+#Danh sach nodefalse.
+@api_view(['GET'])
+@views.token_required_smod
+def list_nodefalse(request, current_smod):
+    if request.META['REQUEST_METHOD'] == 'GET':
+        realestatenodes = Realestatenode.objects.filter(status=False)
+        if realestatenodes:
+            serializer = RealestatenodeSerializer(realestatenodes, many=True)
+            return JsonResponse({'data': serializer.data})
+        return JsonResponse({'data': []})
 
 # Doc Typeservice
 @api_view(['GET'])

@@ -77,37 +77,55 @@ def token_required_user(f):
 def login_user(request):
     auth = request.data
     if not auth['username'] or not auth['password']:
-        return JsonResponse({'message': 'Could not verify'}, status=401)
+        return JsonResponse({'message': 'Could not verify'}, status=200)
 
     try:
         user = User.objects.get(username=auth['username'])
     except User.DoesNotExist:
-        return JsonResponse({'message': 'Could not verify'}, status=401)
+        return JsonResponse({'message': 'Could not verify'}, status=200)
 
     if check_password_hash(user.password, auth['password']) and user.status==True:
         uid = str(uuid.uuid4())
         token = rest_framework_jwt.utils.jwt_encode_handler({'id': user.id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
         return JsonResponse({'token': token.decode('UTF-8')})
 
-    return JsonResponse({'message': 'Could not verify'}, status=401)
+    return JsonResponse({'message': 'Could not verify'}, status=200)
 
 @api_view(['POST'])
 def login_mod(request):
     auth = request.data
     if not auth['username'] or not auth['password']:
-        return JsonResponse({'message': 'Could not verify'}, status=401)
+        return JsonResponse({'message': 'Could not verify'}, status=200)
 
     try:
-        mod = Mod.objects.get(username=auth['username'])
+        mod = Mod.objects.get(username=auth['username'], rank=False)
     except Mod.DoesNotExist:
-        return JsonResponse({'message': 'Could not verify'}, status=401)
+        return JsonResponse({'message': 'Could not verify'}, status=200)
 
     if check_password_hash(mod.password, auth['password']):
         uid = str(uuid.uuid4())
         token = rest_framework_jwt.utils.jwt_encode_handler({'id': mod.id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
         return JsonResponse({'token': token.decode('UTF-8')})
 
-    return JsonResponse({'message': 'Could not verify'}, status=401)
+    return JsonResponse({'message': 'Could not verify'}, status=200)
+
+@api_view(['POST'])
+def login_smod(request):
+    auth = request.data
+    if not auth['username'] or not auth['password']:
+        return JsonResponse({'message': 'Could not verify'}, status=200)
+
+    try:
+        mod = Mod.objects.get(username=auth['username'], rank=True)
+    except Mod.DoesNotExist:
+        return JsonResponse({'message': 'Could not verify'}, status=200)
+
+    if check_password_hash(mod.password, auth['password']):
+        uid = str(uuid.uuid4())
+        token = rest_framework_jwt.utils.jwt_encode_handler({'id': mod.id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
+        return JsonResponse({'token': token.decode('UTF-8')})
+
+    return JsonResponse({'message': 'Could not verify'}, status=200)
 
 def token_required_smod(f):
     @wraps(f)

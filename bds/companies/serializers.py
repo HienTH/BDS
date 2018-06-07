@@ -1,17 +1,19 @@
+from __future__ import unicode_literals
 from rest_framework import serializers
-from .models import Admin, User, Mod ,Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, History, Tiendo, Phancong, Duanquantam, Phanhoi, Thongbao, Thongbaouser, Coin
+from django.db import models
+from .models import Admin, User, Mod ,Typerealestate, Realestatenode, Loaiduan, Duan, Typeservice, Servicenode, Groupnode, History, Tiendo, Phancong, Duanquantam, Phanhoi, Thongbao, Thongbaouser, Coin, Message, Messagenode
 
 class AdminSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Admin
-        fields = '__all__'
+	class Meta:
+		model = Admin
+		fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = User
-        fields = '__all__'
+	class Meta:
+		model = User
+		fields = '__all__'
 
 class ModSerializer(serializers.ModelSerializer):
 
@@ -108,3 +110,25 @@ class CoinSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Coin
 		fields = '__all__'
+
+class  MessageSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Message
+		fields = '__all__'
+
+class MessagenodeSerializer(serializers.ModelSerializer):
+	
+	class Meta:
+		model = Messagenode
+		fields = '__all__'
+
+
+'''
+	def create(self, validated_data):
+		user = self.context['request'].user
+		recipient = get_object_or_404(User, username=validated_data['recipient']['username'])
+		msg = MessageModel(recipient=recipient, details=validated_data['body'], user=user)
+		msg.save()
+		return msg
+'''

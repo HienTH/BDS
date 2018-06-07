@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from elasticsearch_dsl import DocType, Date, Integer, Keyword, Text
 import datetime
+from channels import Group
 
 class Admin(models.Model):
     
@@ -16,7 +16,7 @@ class Admin(models.Model):
     class META:
         db_table = u'admin'
 
-class Mod(models.Model):
+class Mod(models.Model):    
 
     id = models.CharField(max_length=20, primary_key=True)
     username = models.CharField(max_length=100, unique=True)
@@ -216,6 +216,7 @@ class Coin(models.Model):
 
 class History(models.Model):
 
+    id = models.IntegerField(primary_key=True)
     coin = models.IntegerField(default=0)
     type = models.BooleanField(default=1)
     user = models.CharField(max_length=20)
@@ -277,3 +278,41 @@ class Thongbao(models.Model):
     
     class META:
         db_table = u'thongbao'
+
+class Message(models.Model):
+
+    converid = models.ForeignKey('Messagenode', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='message_user')
+    recipient = models.ForeignKey('User', on_delete=models.CASCADE, related_name='message_recipient')
+    datetime = models.DateTimeField(auto_now_add=True)
+    details = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.id)
+
+    def characters(self):
+        return len(self.details)
+
+    def notify_ws_client(self):
+        notification = {'text': '%s' % self.id}
+        Group('%s' % self.recipient).send(notification)
+        Group('%s' % self.user).send(notification)
+
+    def save(self, *args, **kwargs):
+        new = self.id
+        self.details = self.details.strip()
+        super(Message, self).save(*args, **kwargs)
+        if new is None:
+            self.notify_ws_client()
+            ordering = ('-datetime',)
+
+    class META:
+        db_table = u'message'
+            
+class Messagenode(models.Model):
+
+    node = models.ForeignKey('Realestatenode', on_delete=models.CASCADE, related_name='+')
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+
+    class META:
+        db_table = u'messagenode'

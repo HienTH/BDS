@@ -1,0 +1,8 @@
+django==1.11.12
+channels==1.1.8
+djangorestframework-jwt
+djangorestframework
+unicodecsv
+werkzeug
+requests
+django-cors-headers

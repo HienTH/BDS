@@ -14,6 +14,8 @@ urlpatterns= [
     #2.5 REFRESH TOKEN
     url(r'^refresh_token/$', views.refresh_token, name='refresh_token'),
 
+    url(r'^danhsachgiaodichcho/$', views.giaodichcho, name='giaodichcho'),
+
     #3./manager_user/nodes/
     url(r'^nodes/$', views.list_node, name='list_node'),
 
@@ -26,10 +28,16 @@ urlpatterns= [
     #3.5 /manager_user/postnodes/node_id/
     url(r'^postnodes/(?P<node_id>.+)/$', views.postagain, name='postagain'),
 
+    #3.8 /manager_user/dangbaitimkiem/ Dang bai tim kiem
+    url(r'^dangbaitimkiem/$', views.dangbaitimkiem, name='dangbaitimkiem'),
+
+    #3.9 /manager_user/danhsachtimkiem/ danh sach
+    url(r'^danhsachtimkiem/$', views.danhsachtimkiem, name='danhsachtimkiem'),
+
     #4. /manager_user/nodes/node_id/
     url(r'^nodes/(?P<node_id>.+)/$', views.detail_node, name='detail_node'),
 
-    #4.5 /manager_user/delete_node/
+    #4.5 /manager_user/delete_node/<>/
     url(r'^delete_node/(?P<node_id>.+)/$', views.delete_node, name='delete_node'),
 
     #5. /manager_user/allnode/
@@ -82,6 +90,9 @@ urlpatterns= [
 
     #21./manager_user/uploadthumbnail/
     url(r'^uploadthumbnail/$', views.upload_thumbnail, name='upload_thumbnail'),
+
+    #22. /manager_user/messagenodes/
+    url(r'^messagenodes/$', views.add_messagenodes, name='add_messagenodes'),
 
     #22./manager_user/delete_thumbnail/
     #url(r'^deletethumbnail/$', views.delete_thumbnail, name='delete_thumbnail'),

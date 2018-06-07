@@ -30,6 +30,9 @@ urlpatterns= [
     #/manager_smod/allnode/
     url(r'^allnode/$', views.allnode, name='allnode'),
 
+    #/manager_smod/nodefalse/ Node chua duyet
+    url(r'^nodefalse/$', views.list_nodefalse, name='list_nodefalse'),
+
     #11,12,13, 14./manager_smod/nodes/
     url(r'^nodes/$', views.list_node, name='list_node'),
     url(r'^nodes/(?P<node_id>.+)/$', views.detail_node, name='detail_node'),
@@ -75,4 +78,13 @@ urlpatterns= [
 
     #20./manager_smod/danhsachduyetcoin
     url(r'^danhsachduyetcoin/$', views.danhsachduyetcoin, name='danhsachduyetcoin'),
+
+    #31./manager_mod/uploadpanorama/
+    url(r'^uploadpanorama/$', views.upload_panorama, name='upload_panorama'),
+
+    #32./manager_mod/uploadanh360/
+    url(r'^uploadanh360/$', views.upload_anh360, name='upload_anh360'),
+
+    #34./manager_mod/uploadthumbnail/
+    url(r'^uploadthumbnail/$', views.upload_thumbnail, name='upload_thumbnail'),
 ]

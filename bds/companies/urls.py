@@ -179,6 +179,9 @@ urlpatterns= [
     #19. Thong ke sale. /search/thongkesale/
     url(r'^thongkesale/$', views.thongkesale, name='thongkesale'),
     
+    #20. bai dang tim kiem: /search/danhsachbaidangtimkiem
+    url(r'^danhsachbaidangtimkiem/$', views.danhsachbaidangtimkiem, name='danhsachbaidangtimkiem'),
+
 ]
 """
     #11.5 /search/nodehire/ tim node cho thue

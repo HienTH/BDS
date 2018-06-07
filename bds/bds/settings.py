@@ -32,13 +32,15 @@ INSTALLED_APPS = [
     'mods',
     'smods',
     'users',
+    'chat',
     'rest_framework',
+    'channels'
 ]
 
 CSRF_COOKIE_SECURE = False
-#SESSION_COOKIE_SECURE = True
-#CSRF_COOKIE_SECURE = True
-#SECURE_SSL_REDIRECT = True
+#SESSION_COOKIE_SECURE=True
+#SESSION_COOKIE_HTTPONLY=True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -47,6 +49,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     )
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgiref.inmemory.ChannelLayer",
+        "ROUTING": "chat.routing.channel_routing",
+    },
 }
 
 JWT_AUTH = {
@@ -170,14 +179,13 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Vientiane'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = False
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

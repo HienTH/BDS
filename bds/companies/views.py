@@ -608,6 +608,10 @@ def create_user(request):
         if 'password' not in data or 'name' not in data or 'phone' not in data or 'email' not in data:
             return JsonResponse({'message': 'No result!!!'}, status=status.HTTP_400_BAD_REQUEST)
 
+        #Check email, sdt hop le
+        if not re.match(r'(09|01[2|6|8|9])+([0-9]{8})\b', data['phone']) or not re.match(r'^[\w\.\+\-]+\@[\w]+\.[a-z]{2,3}$', data['email']):
+            return JsonResponse({'message': 'No result!!!'}, status=status.HTTP_400_BAD_REQUEST)
+
         list_id = User.objects.all().values_list('id', flat=True)
 
         #sinh id cua user
@@ -624,30 +628,40 @@ def create_user(request):
         data['avatar'] = ''
         data['social'] = ''
 
-        captcha = {'g-recaptcha-response': data['g-recaptcha-response']}
-        recaptcha = requests.post('http://mappy.com.vn:8000/user/recaptcha/', data=captcha).json()
+        response = {}
+        captcha_rs = data['g-recaptcha-response'].encode("utf-8")
+        url = "https://www.google.com/recaptcha/api/siteverify"
+        params = {
+            'secret': settings.RECAPTCHA_SECRET_KEY,
+            'response': captcha_rs
+        }
+        verify_rs = requests.get(url, params=params, verify=True)
+        verify_rs = verify_rs.json()
+        response["status"] = verify_rs.get("success", False)
+        response['message'] = verify_rs.get('error-codes', None) or "Unspecified error."
 
-        if recaptcha['status'] == False:
-            return JsonResponse({'message': 'No result!!!'}, status=status.HTTP_400_BAD_REQUEST)
+        if response['status'] == False:
+            return JsonResponse({'message': 'L  ^ i', 'status': 'error'})
+
 
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             uid = str(uuid.uuid4())
             token = rest_framework_jwt.utils.jwt_encode_handler({'id': data['id'], 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
-            message = 'Nhấp vào link:        http://mappy.com.vn/confirm-email/'+token+'.'
+            message = 'Nhap vao link de xac thuc tai khoan:        https://mappy.com.vn/register/confirm?token='+token+'.'
 
             send_mail('360 land confirm Account', message, 'hienhdt32@gmail.com',[data['email']])
 
-            return Response({'message': 'OK!!!'}, status=200)
+            return Response({'message': '', 'status': 'success'})
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': '', 'status': 'error'})
 
 @api_view(['POST'])
 def register_facebook(request):
     if request.method == 'POST':
-        request.data=json.loads(json.dumps(request.data))
-        if not request.data['email'] or not request.data['id'] or not request.data['name']:
+        datauser=json.loads(json.dumps(request.data))
+        if 'email' not in datauser or 'id' not in datauser or 'name' not in datauser:
             return JsonResponse({'status': 'unavailable'})
 
         #Dang ky.
@@ -657,22 +671,23 @@ def register_facebook(request):
         while data['id'] in list_id:
             data['id'] = str(uuid.uuid4().get_hex().upper()[0:10])
         
-        data['username'] = request.data['id']
-        data['name'] = request.data['name']
-        request.data['password'] = 'hoAnghOaTham$192'
-        hashed_password = generate_password_hash(request.data['password'], method='sha256')
+        data['username'] = datauser['id']
+        data['name'] = datauser['name']
+        password = 'hoAnghOaTham$192'
+        hashed_password = generate_password_hash(password, method='sha256')
         data['password']=hashed_password
         data['status'] = True
         data['rank'] = 1
         data['coin'] = 0
         data['phone'] = ''
         data['address'] = ''
+        data['email'] = datauser['email']
         data['company'] = ''
         data['sex'] = True
         data['birthday'] = ''
-        data['avatar'] = ''
+        data['avatar'] = 'https://graph.facebook.com/'+datauser['id']+'/picture'
         data['details'] = ''
-        data['social'] = ''
+        data['social'] = 'https://facebook.com/'+datauser['id']+'/'
 
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
@@ -717,6 +732,7 @@ def grecaptcha_verify(request):
             'response': captcha_rs
         }
         verify_rs = requests.get(url, params=params, verify=True)
+        
         verify_rs = verify_rs.json()
         response["status"] = verify_rs.get("success", False)
         response['message'] = verify_rs.get('error-codes', None) or "Unspecified error."
@@ -777,7 +793,7 @@ def check_mail(request):
         #send mail
         uid = str(uuid.uuid4())
         token = rest_framework_jwt.utils.jwt_encode_handler({'id': user[0].id, 'exp': datetime.datetime.now() + datetime.timedelta(minutes=120), 'jti': uid})
-        message = 'Nhấp vào link để đặt lại mật khẩu:        http://mappy.com.vn/login?mode=resetpassword&token='+token+'.'
+        message = 'Nhap vao link de dat lai mat khau:        https://mappy.com.vn/login?mode=resetpassword&token='+token+'.'
         
         try:
             send_mail('360 land confirm Account', message, 'hienhdt32@gmail', [user[0].email])
@@ -843,7 +859,7 @@ def profile(request):
         except:
             return JsonResponse({'data': 'error'})
 
-        user.username = ''    
+        user.username = ''
         user.password = ''
         user.status = ''
         user.rank = 0
@@ -960,20 +976,34 @@ def tatcaduan(request):
 def chitietduan(request):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
-        try:
-            duan = Duan.objects.get(id=data['id'])
-        except:
-            return JsonResponse({'message': 'No duan!!!'})
-
         result = {}
-        if duan or duan.status==True:
+        try:
+            duan = Duan.objects.get(id=data['id'], status=True)
             serializer = DuanSerializer(duan)
-            result = serializer.data
-            result['status'] = ''
+            
+            result['id'] = serializer.data['id']
+            result['name'] = serializer.data['name']
+            result['address'] = serializer.data['address']
+            result['tinh'] = serializer.data['tinh']
+            result['huyen'] = serializer.data['huyen']
+            result['xa'] = serializer.data['xa']
+            result['details_address'] = serializer.data['details_address']
+            result['intro'] = serializer.data['intro']
+            result['pricefrom'] = serializer.data['pricefrom']
+            result['infoduan'] = serializer.data['infoduan']
+            result['tiendo'] = serializer.data['tiendo']
+            result['latitude'] = serializer.data['latitude']
+            result['longitude'] = serializer.data['longitude']
+            result['thumbs'] = serializer.data['thumbs']
+            result['anh360'] = serializer.data['anh360']
+            result['panorama_image'] = serializer.data['panorama_image']
+            result['video'] = serializer.data['video']
+            result['uutien'] = serializer.data['uutien']
+            result['type'] = serializer.data['type']
 
             return Response(result)
-
-        return JsonResponse({'message': 'No duan!!!'})
+        except:
+            return JsonResponse({'message': 'No duan!!!'})
 
 #9.7 Doc chi tiet node
 @api_view(['POST'])
@@ -1000,6 +1030,12 @@ def chitietnode(request):
             result['email'] = user.email
             result['diachi'] = user.address
             result['username'] = user.username
+            try:
+                duan = Duan.objects.get(id=realestatenode.duanid)
+                result['tenduan'] = duan.name
+            except:
+                result['tenduan'] = ''
+
             return Response(result)
 
         return JsonResponse({'message': 'No node!!!'})
@@ -1031,7 +1067,7 @@ def indexdpro(province):
     #read csv, and split on "," the line
     csv_file = csv.reader(open('VNM_adm2.csv', "rb"), delimiter=str(u','))
     for row in csv_file:
-        if row[5] == province:
+        if row[5] == str(province):
             return str(row[4])
 
 #10.1 Xac dinh bound cho tinh,tp thuoc trung uong
@@ -1876,7 +1912,10 @@ def searchservicebound(request):
 def searchduanbasic(request):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
-        
+        if 'tinh' not in data:
+                data['tinh'] = ''
+        if 'huyen' not in data:
+                data['huyen'] = ''
         duans = Duan.objects.filter(name__icontains=data['input'], tinh__icontains=data['tinh'], huyen__icontains=data['huyen'], status=True)
 
         duan1 = Duan.objects.filter(intro__icontains=data['input'], tinh__icontains=data['tinh'], huyen__icontains=data['huyen'], status=True)
@@ -1947,18 +1986,14 @@ def searchduantuongtu(request):
         data['pricefrom'] = duan.pricefrom
 
         serialized=[]
-        realestatenodes = Realestatenode.objects.filter(duanid=data['duan'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True)
-        for obj in realestatenodes:
-            serialized.append(RealestatenodeSerializer(obj).data)
 
-#        serialized=[]
-#        duans = Duan.objects.filter(tinh__icontains=duan.tinh, huyen__icontains=duan.huyen , status=True)
-#        for obj in duans:
-#            serialized.append(DuanSerializer(obj).data)
+        duans = Duan.objects.filter(tinh__icontains=duan.tinh, huyen__icontains=duan.huyen , status=True)
+        for obj in duans:
+            serialized.append(DuanSerializer(obj).data)
 
-        total = realestatenodes.count()
-        if total < 10:
-            x = 10 - total
+        total = duans.count()
+        if total < 6:
+            x = 6 - total
             duans = Duan.objects.filter(pricefrom__gte=data['pricefrom'], status=True).order_by('pricefrom')[:x]
             for obj in duans:
                 serialized.append(DuanSerializer(obj).data)
@@ -2064,16 +2099,17 @@ def timkiemsale(request):
             s['coin'] = ''
             s['status'] = ''
             s['rank'] = ''
-        return JsonResponse({'data': serializer.data})
+        return JsonResponse({'data': serializer.data, 'status': 'success'})
 
 #19. Thong ke sale
 @api_view(['POST'])
 def thongkesale(request):
     if request.method == 'POST':
         data=json.loads(json.dumps(request.data))
-        user = User.objects.get(id=data['userid'])
-        if not user:
-            return JsonResponse({'data': 'error'})
+        try:
+                user = User.objects.get(id=data['userid'])
+        except:
+                return JsonResponse({'data': 'error'})
         kq = ''
         x = 1
         for x in range(13):
@@ -2083,3 +2119,65 @@ def thongkesale(request):
             if x == 12:
                 kq = kq + str(node.count())
         return JsonResponse({'data': kq})
+
+#20. Danh sach bai dang tim kiem.
+@api_view(['GET'])
+def danhsachbaidangtimkiem(request):
+    if request.method == 'GET':
+        data=json.loads(json.dumps(request.data))
+        import pdb; pdb.set_trace();
+        nodes = Realestatenode.objects.filter(status=True, typenode=False).order_by('-timecreate')
+        serializer = RealestatenodeSerializer(nodes, many=True)
+        return JsonResponse({'data': serializer.data, 'status': 'success'})
+
+"""
+#9.5 Doc chi tiet duan
+@api_view(['POST'])
+def chitietduan(request):
+    if request.method == 'POST':
+        data=json.loads(json.dumps(request.data))
+        try:
+            duan = Duan.objects.get(id=data['id'])
+        except:
+            return JsonResponse({'message': 'No duan!!!'})
+
+        result = {}
+        if duan or duan.status==True:
+            serializer = DuanSerializer(duan)
+            result = serializer.data
+            result['status'] = ''
+
+            return Response(result)
+
+        return JsonResponse({'message': 'No duan!!!'})
+
+        #13.3 Search node/duan lien quan theo duan
+@api_view(['POST'])
+def searchduantuongtu(request):
+    if request.method == 'POST':
+        #duanid
+        data=json.loads(json.dumps(request.data))
+        duan = Duan.objects.get(id=data['duanid'])
+        if not duan:
+            return JsonResponse({'message': 'No result!!!'})
+        data['duan'] = duan.id
+        data['pricefrom'] = duan.pricefrom
+
+        serialized=[]
+        realestatenodes = Realestatenode.objects.filter(duanid=data['duan'], timefrom__lte=datetime.datetime.now(), timeto__gte=datetime.datetime.now(), status=True)
+        for obj in realestatenodes:
+            serialized.append(RealestatenodeSerializer(obj).data)
+
+#        serialized=[]
+#        duans = Duan.objects.filter(tinh__icontains=duan.tinh, huyen__icontains=duan.huyen , status=True)
+#        for obj in duans:
+#            serialized.append(DuanSerializer(obj).data)
+
+        total = realestatenodes.count()
+        if total < 10:
+            x = 10 - total
+            duans = Duan.objects.filter(pricefrom__gte=data['pricefrom'], status=True).order_by('pricefrom')[:x]
+            for obj in duans:
+                serialized.append(DuanSerializer(obj).data)
+        return Response(serialized)
+"""

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th2 09, 2018 lúc 12:48 AM
--- Phiên bản máy phục vụ: 5.7.20-0ubuntu0.17.10.1
--- Phiên bản PHP: 7.1.11-0ubuntu0.17.10.1
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th6 07, 2018 lúc 02:18 PM
+-- Phiên bản máy phục vụ: 5.7.22-0ubuntu0.16.04.1
+-- Phiên bản PHP: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -132,7 +132,13 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (69, 'Can delete thongbaouser', 23, 'delete_thongbaouser'),
 (70, 'Can add thongbao', 24, 'add_thongbao'),
 (71, 'Can change thongbao', 24, 'change_thongbao'),
-(72, 'Can delete thongbao', 24, 'delete_thongbao');
+(72, 'Can delete thongbao', 24, 'delete_thongbao'),
+(73, 'Can add messagenode', 25, 'add_messagenode'),
+(74, 'Can change messagenode', 25, 'change_messagenode'),
+(75, 'Can delete messagenode', 25, 'delete_messagenode'),
+(76, 'Can add message', 26, 'add_message'),
+(77, 'Can change message', 26, 'change_message'),
+(78, 'Can delete message', 26, 'delete_message');
 
 -- --------------------------------------------------------
 
@@ -159,7 +165,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$36000$u6RTjWdSVl4a$beT11Jn1hYStba9Sy/Xh9VMA+RRGhDXeaCNyQklAZfY=', '2018-02-02 09:59:10.144338', 1, 'hienhd', '', '', 'haduchienmtat32@gmail.com', 1, 1, '2018-01-25 15:59:05.146189');
+(1, 'pbkdf2_sha256$36000$u6RTjWdSVl4a$beT11Jn1hYStba9Sy/Xh9VMA+RRGhDXeaCNyQklAZfY=', '2018-06-07 09:11:23.242324', 1, 'hienhd', '', '', 'haduchienmtat32@gmail.com', 1, 1, '2018-01-25 15:59:05.146189');
 
 -- --------------------------------------------------------
 
@@ -456,6 +462,48 @@ INSERT INTO `companies_loaiduan` (`id`, `name`, `icon`) VALUES
 ('loaiduan7', 'Khu nghỉ dưỡng, Sinh thái', ''),
 ('loaiduan8', 'Khu công nghiệp', ''),
 ('loaiduan9', 'Dự án khác', '');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `companies_message`
+--
+
+CREATE TABLE `companies_message` (
+  `id` int(11) NOT NULL,
+  `datetime` datetime(6) NOT NULL,
+  `details` longtext,
+  `converid_id` int(11) NOT NULL,
+  `recipient_id` varchar(20) NOT NULL,
+  `user_id` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `companies_message`
+--
+
+INSERT INTO `companies_message` (`id`, `datetime`, `details`, `converid_id`, `recipient_id`, `user_id`) VALUES
+(1, '2018-06-06 00:00:00.000000', 'Xin chao ban', 1, 'user1', 'user2'),
+(2, '2018-06-07 00:00:00.000000', 'Chao', 1, 'user2', 'user1');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `companies_messagenode`
+--
+
+CREATE TABLE `companies_messagenode` (
+  `id` int(11) NOT NULL,
+  `node_id` varchar(20) NOT NULL,
+  `user_id` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `companies_messagenode`
+--
+
+INSERT INTO `companies_messagenode` (`id`, `node_id`, `user_id`) VALUES
+(1, 'node1', 'user2');
 
 -- --------------------------------------------------------
 
@@ -862,6 +910,8 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (15, 'companies', 'groupnode'),
 (17, 'companies', 'history'),
 (13, 'companies', 'loaiduan'),
+(26, 'companies', 'message'),
+(25, 'companies', 'messagenode'),
 (19, 'companies', 'mod'),
 (12, 'companies', 'phancong'),
 (22, 'companies', 'phanhoi'),
@@ -926,7 +976,19 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (30, 'companies', '0017_auto_20180205_1540', '2018-02-05 15:40:11.548539'),
 (31, 'companies', '0018_auto_20180205_1651', '2018-02-05 16:51:26.066110'),
 (32, 'companies', '0019_realestatenode_video', '2018-02-06 14:10:02.384017'),
-(33, 'companies', '0020_auto_20180208_1605', '2018-02-08 16:05:46.047077');
+(33, 'companies', '0020_auto_20180208_1605', '2018-02-08 16:05:46.047077'),
+(34, 'companies', '0021_auto_20180313_2140', '2018-06-07 09:09:04.752093'),
+(35, 'companies', '0022_auto_20180502_2326', '2018-06-07 09:09:05.099522'),
+(36, 'companies', '0023_auto_20180502_2335', '2018-06-07 09:09:05.284262'),
+(37, 'companies', '0024_auto_20180502_2347', '2018-06-07 09:09:05.551710'),
+(38, 'companies', '0025_auto_20180503_1315', '2018-06-07 09:09:05.616422'),
+(39, 'companies', '0026_remove_messagenode_datetime', '2018-06-07 09:09:05.663556'),
+(40, 'companies', '0027_auto_20180503_1409', '2018-06-07 09:09:05.817179'),
+(41, 'companies', '0028_auto_20180503_1409', '2018-06-07 09:09:05.971507'),
+(42, 'companies', '0029_auto_20180503_1411', '2018-06-07 09:09:06.035138'),
+(43, 'companies', '0030_auto_20180503_1429', '2018-06-07 09:09:06.144540'),
+(44, 'companies', '0031_auto_20180508_2338', '2018-06-07 09:09:06.208784'),
+(45, 'companies', '0032_auto_20180607_0908', '2018-06-07 09:09:06.231414');
 
 -- --------------------------------------------------------
 
@@ -945,6 +1007,7 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('ap3teilzrde6ol4c2xo5yihw30on9380', 'NzYwODQ3OGJjOTNmYzE0MmQ3ZWZhMjZkNmI1MWZlYzQ2OWFjZTk4Mzp7Il9hdXRoX3VzZXJfaGFzaCI6Ijc3M2U3ZTlkNDVhY2QxYWI2N2UxYTkwMWRlNmU4YmU1YTc4ZWUwZWUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2018-06-21 09:11:23.246537'),
 ('mz55lrb6pu8j3kdh320sdry2vmkhjmi6', 'NzYwODQ3OGJjOTNmYzE0MmQ3ZWZhMjZkNmI1MWZlYzQ2OWFjZTk4Mzp7Il9hdXRoX3VzZXJfaGFzaCI6Ijc3M2U3ZTlkNDVhY2QxYWI2N2UxYTkwMWRlNmU4YmU1YTc4ZWUwZWUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2018-02-08 15:59:42.046610'),
 ('wj86k70bfh3omxxod6w0ftbbvg3m75ll', 'NzYwODQ3OGJjOTNmYzE0MmQ3ZWZhMjZkNmI1MWZlYzQ2OWFjZTk4Mzp7Il9hdXRoX3VzZXJfaGFzaCI6Ijc3M2U3ZTlkNDVhY2QxYWI2N2UxYTkwMWRlNmU4YmU1YTc4ZWUwZWUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2018-02-16 09:59:10.149259');
 
@@ -1044,6 +1107,23 @@ ALTER TABLE `companies_history`
 --
 ALTER TABLE `companies_loaiduan`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `companies_message`
+--
+ALTER TABLE `companies_message`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `companies_message_converid_id_2ac05242_fk_companies` (`converid_id`),
+  ADD KEY `companies_message_recipient_id_3dc29c15_fk_companies_user_id` (`recipient_id`),
+  ADD KEY `companies_message_user_id_d140822d_fk_companies_user_id` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `companies_messagenode`
+--
+ALTER TABLE `companies_messagenode`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `companies_messagenode_node_id_6433550c` (`node_id`),
+  ADD KEY `companies_messagenode_user_id_28f35fb2` (`user_id`);
 
 --
 -- Chỉ mục cho bảng `companies_mod`
@@ -1169,7 +1249,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT cho bảng `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 --
 -- AUTO_INCREMENT cho bảng `auth_user`
 --
@@ -1196,10 +1276,15 @@ ALTER TABLE `companies_coin`
 ALTER TABLE `companies_duanquantam`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
--- AUTO_INCREMENT cho bảng `companies_history`
+-- AUTO_INCREMENT cho bảng `companies_message`
 --
-ALTER TABLE `companies_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `companies_message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT cho bảng `companies_messagenode`
+--
+ALTER TABLE `companies_messagenode`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT cho bảng `companies_phancong`
 --
@@ -1239,12 +1324,12 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT cho bảng `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT cho bảng `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
@@ -1295,6 +1380,21 @@ ALTER TABLE `companies_duan`
 ALTER TABLE `companies_duanquantam`
   ADD CONSTRAINT `companies_duanquantam_duan_id_9d8291a3_fk_companies_duan_id` FOREIGN KEY (`duan_id`) REFERENCES `companies_duan` (`id`),
   ADD CONSTRAINT `companies_duanquantam_user_id_a5495168_fk_companies_user_id` FOREIGN KEY (`user_id`) REFERENCES `companies_user` (`id`);
+
+--
+-- Các ràng buộc cho bảng `companies_message`
+--
+ALTER TABLE `companies_message`
+  ADD CONSTRAINT `companies_message_converid_id_2ac05242_fk_companies` FOREIGN KEY (`converid_id`) REFERENCES `companies_messagenode` (`id`),
+  ADD CONSTRAINT `companies_message_recipient_id_3dc29c15_fk_companies_user_id` FOREIGN KEY (`recipient_id`) REFERENCES `companies_user` (`id`),
+  ADD CONSTRAINT `companies_message_user_id_d140822d_fk_companies_user_id` FOREIGN KEY (`user_id`) REFERENCES `companies_user` (`id`);
+
+--
+-- Các ràng buộc cho bảng `companies_messagenode`
+--
+ALTER TABLE `companies_messagenode`
+  ADD CONSTRAINT `companies_messagenod_node_id_6433550c_fk_companies` FOREIGN KEY (`node_id`) REFERENCES `companies_realestatenode` (`id`),
+  ADD CONSTRAINT `companies_messagenode_user_id_28f35fb2_fk_companies_user_id` FOREIGN KEY (`user_id`) REFERENCES `companies_user` (`id`);
 
 --
 -- Các ràng buộc cho bảng `companies_mod`

@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^manager_smod/', include('smods.urls')),
     url(r'^manager_mod/', include('mods.urls')),
     url(r'^manager_user/', include('users.urls')),
+    url(r'^chat/', include('chat.urls')),
 
     #nguoi dung chua dang nhap
     url(r'^user/', include('companies.urls')),

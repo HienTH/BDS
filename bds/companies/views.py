@@ -664,6 +664,7 @@ def register_facebook(request):
         if 'email' not in datauser or 'id' not in datauser or 'name' not in datauser:
             return JsonResponse({'status': 'unavailable'})
 
+        data = {}
         #Dang ky.
         #sinh id cua user
         list_id = User.objects.all().values_list('id', flat=True)

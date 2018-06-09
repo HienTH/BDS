@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'users',
     'chat',
     'rest_framework',
-    'channels'
+    'sslserver',
+    'sslchannels'
 ]
 
 CSRF_COOKIE_SECURE = False

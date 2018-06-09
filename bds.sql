@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th6 07, 2018 lúc 02:18 PM
+-- Thời gian đã tạo: Th6 09, 2018 lúc 11:40 PM
 -- Phiên bản máy phục vụ: 5.7.22-0ubuntu0.16.04.1
 -- Phiên bản PHP: 7.0.30-0ubuntu0.16.04.1
 
@@ -484,7 +484,12 @@ CREATE TABLE `companies_message` (
 
 INSERT INTO `companies_message` (`id`, `datetime`, `details`, `converid_id`, `recipient_id`, `user_id`) VALUES
 (1, '2018-06-06 00:00:00.000000', 'Xin chao ban', 1, 'user1', 'user2'),
-(2, '2018-06-07 00:00:00.000000', 'Chao', 1, 'user2', 'user1');
+(2, '2018-06-07 00:00:00.000000', 'Chao', 1, 'user2', 'user1'),
+(3, '2018-06-07 14:45:59.079415', 'hello', 1, 'user2', 'user1'),
+(6, '2018-06-09 23:12:19.457462', 'hello anh em', 1, 'user2', 'user1'),
+(9, '2018-06-09 23:20:13.787985', 'he em', 11, '3988E43301', 'user1'),
+(10, '2018-06-09 23:20:19.900568', 'he an em', 11, '3988E43301', 'user1'),
+(11, '2018-06-09 23:21:06.330984', 'he an em', 11, '3988E43301', 'user1');
 
 -- --------------------------------------------------------
 
@@ -503,7 +508,8 @@ CREATE TABLE `companies_messagenode` (
 --
 
 INSERT INTO `companies_messagenode` (`id`, `node_id`, `user_id`) VALUES
-(1, 'node1', 'user2');
+(1, 'node1', 'user2'),
+(11, 'node1', '3988E43301');
 
 -- --------------------------------------------------------
 
@@ -650,7 +656,7 @@ INSERT INTO `companies_realestatenode` (`id`, `title`, `latitude`, `longitude`, 
 ('E44883FBEE', 'Cần thuê nhà', 0, 0, -1, 0, 0, 'HN', '7', '', '', '', '', '', 0, NULL, NULL, 0, 0, '', 1, 'http://noithattinhte.vn/a/Noi_that_chung_cu_cao_cao_Thap_Hoa_Kim_Cuong.jpg', NULL, '', 'Hà QUốc Hưng', 'Thanh Xuân, Hà Nội', '01688955695', 'hung%40gmail.com', 1, '2018-02-04 00:00:00.000000', '2018-02-23 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', '16B651', 'typereal1', 'user1', NULL, NULL),
 ('node1', 'VINHOMES LIỄU GIAI METROPOLIS, MỘT SỐ CĂN ĐẸP CHÍNH CHỦ BÁN LẠI, CẬP NHẬT MỚI NHẤT NGÀY 16/11/2017', 21.031885, 105.813755, 2.4, 0, 70, 'Hà Nội', 'Ba Đình', 'Liễu Giai', 'Liễu Giai', NULL, 'Liễu Giai, Ba Đình, hà Nội', 'Tây', 2, NULL, NULL, 0, 0, 'Gia re cam ket', 1, 'http://img.thuechungcuhn.com//2016/07/14/20160714164310-9ee5.jpg,http://cdn.home-designing.com/wp-content/uploads/2012/06/Modern-interior-grafitti-art.jpg,http://www.alanyahomes.net/wp-content/uploads/2017/01/small-apartment-design.jpg,http://www.acong.vn/images/news/noi_that_chung_cu/2014_starcity1308/starcity_pk01.jpg', NULL, '', 'Lê Văn Đại', 'Hà Đông, Hà Nội', '0912123187', 'haquochung@gmail.com', 2, '2018-02-01 00:00:00.000000', '2018-02-16 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan1', 'mod2', 'typereal1', 'user1', NULL, NULL),
 ('node2', 'BÁN SUẤT MUA CĂN HỘ B6 GIẢNG VÕ, GIÁ 49TR/M2, CHỌN CĂN TẦNG ĐẸP 75-80-95-127M2. LH: 0984289885', 21.0340766906738, 105.770355224609, 0.7, 0, 900, 'Hồ Chí Minh', 'Bình Chánh', 'Bình Lợi', '2C', NULL, 'Bình Lợi, Bình Chánh, Hồ Chí Minh', 'Đông', 2, NULL, NULL, 0, 0, 'Gia re cam ket', 1, 'https://cdn.freshome.com/wp-content/uploads/2014/02/apartment-design2.jpg,http://www.acong.vn/images/news/noi_that_chung_cu/2014_starcity1308/starcity_pk01.jpg', NULL, '', 'Trần Thanh Trung', 'Thanh Xuân, Hà Nội', '0910123195', 'haduchien@gmail.com', 1, '2018-02-02 00:00:00.000000', '2017-08-10 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', 'mod3', 'typereal2', 'user2', NULL, NULL),
-('node3', 'CĐT Tháp nước bán suất ngoại giao Hà Nội Aqua Central, liên hệ CĐT: 09492158988\n', 21.046274, 105.844371, 0.7, 0, 80.03, 'Hà Nội', 'Ba Đình', 'Trúc Bạch', 'Yên Phụ', NULL, 'Trúc Bạch, Ba Đình, Hà Nội', 'Nam', 3, NULL, NULL, 0, 0, 'Gia re cam ket', 1, 'https://noithatlongthanh.vn/upload/images/thiet-ke-noi-that-chung-cu-cao-cap-2016.jpg,http://vtkong.net/wp-content/uploads/2016/07/thiet-ke-noi-that-can-ho-chung-cu-NETNTCC10.jpg', NULL, '', 'Phạm Văn Cảnh', 'Thanh Xuân, Hà Nội', '0910097654', 'haduchien@gmail.com', 2, '2018-01-02 00:00:00.000000', '2018-02-09 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan4', 'mod3', 'typereal7', 'user2', NULL, NULL),
+('node3', 'CĐT Tháp nước bán suất ngoại giao Hà Nội Aqua Central, liên hệ CĐT: 09492158988\n', 21.046274, 105.844371, 0.7, 0, 80.03, 'Hà Nội', 'Ba Đình', 'Trúc Bạch', 'Yên Phụ', NULL, 'Trúc Bạch, Ba Đình, Hà Nội', 'Nam', 3, NULL, NULL, 0, 0, 'Gia re cam ket', 1, 'https://noithatlongthanh.vn/upload/images/thiet-ke-noi-that-chung-cu-cao-cap-2016.jpg,http://vtkong.net/wp-content/uploads/2016/07/thiet-ke-noi-that-can-ho-chung-cu-NETNTCC10.jpg', NULL, '', 'Phạm Văn Cảnh', 'Thanh Xuân, Hà Nội', '0910097654', 'haduchien@gmail.com', 2, '2018-06-07 00:00:00.000000', '2018-06-16 00:00:00.000000', 1, 0, NULL, '2017-08-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan4', 'mod3', 'typereal7', 'user2', NULL, NULL),
 ('node5', 'PHÒNG KINH DOANH GOLDEN FIELD MỸ ĐÌNH, MỞ BÁN ĐỢT CUỐI, GIÁ TỪ 29TR/M2, TẶNG GÓI NỘI THẤT 60TR\n', 21.030084, 105.76747, 3.5, 0, 135.01, 'Hà Nội', 'Nam Từ Liêm', 'Mỹ Đình', '', NULL, 'Mỹ Đình, Nam Từ Liêm, Hà Nội', 'Đông', 4, NULL, NULL, 0, 0, 'Gia re cam ket', 1, 'http://solution.com.vn/upload_images/images/thiet-ke-noi-that-chung-cu-sky-light-002(1).jpg,http://vtkong.net/wp-content/uploads/2016/07/thiet-ke-noi-that-can-ho-chung-cu-NETNTCC10.jpg', NULL, '', 'Trần Kiên', 'Thường Tín, Hà Nội', '0912129189', 'haquochung@gmail.com', 1, '2018-01-31 00:00:00.000000', '2018-02-15 00:00:00.000000', 1, 0, NULL, '2017-09-12 00:00:00.000000', '2017-10-14 00:00:00.000000', 'duan2', 'mod2', 'typereal7', 'user1', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -858,7 +864,7 @@ CREATE TABLE `companies_user` (
 --
 
 INSERT INTO `companies_user` (`id`, `username`, `password`, `name`, `email`, `phone`, `address`, `company`, `sex`, `birthday`, `coin`, `avatar`, `status`, `rank`, `details`, `social`) VALUES
-('3988E43301', 'doanh', 'sha256$J9Rku9SO$6e899175ad2284d0dac0ffb77a65de4920fe39ff016b3bfbac2b6da08f9b04a4', 'phan trong doanh~', 'phandoanh@gmail.com', '01688955295', 'Binh Dinh', 'BHome', 1, '1995-09-09', '60', 'https://file4.batdongsan.com.vn/resize/200x200/2017/12/28/JGcIp0rf/20171228150952-0d87.jpg', 1, 1, 'Là một nhà môi giới chuyên nghiệp, tôi luôn xác định lâu dài và đồng hành cùng khách hàng, lấy chữ tín làm phương châm hoạt động, tôi cam kết trung thực và đem lại lợi ích tốt nhất cho khách của mình. Với DATABASE khách hàng rất lớn tôi tin sẽ phục vụ khách hàng và TẠO RA GIÁ TRỊ GIA TĂNG TỐT NHẤT CHO QUÝ KHÁCH HÀNG CỦA CHÚNG TÔI. Khu vực môi giới MUA, BÁN VÀ CHO THUÊ tốt nhất: CÁC PHƯỜNG THẢO ĐIỀN, AN PHÚ, AN KHÁNH, BÌNH AN THUỘC QUẬN 2, TP HCM - Loại BDS môi giới nhiều nhất: Bán villa, biệt thự Bán nhà PHỐ Bán đất / đất nền dự án Dịch vụ tìm nhà cho người nước ngoài thuê nhà', ''),
+('3988E43301', 'doanh', 'sha256$Numwnh9z$9d2f6ab1fabf5d7809ecdf6cc6ce1ee54b809af51f32f2a28afdcf37926b458f', 'phan trong doanh~', 'phandoanh@gmail.com', '01688955295', 'Binh Dinh', 'BHome', 1, '1995-09-09', '60', 'https://file4.batdongsan.com.vn/resize/200x200/2017/12/28/JGcIp0rf/20171228150952-0d87.jpg', 1, 1, 'Là một nhà môi giới chuyên nghiệp, tôi luôn xác định lâu dài và đồng hành cùng khách hàng, lấy chữ tín làm phương châm hoạt động, tôi cam kết trung thực và đem lại lợi ích tốt nhất cho khách của mình. Với DATABASE khách hàng rất lớn tôi tin sẽ phục vụ khách hàng và TẠO RA GIÁ TRỊ GIA TĂNG TỐT NHẤT CHO QUÝ KHÁCH HÀNG CỦA CHÚNG TÔI. Khu vực môi giới MUA, BÁN VÀ CHO THUÊ tốt nhất: CÁC PHƯỜNG THẢO ĐIỀN, AN PHÚ, AN KHÁNH, BÌNH AN THUỘC QUẬN 2, TP HCM - Loại BDS môi giới nhiều nhất: Bán villa, biệt thự Bán nhà PHỐ Bán đất / đất nền dự án Dịch vụ tìm nhà cho người nước ngoài thuê nhà', ''),
 ('408C96A7B6', 'tuan', 'sha256$RT57V8Oq$48029272632e3cf7748dead8e189155da4541bd7a263d8837f9d474e93d02d2a', 'vu quoc tuan', 'vuquoctuan@gmail.com', '0928111828', 'Hà Nội', 'BHome', 1, '1995-09-09', '300', '', 1, 1, 'Là một nhà môi giới chuyên nghiệp có uy tín. Tôi luôn cố gắng để đem đến cho khách hàng dịch vụ tốt nhất và BDS uy tín. Tôi mong muốn có cơ hội được hợp tác với tất cả các khách hàng. Hãy đến với tôi để có những dịch vụ và BDS tốt và thành công nhất. * Khu vực môi giới tốt nhất: Gò Vấp - Q12 - Tân Bình và các quận trong Thành phố Hồ Chí Minh * Loại BDS môi giới nhiều nhất: - Bán villa, biệt thự - Bán nhà riêng - Bán nhà mặt phố', ''),
 ('51C09B04E8', 'duy', 'sha256$VW7XYtTA$797bcb104fb129dc88bc1c383a20b2abe7faa8600034ef6ca3f09290d0fb378d', 'phan trong doanh', 'phanduy@gmail.com', '01688955295', 'Gia Lai', 'BHome', 1, '1995-09-09', '0', '', 1, 1, '- Nhà Môi Giới tự giới thiệu: Trong thời gian vừa qua tôi luôn cố gắng để đem đến cho khách hàng dịch vụ tốt nhất và bất động sản uy tín. Mong muốn có cơ hội được hợp tác với tất cả các khách hàng.Hãy đến với tôi để có những giao dịch bất động sản thành công nhất. - Khu vực môi giới tốt nhất: Gò Vấp , Tân Bình và các quận trong thành phố hồ Chí Minh - Loại BDS môi giới nhiều nhất: + Bán villa, biệt thự + Bán nhà riêng + Bán nhà mặt phố', ''),
 ('B892FB32E4', 'hiep', 'sha256$akeLWn1h$3c3a1ecc900f935c53d9000c0ab231e833f3685f5a1acbdc123c627d328b4aaa', 'bach hiep', 'bachngochiep@gmail.com', '0917217271', 'Hà Nội', 'BHomes', 1, '1995-01-01', '0', 'http://mappy.com.vn/media/profile/2018/2/6/B892FB32E4.png', 1, 10, 'Là một nhà môi giới chuyên nghiệp có uy tín. Tôi luôn cố gắng để đem đến cho khách hàng dịch vụ tốt nhất và BDS uy tín. Tôi mong muốn có cơ hội được hợp tác với tất cả các khách hàng. Hãy đến với tôi để có những dịch vụ và BDS tốt và thành công nhất.  Kinh nghiệm:  Có kinh nghiệm nhiều năm trong lĩnh vực môi giới BDS về các lĩnh vực: + Bán nhà riêng + Bán nhà mặt tiền + Bán nhà biệt thự liền kề + Bán đất', ''),
@@ -1279,12 +1285,12 @@ ALTER TABLE `companies_duanquantam`
 -- AUTO_INCREMENT cho bảng `companies_message`
 --
 ALTER TABLE `companies_message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT cho bảng `companies_messagenode`
 --
 ALTER TABLE `companies_messagenode`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT cho bảng `companies_phancong`
 --

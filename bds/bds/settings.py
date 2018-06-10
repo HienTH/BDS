@@ -15,7 +15,7 @@ RECAPTCHA_SECRET_KEY = '6LelrzsUAAAAAGiWKIHlUTFn6wbMExwias2YGBov'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','beapi.mappy.com.vn']
 
 
 # Application definition
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'users',
     'chat',
     'rest_framework',
+    'corsheaders',
     'sslserver',
     'sslchannels'
 ]

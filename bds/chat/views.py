@@ -41,10 +41,14 @@ def list(request, current_user):
 			except:
 				return JsonResponse({"data": "Dữ liệu không hợp lệ", 'status': 'error'})
 
+			date = i['datetime'][0:10]
+			datetime = i['datetime'][0:19]
+			datetime=datetime.replace(datetime[10]," ")
+
 			if i['user'] == current_user.id:
-				strp = "<p class=\"chatbox_row_1 clearfix\"> <span class=\" user-msg me\"><span class=\"user\"><a href=\"/%s\" onclick=\"return copy_user_name(\'%s\');\" target=\"_blank\"><span class=\"user-txt hidden\">%s</span><img class=\"user-avt\" src=\"%s\"/></a> </span><span class=\"msg\"><span style=\"color: #eeeeee\">%s</span></span> <span class=\"date-and-time me\" title=\"%s\">[%s]</span> </span></p>" % (current_user.avatar, current_user.username, current_user.name, target.avatar, i['details'], i['datetime'], i['datetime'])
+				strp = '<p class=\"chatbox_row_1 clearfix\"> <span class=\" user-msg me\"><span class=\"user\"><a href=\"/%s\" onclick=\"return copy_user_name(\'%s\');\" target=\"_blank\"><span class=\"user-txt hidden\">%s</span><img class=\"user-avt\" src=\"%s\"/></a> </span><span class=\"msg\"><span style=\"color: #eeeeee\">%s</span></span> <span class=\"date-and-time me\" title=\"%s\">[%s]</span> </span></p>' % (current_user.avatar, current_user.username, current_user.name, target.avatar, i['details'], date, datetime)
 			else:
-				strp = "<p class=\"chatbox_row_1 clearfix\"> <span class=\" user-msg\"><span class=\"user\"><a href=\"/%s\" onclick=\"return copy_user_name(\'%s\');\" target=\"_blank\"><span class=\"user-txt hidden\">%s</span><img class=\"user-avt\" src=\"%s\"/></a> </span><span class=\"msg\"><span style=\"color: #eeeeee\">%s</span></span> <span class=\"date-and-time\" title=\"%s\">[%s]</span> </span></p>" % (current_user.avatar, current_user.username, current_user.name, target.avatar, i['details'], i['datetime'], i['datetime'])
+				strp = '<p class=\"chatbox_row_1 clearfix\"> <span class=\" user-msg\"><span class=\"user\"><a href=\"/%s\" onclick=\"return copy_user_name(\'%s\');\" target=\"_blank\"><span class=\"user-txt hidden\">%s</span><img class=\"user-avt\" src=\"%s\"/></a> </span><span class=\"msg\"><span style=\"color: #eeeeee\">%s</span></span> <span class=\"date-and-time\" title=\"%s\">[%s]</span> </span></p>' % (current_user.avatar, current_user.username, current_user.name, target.avatar, i['details'], date, datetime)
 			
 			strmess = strmess + strp
 

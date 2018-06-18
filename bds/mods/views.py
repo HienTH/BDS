@@ -366,14 +366,13 @@ def upload_thumbnail(request, current_mod):
                 return JsonResponse({'data': 'Sai kích cỡ', 'status': 'error'})
 
             matches = re.search('\w+\.(jpg|gif|png|jpeg)',request.FILES['thumbnail'].name)
-            if not matches:
+            if not matches: 
                 return JsonResponse({'data': 'Không đúng định dạng ảnh', 'status': 'error'})
 
             namethumbnail = request.FILES['thumbnail'].name.split('.')
             request.FILES['thumbnail'].name = current_mod.id + '.' + namethumbnail[len(namethumbnail)-1]
 
             save_path = os.path.join(settings.MEDIA_ROOT, 'thumbnail/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/', request.FILES['thumbnail'].name)
-
             path = default_storage.save(save_path, request.FILES['thumbnail'])
 
             url_thumbnail ='https://www.mappy.com.vn/media/thumbnail/'+current_mod.id+'/'+Y+'/'+m+'/'+d+'/' + path.split('/')[11]

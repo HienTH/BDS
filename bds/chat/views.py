@@ -46,10 +46,14 @@ def list(request, current_user):
 			datetime=datetime.replace(datetime[10]," ")
 
 			if i['user'] == current_user.id:
-				strp = '<p class=\"chatbox_row_1 clearfix\"> <span class=\" user-msg me\"><span class=\"user\"><a href=\"/%s\" onclick=\"return copy_user_name(\'%s\');\" target=\"_blank\"><span class=\"user-txt hidden\">%s</span><img class=\"user-avt\" src=\"%s\"/></a> </span><span class=\"msg\"><span style=\"color: #eeeeee\">%s</span></span> <span class=\"date-and-time me\" title=\"%s\">[%s]</span> </span></p>' % (current_user.avatar, current_user.username, current_user.name, target.avatar, i['details'], date, datetime)
+				strp = "<p class=\"chatbox_row_1 clearfix\"> <span class=\" user-msg me\"><span class=\"user\"><a href=\"/%s\" onclick=\"return copy_user_name(\'%s" % (current_user.avatar, current_user.username)
+				s = "\');\" target=\"_blank\"><span class=\"user-txt hidden\">%s</span><img class=\"user-avt\" src=\"%s\"/></a> </span><span class=\"msg\"><span style=\"color: #eeeeee\">%s</span></span> <span class=\"date-and-time me\" title=\"%s\">[%s]</span> </span></p>" % (current_user.name, target.avatar, i['details'], date, datetime)
+				strp = strp + s
 			else:
-				strp = '<p class=\"chatbox_row_1 clearfix\"> <span class=\" user-msg\"><span class=\"user\"><a href=\"/%s\" onclick=\"return copy_user_name(\'%s\');\" target=\"_blank\"><span class=\"user-txt hidden\">%s</span><img class=\"user-avt\" src=\"%s\"/></a> </span><span class=\"msg\"><span style=\"color: #eeeeee\">%s</span></span> <span class=\"date-and-time\" title=\"%s\">[%s]</span> </span></p>' % (current_user.avatar, current_user.username, current_user.name, target.avatar, i['details'], date, datetime)
-			
+				strp = "<p class=\"chatbox_row_1 clearfix\"> <span class=\" user-msg\"><span class=\"user\"><a href=\"/%s\" onclick=\"return copy_user_name(\'%s" % (current_user.avatar, current_user.username)
+				s = "\');\" target=\"_blank\"><span class=\"user-txt hidden\">%s</span><img class=\"user-avt\" src=\"%s\"/></a> </span><span class=\"msg\"><span style=\"color: #eeeeee\">%s</span></span> <span class=\"date-and-time\" title=\"%s\">[%s]</span> </span></p>" % (current_user.name, target.avatar, i['details'], date, datetime)
+				strp = strp + s
+
 			strmess = strmess + strp
 
 		strall = strmess + strend
